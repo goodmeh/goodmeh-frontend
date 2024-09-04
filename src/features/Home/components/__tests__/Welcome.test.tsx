@@ -1,4 +1,4 @@
-import { render, screen } from "@test-utils";
+import { render, screen } from "@test/testUtils";
 import { Welcome } from "../Welcome";
 
 describe("Welcome component", () => {
