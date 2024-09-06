@@ -8,11 +8,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   { ignores: ["dist"] },
   {
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      eslintPluginReact.configs["jsx-runtime"],
-    ],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
@@ -26,12 +22,14 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       ...eslintPluginReact.configs.recommended.rules,
+      ...eslintPluginReact.configs["jsx-runtime"].rules,
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
       ],
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
+      "react/prop-types": "off",
     },
     settings: {
       react: {

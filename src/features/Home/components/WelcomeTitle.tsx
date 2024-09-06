@@ -5,8 +5,8 @@ export const WelcomeTitle: React.FC = () => {
   return (
     <>
       <Title className={classes.title} ta="center">
-        {"GoodMeh?".split("").map((char) => (
-          <span>{char}</span>
+        {"GoodMeh?".split("").map((char, index) => (
+          <span key={index}>{char}</span>
         ))}
       </Title>
       <Title order={6} size="h1" ta="center" maw={580} mx="auto" fw="500">
