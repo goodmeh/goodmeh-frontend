@@ -1,5 +1,4 @@
 import { Button, Group, Text, useComputedColorScheme } from "@mantine/core";
-import React from "react";
 
 export type FeatureView = "consumer" | "business";
 

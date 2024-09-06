@@ -1,5 +1,4 @@
 import { Card, Text } from "@mantine/core";
-import React from "react";
 import classes from "./Features.module.scss";
 
 type FeatureCardProps = {

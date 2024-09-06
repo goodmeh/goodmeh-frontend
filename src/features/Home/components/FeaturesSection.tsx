@@ -1,5 +1,4 @@
 import { Grid } from "@mantine/core";
-import React from "react";
 import { FeatureCard } from "./FeatureCard";
 import { FeatureView } from "./FeatureViewButtonGroup";
 
