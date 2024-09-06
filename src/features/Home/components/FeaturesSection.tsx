@@ -67,7 +67,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ view }) => {
       {(view == "consumer" ? CONSUMER_FEATURES : BUSINESS_FEATURES).map(
         (feature) => (
           <Grid.Col display="flex" span={6} key={feature.title}>
-            <FeatureCard key={feature.title} {...feature} />
+            <FeatureCard {...feature} />
           </Grid.Col>
         ),
       )}
