@@ -9,5 +9,9 @@ type AppProviderProps = {
 };
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  return <MantineProvider theme={theme}>{children}</MantineProvider>;
+  return (
+    <MantineProvider defaultColorScheme="auto" theme={theme}>
+      {children}
+    </MantineProvider>
+  );
 };

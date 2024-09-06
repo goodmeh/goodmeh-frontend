@@ -1,0 +1,26 @@
+.title {
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  font-size: 100px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-top: 50px;
+
+  > span {
+    &:first-of-type,
+    &:nth-of-type(4),
+    &:nth-of-type(7) {
+      color: #4285f4;
+    }
+    &:nth-of-type(2),
+    &:nth-of-type(6),
+    &:nth-of-type(8) {
+      color: #ea4335;
+    }
+    &:nth-of-type(3) {
+      color: #fbbc04;
+    }
+    &:nth-of-type(5) {
+      color: #34a853;
+    }
+  }
+}

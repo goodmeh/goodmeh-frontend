@@ -1,0 +1,11 @@
+.Layout__AppBar {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  padding: 12px;
+
+  @include dark {
+    background-color: rgba(from var(--mantine-color-dark-8) r g b / 0.8);
+  }
+}
