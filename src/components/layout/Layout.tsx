@@ -9,10 +9,26 @@ import {
   Space,
   useMantineColorScheme,
 } from "@mantine/core";
-import { Link, Outlet } from "react-router-dom";
+import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import classes from "./Layout.module.scss";
 
-export const Layout: React.FC = () => {
+const NavLink: React.FC<{ path: string; label: string }> = ({
+  path,
+  label,
+}) => {
+  const { pathname } = useLocation();
+  return (
+    <Anchor
+      component={Link}
+      to={path}
+      underline={matchPath(path, pathname) ? "always" : "hover"}
+    >
+      <b>{label}</b>
+    </Anchor>
+  );
+};
+
+const NavBar: React.FC = () => {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
   const toggleColorScheme = () => {
     const schemes: MantineColorScheme[] = ["light", "dark", "auto"];
@@ -20,34 +36,37 @@ export const Layout: React.FC = () => {
     const next = schemes[(currentIndex + 1) % schemes.length];
     setColorScheme(next);
   };
+  return (
+    <AppShell.Header className={classes.Layout__AppBar}>
+      <Link to="/">
+        <img src={logo} alt="GoodMeh Logo" height={50} />
+      </Link>
+      <Space w="md" />
 
+      <NavLink path="/consumer" label="Consumer" />
+      <Space w="md" />
+      <NavLink path="/business" label="Business" />
+
+      <Space flex={1} />
+      <ActionIcon onClick={toggleColorScheme}>
+        <FontAwesomeIcon
+          icon={
+            colorScheme == "light"
+              ? faSun
+              : colorScheme == "dark"
+                ? faMoon
+                : faSliders
+          }
+        />
+      </ActionIcon>
+    </AppShell.Header>
+  );
+};
+
+export const Layout: React.FC = () => {
   return (
     <AppShell header={{ height: 60 }} padding="xl">
-      <AppShell.Header className={classes.Layout__AppBar}>
-        <Link to="/">
-          <img src={logo} alt="GoodMeh Logo" height={50} />
-        </Link>
-        <Space w="md" />
-        <Anchor component={Link} to="/">
-          <b>Consumer</b>
-        </Anchor>
-        <Space w="md" />
-        <Anchor component={Link} to="/">
-          <b>Business</b>
-        </Anchor>
-        <Space flex={1} />
-        <ActionIcon onClick={toggleColorScheme}>
-          <FontAwesomeIcon
-            icon={
-              colorScheme == "light"
-                ? faSun
-                : colorScheme == "dark"
-                  ? faMoon
-                  : faSliders
-            }
-          />
-        </ActionIcon>
-      </AppShell.Header>
+      <NavBar />
       <AppShell.Main>
         <Outlet />
       </AppShell.Main>

@@ -7,3 +7,6 @@ export const ConsumerDashboardPage: React.FC = () => {
     </>
   );
 };
+
+export const Component = ConsumerDashboardPage;
+Component.displayName = "ConsumerDashboardPage";
