@@ -13,5 +13,3 @@ const HomePage: React.FC = () => {
 
 export const Component = HomePage;
 Component.displayName = "HomePage";
-
-export default HomePage;
