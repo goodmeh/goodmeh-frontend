@@ -62,3 +62,9 @@ $mantine-breakpoint-xl: "88em";
     @content;
   }
 }
+
+body {
+  @include light {
+    background-color: var(--mantine-color-gray-0);
+  }
+}
