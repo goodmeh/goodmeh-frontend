@@ -11,11 +11,14 @@ type Props = {
   /**
    * This function is called whenever a suggestion is selected.
    */
-  onSelect?: (value: string) => void;
+  onSelectSuggestion?: (
+    value: google.maps.places.AutocompletePrediction,
+  ) => void;
 } & Omit<AutocompleteProps, "value" | "onChange" | "data">;
 
 export const PlacesAutocompleteField: React.FC<Props> = ({
   onChange,
+  onSelectSuggestion,
   ...props
 }) => {
   const places = useMapsLibrary("places");
@@ -41,7 +44,8 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     if (onChange) {
       onChange(value);
     }
-  }, [value, onChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- This effect should only run when the value changes
+  }, [value]);
 
   return (
     <Autocomplete
@@ -49,6 +53,11 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
       onChange={setValue}
       data={data.map((suggestion) => suggestion.description)}
       disabled={!places}
+      onOptionSubmit={(value) =>
+        onSelectSuggestion?.(
+          data.find((suggestion) => suggestion.description === value)!,
+        )
+      }
       {...props}
     />
   );

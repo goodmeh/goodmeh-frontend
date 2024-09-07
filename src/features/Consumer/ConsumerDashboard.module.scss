@@ -1,0 +1,8 @@
+.ConsumerDashboard__PlaceGroup {
+  > :first-child {
+    flex: 2 1 0;
+  }
+  > :last-child {
+    flex: 1 1 0;
+  }
+}

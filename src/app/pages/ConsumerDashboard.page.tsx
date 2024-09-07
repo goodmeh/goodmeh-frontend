@@ -1,9 +1,50 @@
-import { Title } from "@mantine/core";
+import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
+import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
+import { getMockPlace } from "@/features/Consumer/api/getPlace";
+import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
+import classes from "@/features/Consumer/ConsumerDashboard.module.scss";
+import { Place } from "@/types";
+import { Group, Space, Title } from "@mantine/core";
+import { useEffect, useState } from "react";
 
 export const ConsumerDashboardPage: React.FC = () => {
+  const [location, setLocation] =
+    useState<google.maps.places.AutocompletePrediction>();
+  const [place, setPlace] = useState<Place>();
+
+  useEffect(() => {
+    if (!location) {
+      return;
+    }
+    console.log(location);
+    getMockPlace(location.place_id).then(setPlace);
+  }, [location]);
+
   return (
     <>
       <Title>Consumer Dashboard</Title>
+      <PlacesAutocompleteField
+        placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
+        onSelectSuggestion={setLocation}
+      />
+      <Space h="md" />
+      {place && (
+        <Group
+          wrap="nowrap"
+          align="stretch"
+          className={classes.ConsumerDashboard__PlaceGroup}
+        >
+          <PlaceCard place={place} />
+          <GoogleMapsEmbed
+            placeId={place.id}
+            style={{
+              borderRadius: "var(--mantine-radius-md)",
+              height: "400px",
+              flex: "1 1 0",
+            }}
+          />
+        </Group>
+      )}
     </>
   );
 };
