@@ -1,5 +1,6 @@
 import { Place } from "@/types";
 import { Card, Image, Space, Text } from "@mantine/core";
+import { format } from "date-fns";
 import React from "react";
 import classes from "./Places.module.scss";
 
@@ -50,6 +51,9 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
       </Text>
       <Text size="sm" c="dimmed">
         {place.primaryType}
+      </Text>
+      <Text size="sm" c="dimmed">
+        Last updated: {format(place.lastUpdated, "d MMM yyyy, hh:mm a")}
       </Text>
       <Text mt="md">{place.summary}</Text>
     </Card>

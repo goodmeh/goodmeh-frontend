@@ -13,4 +13,5 @@ export type Place = {
   weightedRating: number;
   userRatingCount: number;
   summary: string;
+  lastUpdated: string;
 };
