@@ -30,6 +30,18 @@ export default tseslint.config(
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "react/prop-types": "off",
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "@testing-library/react",
+              importNames: ["render"],
+              message: "Use render from @/test/testUtils instead.",
+            },
+          ],
+        },
+      ],
     },
     settings: {
       react: {
