@@ -3,7 +3,7 @@ import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField
 import { getMockPlace } from "@/features/Consumer/api/getPlace";
 import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
 import classes from "@/features/Consumer/ConsumerDashboard.module.scss";
-import { Place } from "@/types";
+import { Place } from "@/types/data";
 import { Group, Space, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 

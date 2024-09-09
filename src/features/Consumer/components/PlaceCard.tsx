@@ -1,4 +1,4 @@
-import { Place } from "@/types";
+import { Place } from "@/types/data";
 import { Card, Image, Space, Text } from "@mantine/core";
 import { format } from "date-fns";
 import React from "react";

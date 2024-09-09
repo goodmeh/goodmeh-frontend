@@ -1,5 +1,5 @@
 import api from "@/lib/api";
-import { Place } from "@/types";
+import { Place } from "@/types/data";
 
 const MOCK_PLACE: Place = {
   id: "ChIJ1yl3DkYR2jER0EUpkr2Eo28",
