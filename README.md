@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# GoodMeh?
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is written in React + TypeScript + Vite. The architecture of the project is based on [Bulletproof React](https://github.com/alan2207/bulletproof-react/).
 
-Currently, two official plugins are available:
+## Recommended IDE setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [VSCode](https://code.visualstudio.com) as our IDE.
 
-## Expanding the ESLint configuration
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension for VSCode.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extension for VSCode.
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
+To get started with this project, follow the steps below:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+1. Clone the repository:
+  ```
+  git clone https://github.com/cs3203-team1/goodmeh-frontend.git
+  ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+2. Install dependencies:
+  ```
+  cd goodmeh-frontend
+  yarn
+  ```
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
+3. Start the development server:
+  ```
+  yarn dev
+  ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+4. Open your browser and navigate to `http://localhost:3203` to see the application.
+
+5. Happy coding!
