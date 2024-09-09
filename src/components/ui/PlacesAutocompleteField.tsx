@@ -1,3 +1,4 @@
+import { SafeOmit } from "@/types/helpers";
 import { Autocomplete, AutocompleteProps } from "@mantine/core";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import React, { useEffect } from "react";
@@ -14,7 +15,7 @@ type Props = {
   onSelectSuggestion?: (
     value: google.maps.places.AutocompletePrediction,
   ) => void;
-} & Omit<AutocompleteProps, "value" | "onChange" | "data">;
+} & SafeOmit<AutocompleteProps, "value" | "onChange" | "data">;
 
 export const PlacesAutocompleteField: React.FC<Props> = ({
   onChange,
