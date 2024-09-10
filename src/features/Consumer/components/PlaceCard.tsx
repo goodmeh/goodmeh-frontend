@@ -1,30 +1,11 @@
+import { PartialStar } from "@/components/ui/PartialStar";
 import { Place } from "@/types/data";
 import { Card, Image, Space, Text } from "@mantine/core";
 import { format } from "date-fns";
 import React from "react";
-import classes from "./Places.module.scss";
 
 type Props = {
   place: Place;
-};
-
-const PartialStar: React.FC<{ fill: number }> = ({ fill }) => {
-  const fillPercentage = Math.min(fill * 100, 100);
-  return (
-    <span
-      className={classes.PlaceOverview__Star}
-      style={{
-        backgroundImage: `linear-gradient(
-          90deg,
-          var(--mantine-color-yellow-7),
-          var(--mantine-color-yellow-7) ${fillPercentage}%,
-          var(--mantine-color-dimmed) ${fillPercentage}%
-        )`,
-      }}
-    >
-      ★
-    </span>
-  );
 };
 
 export const PlaceCard: React.FC<Props> = ({ place }) => {

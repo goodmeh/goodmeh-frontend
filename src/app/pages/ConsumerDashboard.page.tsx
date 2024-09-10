@@ -2,7 +2,7 @@ import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import { getMockPlace } from "@/features/Consumer/api/getPlace";
 import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
-import PlaceDetails from "@/features/Consumer/components/PlaceDetails";
+import { PlaceDetails } from "@/features/Consumer/components/PlaceDetails";
 import classes from "@/features/Consumer/ConsumerDashboard.module.scss";
 import { Place } from "@/types/data";
 import { Group, Space, Title } from "@mantine/core";

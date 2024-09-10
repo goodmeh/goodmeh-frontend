@@ -12,7 +12,7 @@ type Props = {
   place: Place;
 };
 
-const PlaceDetails: React.FC<Props> = ({ place }) => {
+export const PlaceDetails: React.FC<Props> = ({ place }) => {
   return (
     <Tabs defaultValue={Tab.Summary}>
       <Tabs.List>
@@ -39,5 +39,3 @@ const PlaceDetails: React.FC<Props> = ({ place }) => {
     </Tabs>
   );
 };
-
-export default PlaceDetails;
