@@ -2,6 +2,7 @@ import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import { getMockPlace } from "@/features/Consumer/api/getPlace";
 import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
+import PlaceDetails from "@/features/Consumer/components/PlaceDetails";
 import classes from "@/features/Consumer/ConsumerDashboard.module.scss";
 import { Place } from "@/types/data";
 import { Group, Space, Title } from "@mantine/core";
@@ -29,21 +30,24 @@ export const ConsumerDashboardPage: React.FC = () => {
       />
       <Space h="md" />
       {place && (
-        <Group
-          wrap="nowrap"
-          align="stretch"
-          className={classes.ConsumerDashboard__PlaceGroup}
-        >
-          <PlaceCard place={place} />
-          <GoogleMapsEmbed
-            placeId={place.id}
-            style={{
-              borderRadius: "var(--mantine-radius-md)",
-              height: "400px",
-              flex: "1 1 0",
-            }}
-          />
-        </Group>
+        <>
+          <Group
+            wrap="nowrap"
+            align="stretch"
+            className={classes.ConsumerDashboard__PlaceGroup}
+          >
+            <PlaceCard place={place} />
+            <GoogleMapsEmbed
+              placeId={place.id}
+              style={{
+                borderRadius: "var(--mantine-radius-md)",
+                height: "auto",
+              }}
+            />
+          </Group>
+          <Space h="md" />
+          <PlaceDetails place={place} />
+        </>
       )}
     </>
   );

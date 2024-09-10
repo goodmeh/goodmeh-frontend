@@ -55,7 +55,6 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
       <Text size="sm" c="dimmed">
         Last updated: {format(place.lastUpdated, "d MMM yyyy, hh:mm a")}
       </Text>
-      <Text mt="md">{place.summary}</Text>
     </Card>
   );
 };
