@@ -15,10 +15,6 @@ describe("PlaceCard component", () => {
     primaryType: "Restaurant",
     lastUpdated: new Date().toISOString(),
     summary: "This is a sample place summary.",
-    location: {
-      lat: 0,
-      lng: 0,
-    },
   };
 
   it("renders place name", () => {
