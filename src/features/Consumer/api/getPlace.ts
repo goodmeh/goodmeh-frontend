@@ -4,10 +4,6 @@ import { Place } from "@/types/data";
 const MOCK_PLACE: Place = {
   id: "ChIJ1yl3DkYR2jER0EUpkr2Eo28",
   name: "A Hot Hideout @ Bukit Panjang",
-  location: {
-    lat: 1.3806821,
-    lng: 103.7602369,
-  },
   imageUrl:
     "https://lh5.googleusercontent.com/p/AF1QipNzM7_3zubZ7x_kbZ3How5rsYs3s-LeZwSwjMl5=w529-h298-k-no",
   primaryType: "Chinese Restaurant",
