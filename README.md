@@ -8,7 +8,7 @@ This project is written in React + TypeScript + Vite. The architecture of the pr
 
 - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension for VSCode.
 
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extension for VSCode.
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extension for VSCode. Remember to enable the `Format on Save` option and set the default formatter to `Prettier`.
 
 ## Getting Started
 To get started with this project, follow the steps below:
