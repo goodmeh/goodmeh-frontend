@@ -1,6 +1,4 @@
 import logo from "@/assets/logo/GoodMehLogo.png";
-import { faMoon, faSliders, faSun } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   ActionIcon,
   Anchor,
@@ -9,6 +7,7 @@ import {
   Space,
   useMantineColorScheme,
 } from "@mantine/core";
+import { IconBrightnessHalf, IconMoon, IconSun } from "@tabler/icons-react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import classes from "./Layout.module.scss";
 
@@ -49,15 +48,13 @@ const NavBar: React.FC = () => {
 
       <Space flex={1} />
       <ActionIcon onClick={toggleColorScheme}>
-        <FontAwesomeIcon
-          icon={
-            colorScheme == "light"
-              ? faSun
-              : colorScheme == "dark"
-                ? faMoon
-                : faSliders
-          }
-        />
+        {colorScheme == "light" ? (
+          <IconSun />
+        ) : colorScheme == "dark" ? (
+          <IconMoon />
+        ) : (
+          <IconBrightnessHalf />
+        )}
       </ActionIcon>
     </AppShell.Header>
   );

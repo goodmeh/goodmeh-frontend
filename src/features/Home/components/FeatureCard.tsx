@@ -1,4 +1,4 @@
-import { Card, Text } from "@mantine/core";
+import { Card, Text, ThemeIcon } from "@mantine/core";
 import classes from "./Features.module.scss";
 
 type FeatureCardProps = {
@@ -13,8 +13,10 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   description,
 }) => {
   return (
-    <Card radius="md" padding={24} className={classes.FeatureCard}>
-      <div className={classes.FeatureCard__Icon}>{icon}</div>
+    <Card radius="md" padding={24} className={classes.FeatureCard} withBorder>
+      <ThemeIcon color="gray" variant="light">
+        {icon}
+      </ThemeIcon>
       <Text size="xl" fw="bold">
         {title}
       </Text>
