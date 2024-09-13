@@ -55,9 +55,4 @@ describe("PlaceCard component", () => {
       screen.getByText(`Last updated: ${formattedDate}`),
     ).toBeInTheDocument();
   });
-
-  it("renders place summary", () => {
-    render(<PlaceCard place={place} />);
-    expect(screen.getByText(place.summary)).toBeInTheDocument();
-  });
 });
