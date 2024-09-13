@@ -19,7 +19,7 @@ const data = [
   },
 ];
 
-export function InsightDisplay() {
+export const InsightDisplay: React.FC = () => {
   const stats = data.map((stat) => (
     <div key={stat.title} className={classes.stat}>
       <Text className={classes.count}>{stat.stats}</Text>
