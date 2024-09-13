@@ -7,7 +7,7 @@ const data = [
   { title: 'No. of Real Reviews', value: '420', diff: -69 },
 ];
 
-export function StatDisplay() {
+export const StatDisplay: React.FC = () => {
   const stats = data.map((stat) => {
     const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
 
