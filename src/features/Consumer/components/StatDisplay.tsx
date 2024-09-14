@@ -33,7 +33,6 @@ export const StatDisplay: React.FC = () => {
               tt="uppercase"
               fw={700}
               fz="lg"
-              ff="Greycliff CF, var(--mantine-font-family)"
             >
               {stat.title}
             </Text>

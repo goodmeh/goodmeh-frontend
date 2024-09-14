@@ -28,7 +28,6 @@ export const InsightDisplay: React.FC = () => {
         fw={700}
         lh={1}
         mb="md"
-        ff="Greycliff CF, var(--mantine-font-family)"
       >
         {stat.stats}
       </Text>
