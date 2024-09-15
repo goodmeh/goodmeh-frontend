@@ -24,7 +24,7 @@ export const StatDisplay: React.FC = () => {
         p="xl"
         radius="md"
         key={stat.title}
-        style={{ height: "100%" }}
+        h="100%"
       >
         <Group justify="apart" style={{ height: "100%" }}>
           <div>
