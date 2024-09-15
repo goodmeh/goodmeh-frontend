@@ -53,12 +53,7 @@ export const StatDisplay: React.FC = () => {
           <ThemeIcon
             color="gray"
             variant="light"
-            style={{
-              color:
-                stat.diff > 0
-                  ? "var(--mantine-color-teal-6)"
-                  : "var(--mantine-color-red-6)",
-            }}
+            c={stat.diff > 0 ? "teal.6" : "red.6"}
             size={80}
             radius="md"
           >
