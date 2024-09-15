@@ -1,5 +1,4 @@
 import { Text, Box, Group } from "@mantine/core";
-import classes from "./InsightDisplay.module.scss";
 
 const data = [
   {
@@ -21,24 +20,21 @@ const data = [
 
 export const InsightDisplay: React.FC = () => {
   const stats = data.map((stat) => (
-    <Box key={stat.title} className={classes.stat}>
+    <Box key={stat.title}>
       <Text
-        className={classes.count}
-        size="32px"
+        size="xxxxl"
         fw={700}
         lh={1}
         mb="md"
       >
         {stat.stats}
       </Text>
-      <Text className={classes.title} fw={700} size="sm" c="white">
+      <Text fw={700} size="xl" c="white">
         {stat.title}
       </Text>
       <Text
-        className={classes.description}
-        size="sm"
-        mt={5}
-        c="var(--mantine-color-blue-0)"
+        size="lg"
+        mt="xs"
       >
         {stat.description}
       </Text>
@@ -47,12 +43,10 @@ export const InsightDisplay: React.FC = () => {
 
   return (
     <Group
-      className={classes.root}
       grow
       p="xl"
+      bg="blue.9"
       style={{
-        backgroundImage:
-          "linear-gradient(-60deg, var(--mantine-color-blue-4) 0%, var(--mantine-color-blue-7) 100%)",
         borderRadius: "var(--mantine-radius-md)",
       }}
     >

@@ -4,8 +4,6 @@ import {
   Text,
   ThemeIcon,
   SimpleGrid,
-  Container,
-  Box,
 } from "@mantine/core";
 import { IconArrowUpRight, IconArrowDownRight } from "@tabler/icons-react";
 
@@ -25,8 +23,10 @@ export const StatDisplay: React.FC = () => {
         radius="md"
         key={stat.title}
         h="100%"
+        component={Group}
+        justify="space-between"
       >
-        <Group justify="apart" style={{ height: "100%" }}>
+        <Group>
           <div>
             <Text
               c="dimmed"
@@ -36,7 +36,7 @@ export const StatDisplay: React.FC = () => {
             >
               {stat.title}
             </Text>
-            <Text fw={700} fz="xl">
+            <Text fw={700} fz="xxxl">
               {stat.value}
             </Text>
             <Text c="dimmed" fz="xl" mt="xl">
@@ -44,6 +44,7 @@ export const StatDisplay: React.FC = () => {
                 component="span"
                 c={stat.diff > 0 ? "teal" : "red"}
                 fw={700}
+                fz="xl"
               >
                 {stat.diff}%
               </Text>{" "}
@@ -57,7 +58,7 @@ export const StatDisplay: React.FC = () => {
             size={80}
             radius="md"
           >
-            <DiffIcon size="3rem" stroke={1.5} />
+            <DiffIcon size="xxl" stroke={1.5} />
           </ThemeIcon>
         </Group>
       </Paper>
