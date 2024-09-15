@@ -1,5 +1,9 @@
 import { createTheme } from "@mantine/core";
 
 export const theme = createTheme({
-  /** Put your mantine theme override here */
+  fontSizes: {
+    xxl: "1.50rem",
+    xxxl: "1.75rem",
+    xxxxl: "2.00rem",
+  },
 });
