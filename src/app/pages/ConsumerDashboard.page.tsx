@@ -5,7 +5,7 @@ import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
 import { PlaceDetails } from "@/features/Consumer/components/PlaceDetails";
 import { StatDisplay } from "@/features/Consumer/components/StatDisplay";
 import { InsightDisplay } from "@/features/Consumer/components/InsightDisplay";
-import classes from "@/features/Consumer/ConsumerDashboard.module.scss";
+import classes from "@/components/ui/placeSearch.module.scss";
 import { Place } from "@/types/data";
 import { Group, Space, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
