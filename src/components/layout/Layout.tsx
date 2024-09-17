@@ -45,6 +45,8 @@ const NavBar: React.FC = () => {
       <NavLink path="/consumer" label="Consumer" />
       <Space w="md" />
       <NavLink path="/business" label="Business" />
+      <Space w="md" />
+      <NavLink path="/compare" label="Compare" />
 
       <Space flex={1} />
       <ActionIcon onClick={toggleColorScheme}>
