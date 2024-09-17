@@ -1,15 +1,11 @@
 import { PlaceSearch } from "@/components/ui/PlaceSearch";
-import { Place } from "@/types/data";
+import MantineTable from "@/components/ui/MantineTable";
 import {
   SimpleGrid,
-  Table,
   Title
 } from "@mantine/core";
-import { useState } from "react";
-
 
 export const CompareDashboardPage: React.FC = () => {
-  
   return (
     <>
       <Title>Compare Dashboard</Title>
@@ -22,17 +18,9 @@ export const CompareDashboardPage: React.FC = () => {
       >
         <PlaceSearch></PlaceSearch>
         <PlaceSearch></PlaceSearch>
-
+      
       </SimpleGrid>
-      <Table horizontalSpacing="md" verticalSpacing="md">
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th align="center">Business A </Table.Th>
-            <Table.Th>Comparison Score</Table.Th>
-            <Table.Th>Business B</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-      </Table>
+      <MantineTable></MantineTable>
     </>
   );
 };
