@@ -1,6 +1,15 @@
-import { Title, TextInput, Table, SimpleGrid } from "@mantine/core";
+import { PlaceSearch } from "@/components/ui/PlaceSearch";
+import { Place } from "@/types/data";
+import {
+  SimpleGrid,
+  Table,
+  Title
+} from "@mantine/core";
+import { useState } from "react";
+
 
 export const CompareDashboardPage: React.FC = () => {
+  
   return (
     <>
       <Title>Compare Dashboard</Title>
@@ -11,34 +20,19 @@ export const CompareDashboardPage: React.FC = () => {
           height: "auto",
         }}
       >
-        <TextInput
-          size="md"
-          radius="md"
-          label="Option A"
-          description="Search for the first option"
-          placeholder="Input business name"
-        />
-        <TextInput
-          size="md"
-          radius="md"
-          label="Option B"
-          description="Search for the second option"
-          placeholder="Input business name"
-        />
+        <PlaceSearch></PlaceSearch>
+        <PlaceSearch></PlaceSearch>
+
       </SimpleGrid>
-      <Table 
-      horizontalSpacing="md" 
-      verticalSpacing="md"
-      
-      >
-      <Table.Thead>
-        <Table.Tr>
-          <Table.Th align="center">Business A </Table.Th>
-          <Table.Th>Comparison Score</Table.Th>
-          <Table.Th>Business B</Table.Th>
-        </Table.Tr>
-      </Table.Thead>
-    </Table>
+      <Table horizontalSpacing="md" verticalSpacing="md">
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th align="center">Business A </Table.Th>
+            <Table.Th>Comparison Score</Table.Th>
+            <Table.Th>Business B</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+      </Table>
     </>
   );
 };
