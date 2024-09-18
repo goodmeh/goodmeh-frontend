@@ -1,13 +1,16 @@
 import logo from "@/assets/logo/GoodMehLogo.png";
+import { useViewMode } from "@/hooks/useViewMode";
 import {
   ActionIcon,
   Anchor,
   AppShell,
+  Button,
   MantineColorScheme,
   Space,
   useMantineColorScheme,
 } from "@mantine/core";
 import { IconBrightnessHalf, IconMoon, IconSun } from "@tabler/icons-react";
+import { capitalize } from "es-toolkit";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import classes from "./Layout.module.scss";
 
@@ -35,6 +38,7 @@ const NavBar: React.FC = () => {
     const next = schemes[(currentIndex + 1) % schemes.length];
     setColorScheme(next);
   };
+  const { mode, toggleMode } = useViewMode();
   return (
     <AppShell.Header className={classes.Layout__AppBar}>
       <Link to="/">
@@ -47,6 +51,9 @@ const NavBar: React.FC = () => {
       <NavLink path="/business" label="Business" />
 
       <Space flex={1} />
+
+      <Button onClick={toggleMode}>{capitalize(mode)}</Button>
+      <Space w="md" />
       <ActionIcon onClick={toggleColorScheme}>
         {colorScheme == "light" ? (
           <IconSun />
