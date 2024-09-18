@@ -1,5 +1,5 @@
 import { PlaceSearch } from "@/components/ui/PlaceSearch";
-import MantineTable from "@/components/ui/MantineTable";
+import { PlaceComparisonTable } from "@/components/ui/PlaceComparisonTable";
 import {
   SimpleGrid,
   Title
@@ -20,7 +20,7 @@ export const CompareDashboardPage: React.FC = () => {
         <PlaceSearch></PlaceSearch>
       
       </SimpleGrid>
-      <MantineTable></MantineTable>
+      <PlaceComparisonTable></PlaceComparisonTable>
     </>
   );
 };

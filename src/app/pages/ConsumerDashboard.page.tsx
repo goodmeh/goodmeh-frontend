@@ -36,7 +36,7 @@ export const ConsumerDashboardPage: React.FC = () => {
           <Group
             wrap="nowrap"
             align="stretch"
-            className={classes.ConsumerDashboard__PlaceGroup}
+            className={classes.PlaceSearch__PlaceGroup}
           >
             <PlaceCard place={place} />
             <StatDisplay />

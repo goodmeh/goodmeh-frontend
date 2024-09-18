@@ -2,18 +2,16 @@ import { useMemo } from 'react';
 import {
   MantineReactTable,
   useMantineReactTable,
-  type MRT_ColumnDef, //if using TypeScript (optional, but recommended)
+  type MRT_ColumnDef, 
 } from 'mantine-react-table';
 
-//If using TypeScript, define the shape of your data (optional, but recommended)
-interface Compare {
+type TableEntry = {
   optionA: string;
   delta: string;
   optionB: string;
 }
 
-//mock data - strongly typed if you are using TypeScript (optional, but recommended)
-const data: Compare[] = [
+const data: TableEntry[] = [
   {
     optionA: '69',
     delta: 'B is better',
@@ -26,20 +24,19 @@ const data: Compare[] = [
   },
 ];
 
-export default function App() {
-  //column definitions - strongly typed if you are using TypeScript (optional, but recommended)
-  const columns = useMemo<MRT_ColumnDef<Compare>[]>(
+export const PlaceComparisonTable: React.FC = () => {
+  const columns = useMemo<MRT_ColumnDef<TableEntry>[]>(
     () => [
       {
         accessorKey: 'optionA', //simple recommended way to define a column
         header: 'Option A',
       },
       {
-        accessorKey: 'delta', //simple recommended way to define a column
+        accessorKey: 'delta', 
         header: 'Whats the difference?',
       },
       {
-        accessorKey: 'optionB', //simple recommended way to define a column
+        accessorKey: 'optionB', 
         header: 'Option B',
       },
     ],

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Place } from "@/types/data";
 import classes from "./PlaceSearch.module.scss"
 import { getMockPlace } from "@/features/Consumer/api/getPlace";
+import { PlaceDetails } from "@/features/Consumer/components/PlaceDetails";
 
 
 export const PlaceSearch: React.FC = () => {
@@ -35,6 +36,7 @@ export const PlaceSearch: React.FC = () => {
           >
             <PlaceCard place={place} />
           </Group>
+          <PlaceDetails place={place} />
           <Space h="md" />
         </>
       )}
