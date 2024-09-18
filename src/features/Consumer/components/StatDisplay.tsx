@@ -1,11 +1,5 @@
-import {
-  Group,
-  Paper,
-  Text,
-  ThemeIcon,
-  SimpleGrid,
-} from "@mantine/core";
-import { IconArrowUpRight, IconArrowDownRight } from "@tabler/icons-react";
+import { Group, Paper, SimpleGrid, Text, ThemeIcon } from "@mantine/core";
+import { IconArrowDownRight, IconArrowUpRight } from "@tabler/icons-react";
 
 const data = [
   { title: "Weighted No of Stars", value: "4.0 Stars", diff: -20 },
@@ -28,12 +22,7 @@ export const StatDisplay: React.FC = () => {
       >
         <Group>
           <div>
-            <Text
-              c="dimmed"
-              tt="uppercase"
-              fw={700}
-              fz="lg"
-            >
+            <Text c="dimmed" tt="uppercase" fw={700} fz="lg">
               {stat.title}
             </Text>
             <Text fw={700} fz="xxxl">
