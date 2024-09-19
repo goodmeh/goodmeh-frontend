@@ -1,4 +1,4 @@
-import { ViewMode } from "@/hooks/useViewMode";
+import { useViewMode } from "@/hooks/useViewMode";
 import { Grid } from "@mantine/core";
 import { FeatureCard } from "./FeatureCard";
 
@@ -56,14 +56,12 @@ const BUSINESS_FEATURES = [
   },
 ];
 
-type FeaturesSectionProps = {
-  view: ViewMode;
-};
+export const FeaturesSection: React.FC = () => {
+  const { viewMode } = useViewMode();
 
-export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ view }) => {
   return (
     <Grid>
-      {(view == "consumer" ? CONSUMER_FEATURES : BUSINESS_FEATURES).map(
+      {(viewMode == "consumer" ? CONSUMER_FEATURES : BUSINESS_FEATURES).map(
         (feature) => (
           <Grid.Col display="flex" span={6} key={feature.title}>
             <FeatureCard {...feature} />

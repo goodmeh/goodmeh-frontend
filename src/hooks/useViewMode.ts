@@ -8,9 +8,9 @@ export const VIEW_MODES = [
 ] as const satisfies ViewMode[];
 
 type ViewModeContextValue = {
-  mode: ViewMode;
-  setMode: (mode: ViewMode) => void;
-  toggleMode: () => void;
+  viewMode: ViewMode;
+  setViewMode: (mode: ViewMode) => void;
+  toggleViewMode: () => void;
 };
 
 export const ViewModeContext = createContext<Partial<ViewModeContextValue>>({});

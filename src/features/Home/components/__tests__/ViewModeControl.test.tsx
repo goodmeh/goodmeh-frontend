@@ -17,7 +17,7 @@ describe("ViewModeControl component", () => {
   it("calls the setter function when a button is clicked", () => {
     const mockSetter = vi.fn();
     render(
-      <ViewModeContext.Provider value={{ setMode: mockSetter }}>
+      <ViewModeContext.Provider value={{ setViewMode: mockSetter }}>
         <ViewModeControl />
       </ViewModeContext.Provider>,
     );

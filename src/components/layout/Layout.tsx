@@ -1,6 +1,5 @@
 import logo from "@/assets/logo/GoodMehLogo.png";
 import { ViewModeControl } from "@/features/Home/components/ViewModeControl";
-import { useViewMode } from "@/hooks/useViewMode";
 import {
   ActionIcon,
   Anchor,
@@ -37,7 +36,6 @@ const NavBar: React.FC = () => {
     const next = schemes[(currentIndex + 1) % schemes.length];
     setColorScheme(next);
   };
-  const { mode, toggleMode } = useViewMode();
   return (
     <AppShell.Header className={classes.Layout__AppBar}>
       <Link to="/">

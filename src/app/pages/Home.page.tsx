@@ -6,7 +6,7 @@ import { Container, Space } from "@mantine/core";
 import React from "react";
 
 const HomePage: React.FC = () => {
-  const { mode, setMode } = useViewMode();
+  const { viewMode, setViewMode } = useViewMode();
 
   return (
     <Container>
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
       <Space h="xl" />
       <ViewModeControl />
       <Space h="xl" />
-      <FeaturesSection view={mode} />
+      <FeaturesSection />
     </Container>
   );
 };
