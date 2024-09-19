@@ -1,16 +1,15 @@
 import logo from "@/assets/logo/GoodMehLogo.png";
+import { ViewModeControl } from "@/features/Home/components/ViewModeControl";
 import { useViewMode } from "@/hooks/useViewMode";
 import {
   ActionIcon,
   Anchor,
   AppShell,
-  Button,
   MantineColorScheme,
   Space,
   useMantineColorScheme,
 } from "@mantine/core";
 import { IconBrightnessHalf, IconMoon, IconSun } from "@tabler/icons-react";
-import { capitalize } from "es-toolkit";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 import classes from "./Layout.module.scss";
 
@@ -52,7 +51,7 @@ const NavBar: React.FC = () => {
 
       <Space flex={1} />
 
-      <Button onClick={toggleMode}>{capitalize(mode)}</Button>
+      <ViewModeControl />
       <Space w="md" />
       <ActionIcon onClick={toggleColorScheme}>
         {colorScheme == "light" ? (

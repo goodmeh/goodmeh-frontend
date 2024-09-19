@@ -2,6 +2,11 @@ import { createContext, useContext } from "react";
 
 export type ViewMode = "consumer" | "business";
 
+export const VIEW_MODES = [
+  "consumer",
+  "business",
+] as const satisfies ViewMode[];
+
 type ViewModeContextValue = {
   mode: ViewMode;
   setMode: (mode: ViewMode) => void;

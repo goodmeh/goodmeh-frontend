@@ -1,5 +1,5 @@
 import { FeaturesSection } from "@/features/Home/components/FeaturesSection";
-import { FeatureViewButtonGroup } from "@/features/Home/components/FeatureViewButtonGroup";
+import { ViewModeControl } from "@/features/Home/components/ViewModeControl";
 import { WelcomeTitle } from "@/features/Home/components/WelcomeTitle";
 import { useViewMode } from "@/hooks/useViewMode";
 import { Container, Space } from "@mantine/core";
@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
     <Container>
       <WelcomeTitle />
       <Space h="xl" />
-      <FeatureViewButtonGroup value={mode} setter={setMode} />
+      <ViewModeControl />
       <Space h="xl" />
       <FeaturesSection view={mode} />
     </Container>

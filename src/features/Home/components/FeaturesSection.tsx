@@ -1,6 +1,6 @@
+import { ViewMode } from "@/hooks/useViewMode";
 import { Grid } from "@mantine/core";
 import { FeatureCard } from "./FeatureCard";
-import { FeatureView } from "./FeatureViewButtonGroup";
 
 const CONSUMER_FEATURES = [
   {
@@ -57,7 +57,7 @@ const BUSINESS_FEATURES = [
 ];
 
 type FeaturesSectionProps = {
-  view: FeatureView;
+  view: ViewMode;
 };
 
 export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ view }) => {
