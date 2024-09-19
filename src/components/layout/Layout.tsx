@@ -1,4 +1,5 @@
 import logo from "@/assets/logo/GoodMehLogo.png";
+import { ViewModeControl } from "@/features/Home/components/ViewModeControl";
 import {
   ActionIcon,
   Anchor,
@@ -47,6 +48,9 @@ const NavBar: React.FC = () => {
       <NavLink path="/business" label="Business" />
 
       <Space flex={1} />
+
+      <ViewModeControl />
+      <Space w="md" />
       <ActionIcon onClick={toggleColorScheme}>
         {colorScheme == "light" ? (
           <IconSun />
