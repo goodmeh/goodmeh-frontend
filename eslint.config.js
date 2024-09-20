@@ -54,6 +54,7 @@ export default tseslint.config(
       "prettier/prettier": ["warn"],
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     },
     settings: {
       react: {
