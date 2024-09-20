@@ -1,4 +1,5 @@
 import { Title } from "@mantine/core";
+
 import classes from "./WelcomeTitle.module.scss";
 
 export const WelcomeTitle: React.FC = () => {

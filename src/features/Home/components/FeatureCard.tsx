@@ -1,4 +1,5 @@
 import { Card, Text, ThemeIcon } from "@mantine/core";
+
 import classes from "./Features.module.scss";
 
 type FeatureCardProps = {

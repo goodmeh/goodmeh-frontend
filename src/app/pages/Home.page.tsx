@@ -1,7 +1,8 @@
-import { FeaturesSection } from "@/features/Home/components/FeaturesSection";
-import { WelcomeTitle } from "@/features/Home/components/WelcomeTitle";
 import { Container, Space } from "@mantine/core";
 import React from "react";
+
+import { FeaturesSection } from "@/features/Home/components/FeaturesSection";
+import { WelcomeTitle } from "@/features/Home/components/WelcomeTitle";
 
 const HomePage: React.FC = () => {
   return (

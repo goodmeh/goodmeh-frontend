@@ -1,5 +1,7 @@
-import { useViewMode } from "@/hooks/useViewMode";
 import { Grid } from "@mantine/core";
+
+import { useViewMode } from "@/hooks/useViewMode";
+
 import { FeatureCard } from "./FeatureCard";
 
 const CONSUMER_FEATURES = [

@@ -1,7 +1,9 @@
-import { render } from "@/test/testUtils";
-import { Place } from "@/types/data";
 import { screen } from "@testing-library/react";
 import { format } from "date-fns";
+
+import { render } from "@/test/testUtils";
+import { Place } from "@/types/data";
+
 import { PlaceCard } from "../PlaceCard";
 
 describe("PlaceCard component", () => {

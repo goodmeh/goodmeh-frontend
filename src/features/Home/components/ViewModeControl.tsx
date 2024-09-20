@@ -1,6 +1,7 @@
-import { useViewMode, VIEW_MODES } from "@/hooks/useViewMode";
 import { SegmentedControl, useMantineColorScheme } from "@mantine/core";
 import { capitalize } from "es-toolkit";
+
+import { useViewMode, VIEW_MODES } from "@/hooks/useViewMode";
 
 export const ViewModeControl: React.FC = () => {
   const { viewMode, setViewMode } = useViewMode();

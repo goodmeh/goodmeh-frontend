@@ -1,8 +1,9 @@
-import { SafeOmit } from "@/types/helpers";
 import { Autocomplete, AutocompleteProps } from "@mantine/core";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import React, { useEffect } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
+
+import { SafeOmit } from "@/types/helpers";
 
 type Props = {
   /**
