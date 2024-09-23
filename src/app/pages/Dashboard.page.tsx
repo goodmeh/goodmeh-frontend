@@ -39,7 +39,6 @@ export const ConsumerDashboardPage: React.FC = () => {
             className={classes.PlaceSearch__PlaceGroup}
           >
             <PlaceCard place={place} />
-            <StatDisplay />
             <GoogleMapsEmbed
               placeId={place.id}
               style={{
@@ -47,6 +46,7 @@ export const ConsumerDashboardPage: React.FC = () => {
                 height: "auto",
               }}
             />
+            <StatDisplay />
           </Group>
           <Space h="md" />
           <PlaceDetails place={place} />
