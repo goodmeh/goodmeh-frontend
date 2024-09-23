@@ -26,7 +26,6 @@ export const ConsumerDashboardPage: React.FC = () => {
 
   return (
     <>
-      <Title>Consumer Dashboard</Title>
       <PlacesAutocompleteField
         placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
         onSelectSuggestion={setLocation}
