@@ -1,4 +1,4 @@
-import { Group, Space } from "@mantine/core";
+import { Group, Space, Stack } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
@@ -18,7 +18,6 @@ export const DiscoverPage: React.FC = () => {
     if (!location) {
       return;
     }
-    console.log(location);
     getMockPlace(location.place_id).then(setPlace);
   }, [location]);
 
@@ -36,14 +35,16 @@ export const DiscoverPage: React.FC = () => {
             align="stretch"
             className={classes.PlaceSearch__PlaceGroup}
           >
-            <PlaceCard place={place} />
-            <GoogleMapsEmbed
-              placeId={place.id}
-              style={{
-                borderRadius: "var(--mantine-radius-md)",
-                height: "auto",
-              }}
-            />
+            <Stack>
+              <PlaceCard place={place} />
+              <GoogleMapsEmbed
+                placeId={place.id}
+                style={{
+                  borderRadius: "var(--mantine-radius-md)",
+                  height: "auto",
+                }}
+              />
+            </Stack>
             <StatDisplay />
           </Group>
         </>
