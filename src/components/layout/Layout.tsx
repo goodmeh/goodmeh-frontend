@@ -45,7 +45,7 @@ const NavBar: React.FC = () => {
       </Link>
       <Space w="md" />
 
-      <NavLink path="/dashboard" label="Dashboard" />
+      <NavLink path="/discover" label="Discover" />
       <Space w="md" />
       <NavLink path="/compare" label="Compare" />
 

@@ -9,7 +9,7 @@ import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
 import { StatDisplay } from "@/features/Dashboard/components/StatDisplay";
 import { Place } from "@/types/data";
 
-export const DashboardPage: React.FC = () => {
+export const DiscoverPage: React.FC = () => {
   const [location, setLocation] =
     useState<google.maps.places.AutocompletePrediction>();
   const [place, setPlace] = useState<Place>();
@@ -52,5 +52,5 @@ export const DashboardPage: React.FC = () => {
   );
 };
 
-export const Component = DashboardPage;
-Component.displayName = "DashboardPage";
+export const Component = DiscoverPage;
+Component.displayName = "DiscoverPage";
