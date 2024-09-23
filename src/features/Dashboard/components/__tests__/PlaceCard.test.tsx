@@ -31,11 +31,11 @@ describe("PlaceCard component", () => {
     expect(image).toHaveAttribute("src", place.imageUrl);
   });
 
-  it("renders place rating and weighted rating", () => {
+  it("renders place rating", () => {
     render(<PlaceCard place={place} />);
     expect(
       screen.getByText((content) => {
-        return content.includes(place.weightedRating.toFixed(1));
+        return content.includes(place.rating.toFixed(1));
       }),
     ).toBeInTheDocument();
     expect(
