@@ -1,4 +1,4 @@
-import { SimpleGrid, Title } from "@mantine/core";
+import { SimpleGrid, Space, Title } from "@mantine/core";
 import { useState } from "react";
 
 import { PlaceSearch } from "@/components/ui/PlaceSearch";
@@ -10,7 +10,6 @@ export const ComparePage: React.FC = () => {
   const [place2, setPlace2] = useState<Place>();
   return (
     <>
-      <Title>Compare</Title>
       <SimpleGrid
         cols={2}
         style={{
@@ -21,7 +20,13 @@ export const ComparePage: React.FC = () => {
         <PlaceSearch onPlaceChange={setPlace1}></PlaceSearch>
         <PlaceSearch onPlaceChange={setPlace2}></PlaceSearch>
       </SimpleGrid>
-      {place1 && place2 && <PlaceComparisonTable />}
+      <Space h="md" />
+      {place1 && place2 && (
+        <PlaceComparisonTable
+          place1Name={place1.name}
+          place2Name={place2.name}
+        />
+      )}
     </>
   );
 };
