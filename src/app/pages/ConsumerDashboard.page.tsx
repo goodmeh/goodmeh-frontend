@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
+import classes from "@/components/ui/PlaceSearch.module.scss";
 import { getMockPlace } from "@/features/Consumer/api/getPlace";
 import { InsightDisplay } from "@/features/Consumer/components/InsightDisplay";
 import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
 import { PlaceDetails } from "@/features/Consumer/components/PlaceDetails";
 import { StatDisplay } from "@/features/Consumer/components/StatDisplay";
-import classes from "@/features/Consumer/ConsumerDashboard.module.scss";
 import { Place } from "@/types/data";
 
 export const ConsumerDashboardPage: React.FC = () => {
@@ -37,7 +37,7 @@ export const ConsumerDashboardPage: React.FC = () => {
           <Group
             wrap="nowrap"
             align="stretch"
-            className={classes.ConsumerDashboard__PlaceGroup}
+            className={classes.PlaceSearch__PlaceGroup}
           >
             <PlaceCard place={place} />
             <StatDisplay />
