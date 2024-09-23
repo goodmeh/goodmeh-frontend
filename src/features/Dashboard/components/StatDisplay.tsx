@@ -1,58 +1,28 @@
-import { Group, Paper, SimpleGrid, Text, ThemeIcon } from "@mantine/core";
-import { IconArrowDownRight, IconArrowUpRight } from "@tabler/icons-react";
+import { SimpleGrid } from "@mantine/core";
+
+import { StatCard } from "./StatCard";
 
 const data = [
-  { title: "Weighted No of Stars", value: "4.0 Stars", diff: -20 },
-  { title: "No. of Real Reviews", value: "420", diff: -69 },
+  {
+    title: "How good?",
+    caption: "3.9",
+    render: () => (
+      <div style={{ transform: `rotate(${180 * (1 - 3.9 / 5)}deg)` }}>👍</div>
+    ),
+  },
+  { title: "How accurate?", caption: "70% of all reviews", render: () => "🤷‍♂️" },
+  { title: "How much?", caption: "$10-20 per person", render: () => "💸" },
+  { title: "How long?", caption: "3 years", render: () => "🗓️" },
 ];
 
 export const StatDisplay: React.FC = () => {
   const stats = data.map((stat) => {
-    const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight;
-
     return (
-      <Paper
-        withBorder
-        p="xl"
-        radius="md"
-        key={stat.title}
-        h="100%"
-        component={Group}
-        justify="space-between"
-      >
-        <Group>
-          <div>
-            <Text c="dimmed" tt="uppercase" fw={700} fz="lg">
-              {stat.title}
-            </Text>
-            <Text fw={700} fz="xxxl">
-              {stat.value}
-            </Text>
-            <Text c="dimmed" fz="xl" mt="xl">
-              <Text
-                component="span"
-                c={stat.diff > 0 ? "teal" : "red"}
-                fw={700}
-                fz="xl"
-              >
-                {stat.diff}%
-              </Text>{" "}
-              {stat.diff > 0 ? "More" : "Less"} than Google Reviews
-            </Text>
-          </div>
-          <ThemeIcon
-            color="gray"
-            variant="light"
-            c={stat.diff > 0 ? "teal.6" : "red.6"}
-            size={80}
-            radius="md"
-          >
-            <DiffIcon size="xxl" stroke={1.5} />
-          </ThemeIcon>
-        </Group>
-      </Paper>
+      <StatCard key={stat.title} title={stat.title} caption={stat.caption}>
+        {stat.render()}
+      </StatCard>
     );
   });
 
-  return <SimpleGrid cols={1}>{stats}</SimpleGrid>;
+  return <SimpleGrid cols={2}>{stats}</SimpleGrid>;
 };

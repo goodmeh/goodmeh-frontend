@@ -11,7 +11,7 @@ type Props = {
 
 export const PlaceCard: React.FC<Props> = ({ place }) => {
   return (
-    <Card radius="md" shadow="xs" padding="lg" withBorder>
+    <Card radius="md" padding="lg" withBorder>
       {place.imageUrl && (
         <Card.Section>
           <Image src={place.imageUrl} alt={place.name} mah={200} mih={100} />
