@@ -1,9 +1,5 @@
 .PlaceSearch__PlaceGroup {
-  > :first-child,
-  > :nth-child(2) {
+  > * {
     flex: 1 1 0;
-  }
-  > :last-child {
-    flex: 2 1 0;
   }
 }
