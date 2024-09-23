@@ -1,5 +1,6 @@
-import { ViewMode, ViewModeContext } from "@/hooks/useViewMode";
 import { useCallback, useState } from "react";
+
+import { ViewMode, ViewModeContext } from "@/hooks/useViewMode";
 
 export const ViewModeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,

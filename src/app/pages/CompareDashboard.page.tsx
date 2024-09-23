@@ -1,7 +1,8 @@
-import { PlaceSearch } from "@/components/ui/PlaceSearch";
-import { PlaceComparisonTable } from "@/components/ui/PlaceComparisonTable";
 import { SimpleGrid, Title } from "@mantine/core";
 import { useState } from "react";
+
+import { PlaceComparisonTable } from "@/components/ui/PlaceComparisonTable";
+import { PlaceSearch } from "@/components/ui/PlaceSearch";
 import { Place } from "@/types/data";
 
 export const CompareDashboardPage: React.FC = () => {

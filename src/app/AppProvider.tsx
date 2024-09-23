@@ -1,8 +1,10 @@
 import "@mantine/core/styles.css";
 
-import { ViewModeProvider } from "@/contexts/ViewModeContext";
 import { MantineProvider } from "@mantine/core";
 import { APIProvider } from "@vis.gl/react-google-maps";
+
+import { ViewModeProvider } from "@/contexts/ViewModeContext";
+
 import { theme } from "./theme";
 
 type AppProviderProps = {

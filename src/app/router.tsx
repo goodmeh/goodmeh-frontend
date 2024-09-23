@@ -1,5 +1,6 @@
-import { Layout } from "@/components/layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { Layout } from "@/components/layout/Layout";
 
 const HomePage = () => import("./pages/Home.page");
 const ConsumerDashboardPage = () => import("./pages/ConsumerDashboard.page");

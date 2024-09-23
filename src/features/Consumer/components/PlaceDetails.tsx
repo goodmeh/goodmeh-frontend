@@ -1,6 +1,7 @@
-import { Place } from "@/types/data";
 import { Tabs, Text } from "@mantine/core";
 import React from "react";
+
+import { Place } from "@/types/data";
 
 enum Tab {
   Summary = "summary",

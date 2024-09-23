@@ -1,6 +1,8 @@
-import { ViewModeContext } from "@/hooks/useViewMode";
 import { render } from "@test/testUtils";
 import { fireEvent, screen } from "@testing-library/react";
+
+import { ViewModeContext } from "@/hooks/useViewMode";
+
 import { ViewModeControl } from "../ViewModeControl";
 
 describe("ViewModeControl component", () => {

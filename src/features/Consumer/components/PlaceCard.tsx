@@ -1,8 +1,9 @@
-import { PartialStar } from "@/components/ui/PartialStar";
-import { Place } from "@/types/data";
 import { Card, Image, Space, Text } from "@mantine/core";
 import { format } from "date-fns";
 import React from "react";
+
+import { PartialStar } from "@/components/ui/PartialStar";
+import { Place } from "@/types/data";
 
 type Props = {
   place: Place;
