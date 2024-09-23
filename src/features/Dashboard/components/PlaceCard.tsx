@@ -14,7 +14,7 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
     <Card radius="md" shadow="xs" padding="lg" withBorder>
       {place.imageUrl && (
         <Card.Section>
-          <Image src={place.imageUrl} alt={place.name} mah={300} mih={200} />
+          <Image src={place.imageUrl} alt={place.name} mah={200} mih={100} />
         </Card.Section>
       )}
       <Space h="sm" />
