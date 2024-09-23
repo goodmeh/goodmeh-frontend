@@ -48,9 +48,6 @@ export const ConsumerDashboardPage: React.FC = () => {
             />
             <StatDisplay />
           </Group>
-          <Space h="md" />
-          <PlaceDetails place={place} />
-          <InsightDisplay />
         </>
       )}
     </>
