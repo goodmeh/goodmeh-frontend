@@ -1,11 +1,12 @@
 import { PlaceSearch } from "@/components/ui/PlaceSearch";
 import { PlaceComparisonTable } from "@/components/ui/PlaceComparisonTable";
-import {
-  SimpleGrid,
-  Title
-} from "@mantine/core";
+import { SimpleGrid, Title } from "@mantine/core";
+import { useState } from "react";
+import { Place } from "@/types/data";
 
 export const CompareDashboardPage: React.FC = () => {
+  const [place1, setPlace1] = useState<Place>();
+  const [place2, setPlace2] = useState<Place>();
   return (
     <>
       <Title>Compare Dashboard</Title>
@@ -16,11 +17,10 @@ export const CompareDashboardPage: React.FC = () => {
           height: "auto",
         }}
       >
-        <PlaceSearch></PlaceSearch>
-        <PlaceSearch></PlaceSearch>
-      
+        <PlaceSearch onPlaceChange={setPlace1}></PlaceSearch>
+        <PlaceSearch onPlaceChange={setPlace2}></PlaceSearch>
       </SimpleGrid>
-      <PlaceComparisonTable></PlaceComparisonTable>
+      {place1 && place2 && <PlaceComparisonTable />}
     </>
   );
 };
