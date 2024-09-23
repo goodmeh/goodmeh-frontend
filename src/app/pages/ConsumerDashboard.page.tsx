@@ -1,11 +1,11 @@
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
+import classes from "@/components/ui/PlaceSearch.module.scss";
 import { getMockPlace } from "@/features/Consumer/api/getPlace";
+import { InsightDisplay } from "@/features/Consumer/components/InsightDisplay";
 import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
 import { PlaceDetails } from "@/features/Consumer/components/PlaceDetails";
 import { StatDisplay } from "@/features/Consumer/components/StatDisplay";
-import { InsightDisplay } from "@/features/Consumer/components/InsightDisplay";
-import classes from "@/components/ui/PlaceSearch.module.scss";
 import { Place } from "@/types/data";
 import { Group, Space, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
@@ -50,7 +50,7 @@ export const ConsumerDashboardPage: React.FC = () => {
           </Group>
           <Space h="md" />
           <PlaceDetails place={place} />
-          <InsightDisplay/>
+          <InsightDisplay />
         </>
       )}
     </>

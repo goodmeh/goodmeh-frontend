@@ -1,4 +1,4 @@
-import { Text, Box, Group } from "@mantine/core";
+import { Box, Group, Text } from "@mantine/core";
 
 const data = [
   {
@@ -21,21 +21,13 @@ const data = [
 export const InsightDisplay: React.FC = () => {
   const stats = data.map((stat) => (
     <Box key={stat.title}>
-      <Text
-        size="xxxxl"
-        fw={700}
-        lh={1}
-        mb="md"
-      >
+      <Text size="xxxxl" fw={700} lh={1} mb="md">
         {stat.stats}
       </Text>
       <Text fw={700} size="xl" c="white">
         {stat.title}
       </Text>
-      <Text
-        size="lg"
-        mt="xs"
-      >
+      <Text size="lg" mt="xs">
         {stat.description}
       </Text>
     </Box>
