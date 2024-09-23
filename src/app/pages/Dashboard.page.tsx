@@ -1,17 +1,15 @@
-import { Group, Space, Title } from "@mantine/core";
+import { Group, Space } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import classes from "@/components/ui/PlaceSearch.module.scss";
-import { getMockPlace } from "@/features/Consumer/api/getPlace";
-import { InsightDisplay } from "@/features/Consumer/components/InsightDisplay";
-import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
-import { PlaceDetails } from "@/features/Consumer/components/PlaceDetails";
-import { StatDisplay } from "@/features/Consumer/components/StatDisplay";
+import { getMockPlace } from "@/features/Dashboard/api/getPlace";
+import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
+import { StatDisplay } from "@/features/Dashboard/components/StatDisplay";
 import { Place } from "@/types/data";
 
-export const ConsumerDashboardPage: React.FC = () => {
+export const DashboardPage: React.FC = () => {
   const [location, setLocation] =
     useState<google.maps.places.AutocompletePrediction>();
   const [place, setPlace] = useState<Place>();
@@ -26,7 +24,6 @@ export const ConsumerDashboardPage: React.FC = () => {
 
   return (
     <>
-      <Title>Consumer Dashboard</Title>
       <PlacesAutocompleteField
         placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
         onSelectSuggestion={setLocation}
@@ -40,7 +37,6 @@ export const ConsumerDashboardPage: React.FC = () => {
             className={classes.PlaceSearch__PlaceGroup}
           >
             <PlaceCard place={place} />
-            <StatDisplay />
             <GoogleMapsEmbed
               placeId={place.id}
               style={{
@@ -48,15 +44,13 @@ export const ConsumerDashboardPage: React.FC = () => {
                 height: "auto",
               }}
             />
+            <StatDisplay />
           </Group>
-          <Space h="md" />
-          <PlaceDetails place={place} />
-          <InsightDisplay />
         </>
       )}
     </>
   );
 };
 
-export const Component = ConsumerDashboardPage;
-Component.displayName = "ConsumerDashboardPage";
+export const Component = DashboardPage;
+Component.displayName = "DashboardPage";

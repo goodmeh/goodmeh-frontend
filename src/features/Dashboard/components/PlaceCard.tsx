@@ -1,4 +1,4 @@
-import { Card, Image, Space, Text } from "@mantine/core";
+import { Card, Divider, Image, Space, Text } from "@mantine/core";
 import { format } from "date-fns";
 import React from "react";
 
@@ -37,6 +37,10 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
       <Text size="sm" c="dimmed">
         Last updated: {format(place.lastUpdated, "d MMM yyyy, hh:mm a")}
       </Text>
+      <Card.Section>
+        <Divider my="sm" />
+      </Card.Section>
+      <Text size="sm">{place.summary}</Text>
     </Card>
   );
 };
