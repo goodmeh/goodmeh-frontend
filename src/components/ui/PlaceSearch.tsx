@@ -1,13 +1,11 @@
-import { Box, Group, Space } from "@mantine/core";
+import { Box, Space } from "@mantine/core";
 import { useEffect, useState } from "react";
 
-import { getMockPlace } from "@/features/Consumer/api/getPlace";
-import { PlaceCard } from "@/features/Consumer/components/PlaceCard";
-import { PlaceDetails } from "@/features/Consumer/components/PlaceDetails";
+import { getMockPlace } from "@/features/Dashboard/api/getPlace";
+import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
 import { Place } from "@/types/data";
 
 import { PlacesAutocompleteField } from "./PlacesAutocompleteField";
-import classes from "./PlaceSearch.module.scss";
 
 type Props = {
   onPlaceChange: (place: Place | undefined) => void;
@@ -36,19 +34,7 @@ export const PlaceSearch: React.FC<Props> = ({ onPlaceChange }) => {
         onSelectSuggestion={setLocation}
       />
       <Space h="md" />
-      {place && (
-        <>
-          <Group
-            wrap="nowrap"
-            align="stretch"
-            className={classes.PlaceSearch__PlaceGroup}
-          >
-            <PlaceCard place={place} />
-          </Group>
-          <PlaceDetails place={place} />
-          <Space h="md" />
-        </>
-      )}
+      {place && <PlaceCard place={place} />}
     </Box>
   );
 };
