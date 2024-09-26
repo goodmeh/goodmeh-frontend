@@ -6,6 +6,14 @@ import { Place } from "@/types/data";
 
 import { PlaceCard } from "../PlaceCard";
 
+vi.mock("../../api/getPlaceImages", async (importOriginal) => {
+  const { getMockPlaceImages } =
+    await importOriginal<typeof import("../../api/getPlaceImages")>();
+  return {
+    getPlaceImages: getMockPlaceImages,
+  };
+});
+
 describe("PlaceCard component", () => {
   const place: Place = {
     id: "mockId",
