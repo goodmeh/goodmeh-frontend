@@ -13,10 +13,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { PartialStar } from "@/components/ui/PartialStar";
 import { Place } from "@/types/data";
 
-import {
-  getMockPlaceImages,
-  GetPlaceImagesResponse,
-} from "../api/getPlaceImages";
+import { getPlaceImages, GetPlaceImagesResponse } from "../api/getPlaceImages";
 
 type Props = {
   place: Place;
@@ -30,7 +27,7 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
   );
 
   useEffect(() => {
-    getMockPlaceImages(place.id).then(setImages);
+    getPlaceImages(place.id).then(setImages);
   }, [place.id]);
 
   return (
