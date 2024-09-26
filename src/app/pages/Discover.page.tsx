@@ -1,50 +1,22 @@
-import { Group, Space, Stack } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { Group, Stack } from "@mantine/core";
 
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
-import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
+import { PlaceSearch } from "@/components/ui/PlaceSearch";
 import classes from "@/components/ui/PlaceSearch.module.scss";
-import { getPlace } from "@/features/Dashboard/api/getPlace";
-import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
 import { StatDisplay } from "@/features/Dashboard/components/StatDisplay";
-import { Place } from "@/types/data";
 
 export const DiscoverPage: React.FC = () => {
-  const [location, setLocation] =
-    useState<google.maps.places.AutocompletePrediction>();
-  const [place, setPlace] = useState<Place>();
-  const [status, setStatus] = useState<string>();
-
-  useEffect(() => {
-    if (!location) {
-      return;
-    }
-    getPlace(location.place_id).then((response) => {
-      if ("status" in response) {
-        setStatus(response.status);
-        setPlace(undefined);
-        return;
-      }
-      setPlace(response);
-    });
-  }, [location]);
-
   return (
     <>
-      <PlacesAutocompleteField
-        placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
-        onSelectSuggestion={setLocation}
-      />
-      <Space h="md" />
-      {place && (
-        <>
+      <PlaceSearch>
+        {({ placeCard, place }) => (
           <Group
             wrap="nowrap"
             align="stretch"
             className={classes.PlaceSearch__PlaceGroup}
           >
             <Stack>
-              <PlaceCard place={place} />
+              {placeCard}
               <GoogleMapsEmbed
                 placeId={place.id}
                 style={{
@@ -55,8 +27,8 @@ export const DiscoverPage: React.FC = () => {
             </Stack>
             <StatDisplay place={place} />
           </Group>
-        </>
-      )}
+        )}
+      </PlaceSearch>
     </>
   );
 };

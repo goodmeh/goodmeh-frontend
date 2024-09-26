@@ -26,7 +26,12 @@ export const getMockPlace = async (id: string) => {
   });
 };
 
-type GetPlaceResponse = Place | { status: string };
+export type RequestPlaceStatusResponse = {
+  status: string;
+  failed: boolean;
+};
+
+type GetPlaceResponse = Place | RequestPlaceStatusResponse;
 
 export const getPlace = async (id: string) => {
   const response = await api.post<GetPlaceResponse>(`/v1/places/${id}`);

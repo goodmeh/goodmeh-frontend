@@ -27,7 +27,7 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
   }, [place.id]);
 
   return (
-    <Card radius="md" padding="lg" withBorder>
+    <Card radius="md" padding="lg" withBorder flex={1}>
       {place.image_url && (
         <Card.Section>
           <Image
