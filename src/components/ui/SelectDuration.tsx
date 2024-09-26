@@ -1,6 +1,8 @@
 import { Select } from "@mantine/core";
 
-export const SelectDuration: React.FC = () => {
+export const SelectDuration: React.FC<{
+  onChange: (value: string) => void;
+}> = ({ onChange }) => {
   return (
     <Select
       defaultValue="All Time"
@@ -11,6 +13,7 @@ export const SelectDuration: React.FC = () => {
         "Past 6 Months",
         "Past Year",
       ]}
+      onChange={(value) => onChange(value ?? "All Time")}
     />
   );
 };
