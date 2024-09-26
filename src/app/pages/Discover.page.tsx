@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import classes from "@/components/ui/PlaceSearch.module.scss";
+import { SelectDuration } from "@/components/ui/SelectDuration";
 import { getMockPlace } from "@/features/Dashboard/api/getPlace";
 import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
 import { StatDisplay } from "@/features/Dashboard/components/StatDisplay";
@@ -23,10 +24,13 @@ export const DiscoverPage: React.FC = () => {
 
   return (
     <>
-      <PlacesAutocompleteField
-        placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
-        onSelectSuggestion={setLocation}
-      />
+      <Group>
+        <PlacesAutocompleteField
+          placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
+          onSelectSuggestion={setLocation}
+        />
+        <SelectDuration></SelectDuration>
+      </Group>
       <Space h="md" />
       {place && (
         <>

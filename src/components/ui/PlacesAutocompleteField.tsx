@@ -53,6 +53,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     <Autocomplete
       value={value}
       onChange={setValue}
+      flex={1}
       data={data.map((suggestion) => suggestion.description)}
       disabled={!places}
       onOptionSubmit={(value) =>
