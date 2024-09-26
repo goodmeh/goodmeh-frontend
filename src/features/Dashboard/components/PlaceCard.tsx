@@ -54,7 +54,7 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
         {place.primary_type}
       </Text>
       <Text size="sm" c="dimmed">
-        Last scraped: {format(place.last_scraped, "d MMM yyyy, hh:mm a")}
+        Last updated: {format(place.last_scraped, "d MMM yyyy, hh:mm a")}
       </Text>
 
       <Card.Section mt="xs">
