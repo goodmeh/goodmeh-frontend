@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import classes from "@/components/ui/PlaceSearch.module.scss";
-import { getMockPlace } from "@/features/Dashboard/api/getPlace";
+import { getPlace } from "@/features/Dashboard/api/getPlace";
 import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
 import { StatDisplay } from "@/features/Dashboard/components/StatDisplay";
 import { Place } from "@/types/data";
@@ -13,12 +13,20 @@ export const DiscoverPage: React.FC = () => {
   const [location, setLocation] =
     useState<google.maps.places.AutocompletePrediction>();
   const [place, setPlace] = useState<Place>();
+  const [status, setStatus] = useState<string>();
 
   useEffect(() => {
     if (!location) {
       return;
     }
-    getMockPlace(location.place_id).then(setPlace);
+    getPlace(location.place_id).then((response) => {
+      if ("status" in response) {
+        setStatus(response.status);
+        setPlace(undefined);
+        return;
+      }
+      setPlace(response);
+    });
   }, [location]);
 
   return (
@@ -45,7 +53,7 @@ export const DiscoverPage: React.FC = () => {
                 }}
               />
             </Stack>
-            <StatDisplay />
+            <StatDisplay place={place} />
           </Group>
         </>
       )}
