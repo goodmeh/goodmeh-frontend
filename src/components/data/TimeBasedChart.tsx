@@ -2,34 +2,52 @@ import { LineChart } from "@mantine/charts";
 
 const data = [
   {
-    date: "Mar 22",
-    Apples: 2890,
-    Oranges: 2338,
-    Tomatoes: 2452,
+    date: "Jan",
+    Rating: 4.5,
   },
   {
-    date: "Mar 23",
-    Apples: 2756,
-    Oranges: 2103,
-    Tomatoes: 2402,
+    date: "Feb",
+    Rating: 4.9,
   },
   {
-    date: "Mar 24",
-    Apples: 3322,
-    Oranges: 986,
-    Tomatoes: 1821,
+    date: "Mar",
+    Rating: 2,
   },
   {
-    date: "Mar 25",
-    Apples: 3470,
-    Oranges: 2108,
-    Tomatoes: 2809,
+    date: "Apr",
+    Rating: 3.8,
   },
   {
-    date: "Mar 26",
-    Apples: 3129,
-    Oranges: 1726,
-    Tomatoes: 2290,
+    date: "May",
+    Rating: 4.2,
+  },
+  {
+    date: "Jun",
+    Rating: 4.9,
+  },
+  {
+    date: "Jul",
+    Rating: 3.1,
+  },
+  {
+    date: "Aug",
+    Rating: 2.9,
+  },
+  {
+    date: "Sep",
+    Rating: 1.9,
+  },
+  {
+    date: "Oct",
+    Rating: 3.3,
+  },
+  {
+    date: "Nov",
+    Rating: 4.4,
+  },
+  {
+    date: "Dec",
+    Rating: 4.2,
   },
 ];
 
@@ -39,12 +57,11 @@ export const TimeBasedChart: React.FC = () => {
       h={300}
       data={data}
       dataKey="date"
-      series={[
-        { name: "Apples", color: "indigo.6" },
-        { name: "Oranges", color: "blue.6" },
-        { name: "Tomatoes", color: "teal.6" },
-      ]}
-      curveType="linear"
+      series={[{ name: "Rating", color: "indigo.6" }]}
+      curveType="monotone"
+      tickLine="x"
+      withPointLabels
+      strokeDasharray="15 15"
     />
   );
 };

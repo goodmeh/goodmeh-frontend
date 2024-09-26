@@ -1,12 +1,34 @@
-import { DonutChart } from "@mantine/charts";
+import { PieChart } from "@mantine/charts";
+import { Stack, Title } from "@mantine/core";
 
 const data = [
-  { name: "USA", value: 400, color: "indigo.6" },
-  { name: "India", value: 300, color: "yellow.6" },
-  { name: "Japan", value: 100, color: "teal.6" },
-  { name: "Other", value: 200, color: "gray.6" },
+  { name: "Enthus", value: 300, color: "indigo.6" },
+  { name: "Trollers", value: 300, color: "yellow.6" },
+  { name: "Lurkers", value: 200, color: "teal.6" },
+  { name: "Bots", value: 200, color: "gray.6" },
 ];
 
 export const PercentageBasedChart: React.FC = () => {
-  return <DonutChart data={data} />;
+  return (
+    <Stack
+      gap="0"
+      style={{
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <Title order={3}>Types of users</Title>
+      <PieChart
+        data={data}
+        tooltipDataSource="segment"
+        withLabels
+        withLabelsLine={false}
+        labelsPosition="inside"
+        labelsType="percent"
+        strokeWidth={2}
+        h={400}
+        size={300}
+      />
+    </Stack>
+  );
 };

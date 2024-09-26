@@ -2,39 +2,35 @@ import { RadarChart } from "@mantine/charts";
 
 const data = [
   {
-    product: "Apples",
-    sales: 120,
+    criteria: "Price",
+    score: 7.8,
   },
   {
-    product: "Oranges",
-    sales: 98,
+    criteria: "Quality",
+    score: 3.8,
   },
   {
-    product: "Tomatoes",
-    sales: 86,
+    criteria: "Service",
+    score: 8.8,
   },
   {
-    product: "Grapes",
-    sales: 99,
+    criteria: "Location",
+    score: 5.9,
   },
   {
-    product: "Bananas",
-    sales: 85,
-  },
-  {
-    product: "Lemons",
-    sales: 65,
+    criteria: "Cleanliness",
+    score: 9.9,
   },
 ];
 
 export const CriteriaBasedChart: React.FC = () => {
   return (
     <RadarChart
-      h={300}
+      h={400}
       data={data}
-      dataKey="product"
-      withPolarRadiusAxis
-      series={[{ name: "sales", color: "blue.4", opacity: 0.2 }]}
+      dataKey="criteria"
+      withPolarRadiusAxis={false}
+      series={[{ name: "score", color: "blue.4", opacity: 0.2 }]}
     />
   );
 };
