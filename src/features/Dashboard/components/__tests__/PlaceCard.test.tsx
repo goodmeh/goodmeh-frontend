@@ -10,12 +10,12 @@ describe("PlaceCard component", () => {
   const place: Place = {
     id: "mockId",
     name: "Sample Place",
-    imageUrl: "https://example.com/image.jpg",
-    weightedRating: 4.5,
+    image_url: "https://example.com/image.jpg",
+    weighted_rating: 4.5,
     rating: 4.0,
-    userRatingCount: 100,
-    primaryType: "Restaurant",
-    lastUpdated: new Date().toISOString(),
+    user_rating_count: 100,
+    primary_type: "Restaurant",
+    last_scraped: new Date().toISOString(),
     summary: "This is a sample place summary.",
   };
 
@@ -28,7 +28,7 @@ describe("PlaceCard component", () => {
     render(<PlaceCard place={place} />);
     const image = screen.getByAltText(place.name);
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", place.imageUrl);
+    expect(image).toHaveAttribute("src", place.image_url);
   });
 
   it("renders place rating", () => {
@@ -40,19 +40,19 @@ describe("PlaceCard component", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText((content) =>
-        content.includes(`(${place.userRatingCount})`),
+        content.includes(`(${place.user_rating_count})`),
       ),
     ).toBeInTheDocument();
   });
 
   it("renders place primary type", () => {
     render(<PlaceCard place={place} />);
-    expect(screen.getByText(place.primaryType)).toBeInTheDocument();
+    expect(screen.getByText(place.primary_type)).toBeInTheDocument();
   });
 
   it("renders last updated date", () => {
     render(<PlaceCard place={place} />);
-    const formattedDate = format(place.lastUpdated, "d MMM yyyy, hh:mm a");
+    const formattedDate = format(place.last_scraped, "d MMM yyyy, hh:mm a");
     expect(
       screen.getByText(`Last updated: ${formattedDate}`),
     ).toBeInTheDocument();

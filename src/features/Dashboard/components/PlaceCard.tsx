@@ -27,10 +27,16 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
   }, [place.id]);
 
   return (
-    <Card radius="md" padding="lg" withBorder>
-      {place.imageUrl && (
+    <Card radius="md" padding="lg" withBorder flex={1}>
+      {place.image_url && (
         <Card.Section>
-          <Image src={place.imageUrl} alt={place.name} mah={200} mih={100} />
+          <Image
+            src={place.image_url}
+            alt={place.name}
+            mah={200}
+            mih={100}
+            referrerPolicy="no-referrer"
+          />
         </Card.Section>
       )}
       <Space h="sm" />
@@ -39,16 +45,16 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
       </Text>
       <Text size="sm" c="dimmed">
         {place.rating.toFixed(1)}{" "}
-        {Array.from({ length: Math.ceil(place.weightedRating) }).map((_, i) => (
-          <PartialStar fill={place.weightedRating - i} key={i} />
+        {Array.from({ length: Math.ceil(place.rating) }).map((_, i) => (
+          <PartialStar fill={place.rating - i} key={i} />
         ))}{" "}
-        ({place.userRatingCount})
+        ({place.user_rating_count})
       </Text>
       <Text size="sm" c="dimmed">
-        {place.primaryType}
+        {place.primary_type}
       </Text>
       <Text size="sm" c="dimmed">
-        Last updated: {format(place.lastUpdated, "d MMM yyyy, hh:mm a")}
+        Last updated: {format(place.last_scraped, "d MMM yyyy, hh:mm a")}
       </Text>
 
       <Card.Section mt="xs">
