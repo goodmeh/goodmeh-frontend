@@ -8,19 +8,26 @@ import {
   Text,
 } from "@mantine/core";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { PartialStar } from "@/components/ui/PartialStar";
 import { Place } from "@/types/data";
 
-import { getMockPlaceImages } from "../api/getPlaceImages";
+import {
+  getMockPlaceImages,
+  GetPlaceImagesResponse,
+} from "../api/getPlaceImages";
 
 type Props = {
   place: Place;
 };
 
 export const PlaceCard: React.FC<Props> = ({ place }) => {
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<GetPlaceImagesResponse[]>([]);
+  const flattenedImages = useMemo(
+    () => images.flatMap((image) => image.image_urls),
+    [images],
+  );
 
   useEffect(() => {
     getMockPlaceImages(place.id).then(setImages);
@@ -71,7 +78,7 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
           <Tabs.Panel value="Gallery" p="md">
             <ScrollArea type="always" h={300}>
               <SimpleGrid cols={3}>
-                {images.map((image) => (
+                {flattenedImages.map((image) => (
                   <Image
                     h="100%"
                     w="100%"
