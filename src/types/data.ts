@@ -1,11 +1,11 @@
 export type Place = {
   id: string;
   name: string;
-  primaryType: string;
-  imageUrl?: string;
+  primary_type: string;
+  image_url?: string;
   rating: number;
-  weightedRating: number;
-  userRatingCount: number;
+  weighted_rating: number;
+  user_rating_count: number;
   summary: string;
-  lastUpdated: string;
+  last_scraped: string;
 };
