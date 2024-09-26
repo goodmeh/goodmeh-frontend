@@ -13,7 +13,9 @@ export const StatCard: React.FC<Props> = ({ title, children, caption }) => {
         <Title size="h2" fw="bold">
           {title}
         </Title>
-        <Text size="75px">{children}</Text>
+        <Text component="div" size="75px">
+          {children}
+        </Text>
         <Text mt="xs" size="xl">
           {caption}
         </Text>
