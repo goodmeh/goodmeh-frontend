@@ -12,10 +12,12 @@ export const StatDisplay: React.FC<Props> = ({ place }) => {
   const data = [
     {
       title: "How good?",
-      caption: place.rating.toFixed(1),
+      caption: place.weighted_rating.toFixed(1),
       render: () => (
         <div
-          style={{ transform: `rotate(${180 * (1 - place.rating / 5)}deg)` }}
+          style={{
+            transform: `rotate(${180 * (1 - place.weighted_rating / 5)}deg)`,
+          }}
         >
           👍
         </div>
