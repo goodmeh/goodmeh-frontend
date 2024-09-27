@@ -79,7 +79,6 @@ export const PlaceSearch: React.FC<Props> = ({
         placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
         onSelectSuggestion={setLocation}
       />
-      <Space h="md" />
       {place ? (
         <ChildComponent placeCard={<PlaceCard place={place} />} place={place} />
       ) : requestStatus && location ? (
