@@ -17,13 +17,13 @@ import { useMemo } from "react";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { Review } from "@/types/data";
 
-import classes from "./ReviewCard.module.scss";
+import classes from "./ReviewDetails.module.scss";
 
 type Props = {
   review: Review;
 };
 
-export const ReviewCard: React.FC<Props> = ({ review }) => {
+export const ReviewDetails: React.FC<Props> = ({ review }) => {
   const userSubtext = useMemo(() => {
     const parts: string[] = [];
     if (review.user.review_count > 0) {

@@ -12,7 +12,7 @@ import {
 import { Place, Review } from "@/types/data";
 
 import { getPlaceReviews } from "../api/getPlaceReviews";
-import { ReviewCard } from "./ReviewCard";
+import { ReviewDetails } from "./ReviewDetails";
 
 type Props = {
   place: Place;
@@ -66,7 +66,7 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
             {flattenedReviews.map((review, index) => (
               <Fragment key={review.id}>
                 {index !== 0 && <Divider />}
-                <ReviewCard review={review} />
+                <ReviewDetails review={review} />
               </Fragment>
             ))}
           </Stack>
