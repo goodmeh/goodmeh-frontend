@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteProps } from "@mantine/core";
+import { Autocomplete, AutocompleteProps, CloseButton } from "@mantine/core";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import React, { useEffect } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -14,7 +14,7 @@ type Props = {
    * This function is called whenever a suggestion is selected.
    */
   onSelectSuggestion?: (
-    value: google.maps.places.AutocompletePrediction,
+    value: google.maps.places.AutocompletePrediction | undefined,
   ) => void;
 } & SafeOmit<AutocompleteProps, "value" | "onChange" | "data">;
 
@@ -35,6 +35,11 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     },
     initOnMount: false,
   });
+
+  const onClearInput = () => {
+    setValue("");
+    onSelectSuggestion?.(undefined);
+  };
 
   useEffect(() => {
     if (places) {
@@ -59,6 +64,9 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
         onSelectSuggestion?.(
           data.find((suggestion) => suggestion.description === value)!,
         )
+      }
+      rightSection={
+        <CloseButton aria-label="Clear input" onClick={onClearInput} />
       }
       {...props}
     />
