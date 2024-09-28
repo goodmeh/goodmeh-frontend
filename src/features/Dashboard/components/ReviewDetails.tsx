@@ -18,6 +18,7 @@ import { RatingStars } from "@/components/ui/RatingStars";
 import { Review } from "@/types/data";
 
 import classes from "./ReviewDetails.module.scss";
+import { ReviewGallery } from "./ReviewGallery";
 
 type Props = {
   review: Review;
@@ -84,20 +85,7 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
           <Progress value={(review.weight / 9) * 100} />
         </Box>
       </Group>
-
-      {review.image_urls.length > 0 && (
-        <Group mt="sm" gap="xs">
-          {review.image_urls.map((imageUrl) => (
-            <Image
-              h={400}
-              maw={250}
-              src={imageUrl}
-              key={imageUrl}
-              referrerPolicy="no-referrer"
-            />
-          ))}
-        </Group>
-      )}
+      <ReviewGallery imageUrls={review.image_urls} />
     </Box>
   );
 };
