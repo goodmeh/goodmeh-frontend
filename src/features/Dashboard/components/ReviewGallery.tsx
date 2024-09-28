@@ -1,5 +1,5 @@
 import { Box, Center, Group, Image, Text } from "@mantine/core";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import classes from "./ReviewGallery.module.scss";
 
@@ -11,16 +11,33 @@ const MAX_DISPLAY_IMAGES = 4;
 
 export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
   const [isShowingAllImages, setIsShowingAllImages] = useState(false);
+  const displayedImages = useMemo(
+    () =>
+      isShowingAllImages ? imageUrls : imageUrls.slice(0, MAX_DISPLAY_IMAGES),
+    [isShowingAllImages, imageUrls],
+  );
 
   if (imageUrls.length == 0) {
     return null;
   }
+
+  const LastImageOverlay = ({ isLastImage }: { isLastImage: boolean }) =>
+    isLastImage &&
+    imageUrls.length > MAX_DISPLAY_IMAGES &&
+    !isShowingAllImages && (
+      <Center
+        className={classes.ReviewGallery__LastImageOverlay}
+        onClick={() => setIsShowingAllImages(true)}
+      >
+        <Text size="xxl" fw="bold">
+          +{imageUrls.length - MAX_DISPLAY_IMAGES}
+        </Text>
+      </Center>
+    );
+
   return (
     <Group mt="sm" gap="xs">
-      {(isShowingAllImages
-        ? imageUrls
-        : imageUrls.slice(0, MAX_DISPLAY_IMAGES)
-      ).map((imageUrl, index) => (
+      {displayedImages.map((imageUrl, index) => (
         <Box pos="relative" key={imageUrl}>
           <Image
             h={400}
@@ -28,18 +45,7 @@ export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
             src={imageUrl}
             referrerPolicy="no-referrer"
           />
-          {index == MAX_DISPLAY_IMAGES - 1 &&
-            imageUrls.length > MAX_DISPLAY_IMAGES &&
-            !isShowingAllImages && (
-              <Center
-                className={classes.ReviewGallery__LastImageOverlay}
-                onClick={() => setIsShowingAllImages(true)}
-              >
-                <Text size="xxl" fw="bold">
-                  +{imageUrls.length - MAX_DISPLAY_IMAGES}
-                </Text>
-              </Center>
-            )}
+          <LastImageOverlay isLastImage={index == MAX_DISPLAY_IMAGES - 1} />
         </Box>
       ))}
     </Group>
