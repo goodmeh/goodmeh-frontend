@@ -1,4 +1,4 @@
-import { Box, Divider, ScrollArea, Stack, Title } from "@mantine/core";
+import { Box, Card, Divider, ScrollArea, Stack, Title } from "@mantine/core";
 import { cloneDeep } from "es-toolkit";
 import {
   Fragment,
@@ -55,16 +55,23 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
   return (
     <Stack mah={sectionHeight}>
       <Title order={3}>Reviews</Title>
-      <ScrollArea.Autosize onBottomReached={loadMore} viewportRef={scrollarea}>
-        <Stack>
-          {flattenedReviews.map((review, index) => (
-            <Fragment key={review.id}>
-              {index !== 0 && <Divider />}
-              <ReviewCard review={review} />
-            </Fragment>
-          ))}
-        </Stack>
-      </ScrollArea.Autosize>
+      <Card p={0} withBorder>
+        <ScrollArea.Autosize
+          onBottomReached={loadMore}
+          viewportRef={scrollarea}
+          p="md"
+          pr="xs"
+        >
+          <Stack pr="lg">
+            {flattenedReviews.map((review, index) => (
+              <Fragment key={review.id}>
+                {index !== 0 && <Divider />}
+                <ReviewCard review={review} />
+              </Fragment>
+            ))}
+          </Stack>
+        </ScrollArea.Autosize>
+      </Card>
     </Stack>
   );
 };

@@ -1,10 +1,23 @@
-import { Avatar, Box, Group, Image, SimpleGrid, Text } from "@mantine/core";
+import {
+  Avatar,
+  Blockquote,
+  Box,
+  Group,
+  Image,
+  Progress,
+  Space,
+  Spoiler,
+  Text,
+} from "@mantine/core";
+import { IconSparkles } from "@tabler/icons-react";
 import { formatRelative } from "date-fns";
 import pluralize from "pluralize";
 import { useMemo } from "react";
 
 import { RatingStars } from "@/components/ui/RatingStars";
 import { Review } from "@/types/data";
+
+import classes from "./ReviewCard.module.scss";
 
 type Props = {
   review: Review;
@@ -47,7 +60,30 @@ export const ReviewCard: React.FC<Props> = ({ review }) => {
           {formatRelative(review.created_at, new Date())}
         </Text>
       </Group>
-      <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
+
+      <Group align="start" wrap="nowrap">
+        <Spoiler flex={3} maxHeight={120} showLabel="More" hideLabel="Less">
+          <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
+        </Spoiler>
+
+        <Box flex={1}>
+          {review.text && (
+            <>
+              <Blockquote
+                className={classes.ReviewCard__Blockquote}
+                icon={<IconSparkles />}
+              >
+                {review.text.slice(0, 100)}
+              </Blockquote>
+              <Space h="md" />
+            </>
+          )}
+          <Text c="dimmed" size="sm">
+            Review Insight
+          </Text>
+          <Progress value={(review.weight / 9) * 100} />
+        </Box>
+      </Group>
 
       {review.image_urls.length > 0 && (
         <Group mt="sm" gap="xs">
