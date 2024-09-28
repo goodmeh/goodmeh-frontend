@@ -28,6 +28,9 @@ export const PlaceSearch: React.FC<Props> = ({
 
   const loadLocation = useCallback(() => {
     if (!location) {
+      setPlace(undefined);
+      onPlaceChange?.(undefined);
+      setRequestStatus(undefined);
       return;
     }
 
@@ -41,14 +44,19 @@ export const PlaceSearch: React.FC<Props> = ({
         if (response.failed) {
           return;
         }
-        setRefreshCountdown(10);
-        timeout = setTimeout(() => {
-          setRefreshCountdown((countdown) => countdown - 1);
-        }, 1000);
+      } else {
+        setPlace(response);
+        onPlaceChange?.(response);
+        setRequestStatus(undefined);
+      }
+      if (!("status" in response) && response.summary) {
         return;
       }
-      setPlace(response);
-      onPlaceChange?.(response);
+      setRefreshCountdown(10);
+      timeout = setTimeout(() => {
+        setRefreshCountdown((countdown) => countdown - 1);
+      }, 1000);
+      return;
     });
 
     return () => clearTimeout(timeout);
