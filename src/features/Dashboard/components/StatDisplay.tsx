@@ -16,7 +16,7 @@ export const StatDisplay: React.FC<Props> = ({ place }) => {
       render: () => (
         <div
           style={{
-            transform: `rotate(${180 * (1 - place.weighted_rating / 5)}deg)`,
+            transform: `rotate(${180 * (1 - (place.weighted_rating - 1) / 4)}deg)`,
           }}
         >
           👍
