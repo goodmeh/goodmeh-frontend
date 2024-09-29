@@ -1,5 +1,7 @@
-import { Box, Center, Group, Image, Text } from "@mantine/core";
+import { Box, Center, Group, Text } from "@mantine/core";
 import { useMemo, useState } from "react";
+
+import { MediaPreview } from "@/components/reviewMedia/MediaPreview";
 
 import classes from "./ReviewGallery.module.scss";
 
@@ -39,12 +41,7 @@ export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
     <Group mt="sm" gap="xs">
       {displayedImages.map((imageUrl, index) => (
         <Box pos="relative" key={imageUrl}>
-          <Image
-            h={400}
-            maw={250}
-            src={imageUrl}
-            referrerPolicy="no-referrer"
-          />
+          <MediaPreview mediaUrl={imageUrl} />
           <LastImageOverlay isLastImage={index == MAX_DISPLAY_IMAGES - 1} />
         </Box>
       ))}

@@ -10,6 +10,7 @@ import {
 import { format } from "date-fns";
 import React, { useEffect, useMemo, useState } from "react";
 
+import { MediaPreview } from "@/components/reviewMedia/MediaPreview";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { Place } from "@/types/data";
 
@@ -73,14 +74,11 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
             <ScrollArea type="always" h={300}>
               <SimpleGrid cols={3}>
                 {flattenedImages.map((image) => (
-                  <Image
-                    h="100%"
-                    w="100%"
-                    src={image}
-                    alt={place.name}
+                  <MediaPreview
                     key={image}
-                    referrerPolicy="no-referrer"
-                    fit="cover"
+                    mediaUrl={image}
+                    height="100%"
+                    width="100%"
                   />
                 ))}
               </SimpleGrid>
