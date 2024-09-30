@@ -3,12 +3,23 @@ import { SimpleGrid } from "@mantine/core";
 import { Place } from "@/types/data";
 
 import { StatCard } from "./StatCard";
+import { StatCardSkeleton } from "./StatDisplaySkeleton";
 
 type Props = {
-  place: Place;
+  place: Place | undefined;
 };
 
 export const StatDisplay: React.FC<Props> = ({ place }) => {
+  if (!place)
+    return (
+      <SimpleGrid cols={2}>
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+        <StatCardSkeleton />
+      </SimpleGrid>
+    );
+
   const data = [
     {
       title: "How good?",

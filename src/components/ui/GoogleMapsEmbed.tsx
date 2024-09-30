@@ -1,3 +1,4 @@
+import { Skeleton } from "@mantine/core";
 import clsx from "clsx";
 import React, { useMemo } from "react";
 
@@ -24,6 +25,13 @@ export const GoogleMapsEmbed: React.FC<Props> = ({
       ...rest,
     };
   }, [style]);
+
+  if (!placeId) {
+    return (
+      <Skeleton className={clsx(className)} style={computedStyle} mih={100} />
+    );
+  }
+
   return (
     <iframe
       className={clsx(className)}
