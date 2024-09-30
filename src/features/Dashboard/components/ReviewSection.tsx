@@ -13,9 +13,10 @@ import { Place, Review } from "@/types/data";
 
 import { getPlaceReviews } from "../api/getPlaceReviews";
 import { ReviewDetails } from "./ReviewDetails";
+import { ReviewDetailsSkeleton } from "./ReviewDetailsSkeleton";
 
 type Props = {
-  place: Place;
+  place: Place | undefined;
 };
 
 const sectionHeight =
@@ -30,7 +31,7 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
   const scrollarea = useRef<HTMLDivElement>(null);
 
   const loadMore = useCallback(() => {
-    if (isLoading || !hasNextPage) return;
+    if (isLoading || !hasNextPage || !place?.id) return;
     setIsLoading(true);
     getPlaceReviews(place.id, currentPage + 1).then((response) => {
       setReviews((prev) => {
@@ -42,9 +43,10 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
       setHasNextPage(response.has_next);
       setIsLoading(false);
     });
-  }, [currentPage, isLoading, hasNextPage, place.id]);
+  }, [currentPage, isLoading, hasNextPage, place?.id]);
 
   useEffect(() => {
+    if (!place?.id) return;
     scrollarea.current?.scrollTo({ top: 0 });
     setReviews([]);
     setHasNextPage(true);
@@ -53,7 +55,7 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
     // we want to run this once at the start
     // subsequent calls will be triggered by scrolling
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [place.id]);
+  }, [place?.id]);
 
   return (
     <Stack mah={sectionHeight}>
@@ -72,6 +74,13 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
                 <ReviewDetails review={review} />
               </Fragment>
             ))}
+            {(isLoading || !place) &&
+              Array.from({ length: 3 }).map((_, index) => (
+                <Fragment key={index}>
+                  {index !== 0 && <Divider />}
+                  <ReviewDetailsSkeleton />
+                </Fragment>
+              ))}
           </Stack>
         </ScrollArea.Autosize>
       </Card>

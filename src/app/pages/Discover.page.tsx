@@ -10,7 +10,7 @@ export const DiscoverPage: React.FC = () => {
   return (
     <>
       <PlaceSearch>
-        {({ placeCard, place }) => (
+        {({ placeCard, place, location }) => (
           <>
             <Group
               wrap="nowrap"
@@ -20,7 +20,7 @@ export const DiscoverPage: React.FC = () => {
               <Stack>
                 {placeCard}
                 <GoogleMapsEmbed
-                  placeId={place.id}
+                  placeId={location.place_id}
                   style={{
                     borderRadius: "var(--mantine-radius-md)",
                     height: "auto",
