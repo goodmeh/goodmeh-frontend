@@ -29,4 +29,6 @@ export type Review = {
   weight: number;
   place_name: string;
   image_urls: string[];
+  summary: string | null;
+  business_summary: string | null;
 };

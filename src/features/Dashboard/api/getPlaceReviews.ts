@@ -23,6 +23,10 @@ const MOCK_REVIEWS: Review[] = [
       "https://lh5.googleusercontent.com/p/AF1QipMXQc9wTQbHSfHB1bcEnJ1R0lMZAe_vshkxL91r",
       "https://lh5.googleusercontent.com/p/AF1QipOrBm0Teip7iKHFpNFF91uY-uQKP9_U5xmQAayP",
     ],
+    summary:
+      "Great experience! The food was delicious and the service was excellent.",
+    business_summary:
+      "The food was delicious and the service was excellent. The ambiance was great and the food was delicious. The service was excellent. The ambiance was great and the food was delicious. The service was excellent.",
   },
   {
     id: "2",
@@ -42,6 +46,9 @@ const MOCK_REVIEWS: Review[] = [
     weight: 0.6,
     place_name: "Tasty Bites Restaurant",
     image_urls: [],
+    summary: "Decent place, but a bit overpriced for what you get.",
+    business_summary:
+      "The food was delicious and the service was excellent. The ambiance was great and the food was delicious. The service was excellent. The ambiance was great and the food was delicious. The service was excellent.",
   },
   {
     id: "3",
@@ -65,6 +72,10 @@ const MOCK_REVIEWS: Review[] = [
       "https://lh5.googleusercontent.com/p/AF1QipMbMamq64_3toOR64KkISt7InjdZwh0bSSiFRH8",
       "https://lh5.googleusercontent.com/p/AF1QipOFgUK8NQtqbuS3BM-rE3dIIQ8EVMmazYEzy2Kl",
     ],
+    summary:
+      "Absolutely fantastic! The ambiance, food, and service were all top-notch.",
+    business_summary:
+      "The food was delicious and the service was excellent. The ambiance was great and the food was delicious. The service was excellent. The ambiance was great and the food was delicious. The service was excellent.",
   },
 ];
 

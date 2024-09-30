@@ -3,7 +3,6 @@ import {
   Blockquote,
   Box,
   Group,
-  Image,
   Progress,
   Space,
   Spoiler,
@@ -15,6 +14,7 @@ import pluralize from "pluralize";
 import { useMemo } from "react";
 
 import { RatingStars } from "@/components/ui/RatingStars";
+import { useViewMode } from "@/hooks/useViewMode";
 import { Review } from "@/types/data";
 
 import classes from "./ReviewDetails.module.scss";
@@ -25,6 +25,7 @@ type Props = {
 };
 
 export const ReviewDetails: React.FC<Props> = ({ review }) => {
+  const { viewMode } = useViewMode();
   const userSubtext = useMemo(() => {
     const parts: string[] = [];
     if (review.user.review_count > 0) {
@@ -40,6 +41,10 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
 
     return parts.join(" \u00b7 ");
   }, [review]);
+  const summaryToDisplay = useMemo(
+    () => (viewMode == "business" ? review.business_summary : review.summary),
+    [viewMode, review],
+  );
   return (
     <Box>
       <Group mb="xs">
@@ -68,13 +73,13 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
         </Spoiler>
 
         <Box flex={1}>
-          {review.text && (
+          {summaryToDisplay && (
             <>
               <Blockquote
                 className={classes.ReviewCard__Blockquote}
                 icon={<IconSparkles />}
               >
-                {review.text.slice(0, 100)}
+                {summaryToDisplay}
               </Blockquote>
               <Space h="md" />
             </>
