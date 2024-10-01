@@ -6,54 +6,54 @@ import { FeatureCard } from "./FeatureCard";
 
 const CONSUMER_FEATURES = [
   {
-    title: "Review Quality Indicator",
+    title: "Keeping It Real",
     description:
       "No more inflated review scores. GoodMeh? ensures that reviews are weighted based on reviewer credibility.",
     icon: "🏆",
   },
   {
-    title: "Review Filtering",
+    title: "Narrowing It Down",
     description:
       "Filters to help you narrow down reviews based on specific criteria, such as price range, cuisine type, or amenities.",
     icon: "🔍",
   },
   {
-    title: "Review Summary",
+    title: "Shorter & Clearer Reviews",
     description:
       "Get a quick overview of a business's reviews, including average rating, sentiment analysis, and more.",
     icon: "📝",
   },
   {
-    title: "Review Comparison Tool",
+    title: "Choosing Easily & Quickly",
     description:
-      "Easily compare reviews across different businesses, and make informed decisions.",
+      "Easily compare different businesses, and make informed decisions on which one to go with.",
     icon: "⚖️",
   },
 ];
 
 const BUSINESS_FEATURES = [
   {
-    title: "Business Dashboard",
+    title: "Monitor Key Business Metrics",
     description:
       "Comprehensive dashboard to track key metrics, such as average review ratings, customer sentiment, and engagement levels.",
     icon: "📊",
   },
   {
-    title: "Reputation Management",
+    title: "Manage Reputation & Service Recovery",
     description:
       "Monitor and manage your online reputation, including identifying negative reviews.",
     icon: "🛡️",
   },
   {
-    title: "Customer Feedback Analysis",
+    title: "Analyze Customer Feedback",
     description:
       "Provide detailed analysis of customer feedback, including common themes, concerns, and suggestions for improvement.",
     icon: "👂",
   },
   {
-    title: "Lorem, ipsum",
+    title: "Research Competitor Offerings",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, iure perferendis provident reprehenderit rem debitis!",
+      "Find out what your competitors are doing, identify gaps in the market, and improve your business.",
     icon: "⚔️",
   },
 ];
