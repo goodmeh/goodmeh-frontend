@@ -58,11 +58,16 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     <Autocomplete
       value={value}
       onChange={setValue}
-      data={data.map((suggestion) => suggestion.description)}
+      data={data.map(
+        (suggestion) =>
+          `${suggestion.structured_formatting.main_text}, ${suggestion.structured_formatting.secondary_text}`,
+      )}
       disabled={!places}
       onOptionSubmit={(value) =>
         onSelectSuggestion?.(
-          data.find((suggestion) => suggestion.description === value)!,
+          data.find((suggestion) =>
+            value.includes(suggestion.structured_formatting.main_text),
+          )!,
         )
       }
       rightSection={
