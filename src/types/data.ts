@@ -8,6 +8,9 @@ export type Place = {
   user_rating_count: number;
   summary: string;
   last_scraped: string;
+  business_summary: string | null;
+  price_range: number[] | null;
+  earliest_review_date: string | null;
 };
 
 export type User = {

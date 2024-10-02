@@ -1,4 +1,5 @@
 import { SimpleGrid } from "@mantine/core";
+import { formatDistanceToNow } from "date-fns";
 
 import { Place } from "@/types/data";
 
@@ -39,8 +40,24 @@ export const StatDisplay: React.FC<Props> = ({ place }) => {
       caption: "70% of all reviews",
       render: () => "🤷‍♂️",
     },
-    { title: "How much?", caption: "$10-20 per person", render: () => "💸" },
-    { title: "How long?", caption: "3 years", render: () => "🗓️" },
+    {
+      title: "How much?",
+      caption: place.price_range
+        ? place.price_range[0] == 100
+          ? "$100+"
+          : `$${place.price_range[0]}-${place.price_range[1]}`
+        : "Unknown",
+      render: () => "💸",
+    },
+    {
+      title: "How long?",
+      caption: place.earliest_review_date
+        ? formatDistanceToNow(new Date(place.earliest_review_date), {
+            addSuffix: true,
+          })
+        : "Unknown",
+      render: () => "🗓️",
+    },
   ];
   const stats = data.map((stat) => {
     return (

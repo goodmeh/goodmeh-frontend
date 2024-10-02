@@ -13,6 +13,9 @@ const MOCK_PLACE: Place = {
   summary:
     "The Signature Mala Collagen Soup and Mala Stir Fry are a must-try for those seeking a unique Singaporean Mala experience. The restaurant offers a variety of ingredients, including deep-fried lotus roots, potato, and fish, and can be topped with creamy scrambled eggs. All ingredients are priced at $2.88/100g. The restaurant also offers a hidden DIY menu, including deep-fried mantou dipped in peanut sauce for a special peanut butter topping. The food is delicious, but there is a long wait time due to an unexpected equipment malfunction. The secret powder is a must-try, and the Mala Collagen Soup is a must-try.",
   last_scraped: "2024-09-07T14:55:50.855Z",
+  business_summary: null,
+  price_range: [10, 20],
+  earliest_review_date: "2024-09-07T14:55:50.855Z",
 };
 
 export const getMockPlace = async (id: string) => {

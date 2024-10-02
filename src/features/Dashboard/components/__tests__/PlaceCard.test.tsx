@@ -25,6 +25,9 @@ describe("PlaceCard component", () => {
     primary_type: "Restaurant",
     last_scraped: new Date().toISOString(),
     summary: "This is a sample place summary.",
+    business_summary: "This is a sample business summary.",
+    price_range: [10, 20],
+    earliest_review_date: new Date().toISOString(),
   };
 
   it("renders place name", () => {
