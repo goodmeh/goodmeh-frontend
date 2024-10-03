@@ -6,13 +6,20 @@ import {
   RequestPlaceStatusResponse,
 } from "@/features/Dashboard/api/getPlace";
 import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
+import { PlaceCardSkeleton } from "@/features/Dashboard/components/PlaceCardSkeleton";
 import { Place } from "@/types/data";
 
 import { PlacesAutocompleteField } from "./PlacesAutocompleteField";
 
+type ChildProps = {
+  placeCard: React.ReactNode;
+  place: Place | undefined;
+  location: google.maps.places.AutocompletePrediction;
+};
+
 type Props = {
   onPlaceChange?: (place: Place | undefined) => void;
-  children?: React.FC<{ placeCard: React.ReactNode; place: Place }>;
+  children?: React.FC<ChildProps>;
 };
 
 export const PlaceSearch: React.FC<Props> = ({
@@ -28,6 +35,9 @@ export const PlaceSearch: React.FC<Props> = ({
 
   const loadLocation = useCallback(() => {
     if (!location) {
+      setPlace(undefined);
+      onPlaceChange?.(undefined);
+      setRequestStatus(undefined);
       return;
     }
 
@@ -41,14 +51,19 @@ export const PlaceSearch: React.FC<Props> = ({
         if (response.failed) {
           return;
         }
-        setRefreshCountdown(10);
-        timeout = setTimeout(() => {
-          setRefreshCountdown((countdown) => countdown - 1);
-        }, 1000);
+      } else {
+        setPlace(response);
+        onPlaceChange?.(response);
+        setRequestStatus(undefined);
+      }
+      if (!("status" in response) && response.summary) {
         return;
       }
-      setPlace(response);
-      onPlaceChange?.(response);
+      setRefreshCountdown(10);
+      timeout = setTimeout(() => {
+        setRefreshCountdown((countdown) => countdown - 1);
+      }, 1000);
+      return;
     });
 
     return () => clearTimeout(timeout);
@@ -72,6 +87,7 @@ export const PlaceSearch: React.FC<Props> = ({
   }, [refreshCountdown, loadLocation]);
 
   const ChildComponent = children;
+  const placeCard = place ? <PlaceCard place={place} /> : <PlaceCardSkeleton />;
 
   return (
     <Stack>
@@ -79,25 +95,20 @@ export const PlaceSearch: React.FC<Props> = ({
         placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
         onSelectSuggestion={setLocation}
       />
-      <Space h="md" />
-      {place ? (
-        <ChildComponent placeCard={<PlaceCard place={place} />} place={place} />
-      ) : requestStatus && location ? (
+
+      {location && !requestStatus?.failed && (
+        <ChildComponent
+          placeCard={placeCard}
+          place={place}
+          location={location}
+        />
+      )}
+      {location && requestStatus?.failed && (
         <Text>
-          {requestStatus.failed ? (
-            <>
-              Our servers are still {requestStatus.status.toLowerCase()} data
-              for {location.description}! Please try again later.
-            </>
-          ) : (
-            <>
-              Our servers are still {requestStatus.status.toLowerCase()} data
-              for {location.description}! Refreshing
-              {refreshCountdown > 0 ? ` in ${refreshCountdown} seconds` : ""}...
-            </>
-          )}
+          Our servers are still {requestStatus.status.toLowerCase()} data for{" "}
+          {location.description}! Please try again later.
         </Text>
-      ) : null}
+      )}
     </Stack>
   );
 };

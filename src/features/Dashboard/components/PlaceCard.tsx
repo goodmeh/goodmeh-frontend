@@ -10,7 +10,8 @@ import {
 import { format } from "date-fns";
 import React, { useEffect, useMemo, useState } from "react";
 
-import { PartialStar } from "@/components/ui/PartialStar";
+import { MediaPreview } from "@/components/reviewMedia/MediaPreview";
+import { RatingStars } from "@/components/ui/RatingStars";
 import { Place } from "@/types/data";
 
 import { getPlaceImages, GetPlaceImagesResponse } from "../api/getPlaceImages";
@@ -48,11 +49,8 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
         {place.name}
       </Text>
       <Text size="sm" c="dimmed">
-        {place.rating.toFixed(1)}{" "}
-        {Array.from({ length: Math.ceil(place.rating) }).map((_, i) => (
-          <PartialStar fill={place.rating - i} key={i} />
-        ))}{" "}
-        ({place.user_rating_count})
+        {place.rating.toFixed(1)} <RatingStars rating={place.rating} /> (
+        {place.user_rating_count})
       </Text>
       <Text size="sm" c="dimmed">
         {place.primary_type}
@@ -76,14 +74,11 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
             <ScrollArea type="always" h={300}>
               <SimpleGrid cols={3}>
                 {flattenedImages.map((image) => (
-                  <Image
-                    h="100%"
-                    w="100%"
-                    src={image}
-                    alt={place.name}
+                  <MediaPreview
                     key={image}
-                    referrerPolicy="no-referrer"
-                    fit="cover"
+                    mediaUrl={image}
+                    height="100%"
+                    width="100%"
                   />
                 ))}
               </SimpleGrid>

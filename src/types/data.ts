@@ -9,3 +9,26 @@ export type Place = {
   summary: string;
   last_scraped: string;
 };
+
+export type User = {
+  id: string;
+  name: string;
+  photo_uri: string | null;
+  rating_count: number;
+  review_count: number;
+  photo_count: number;
+};
+
+export type Review = {
+  id: string;
+  place_id: string;
+  user: User;
+  rating: number;
+  text: string;
+  created_at: string;
+  weight: number;
+  place_name: string;
+  image_urls: string[];
+  summary: string | null;
+  business_summary: string | null;
+};
