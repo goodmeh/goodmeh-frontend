@@ -1,12 +1,12 @@
-import { Box, Space, Stack, Text } from "@mantine/core";
+import { Stack, Text } from "@mantine/core";
 import { useCallback, useEffect, useState } from "react";
 
 import {
   getPlace,
   RequestPlaceStatusResponse,
-} from "@/features/Dashboard/api/getPlace";
-import { PlaceCard } from "@/features/Dashboard/components/PlaceCard";
-import { PlaceCardSkeleton } from "@/features/Dashboard/components/PlaceCardSkeleton";
+} from "@/features/Discover/api/getPlace";
+import { PlaceCard } from "@/features/Discover/components/PlaceCard";
+import { PlaceCardSkeleton } from "@/features/Discover/components/PlaceCardSkeleton";
 import { Place } from "@/types/data";
 
 import { PlacesAutocompleteField } from "./PlacesAutocompleteField";
