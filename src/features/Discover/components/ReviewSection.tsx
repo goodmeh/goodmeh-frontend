@@ -1,4 +1,4 @@
-import { Box, Card, Divider, ScrollArea, Stack, Title } from "@mantine/core";
+import { Card, Divider, ScrollArea, Stack, Title } from "@mantine/core";
 import { cloneDeep } from "es-toolkit";
 import {
   Fragment,
