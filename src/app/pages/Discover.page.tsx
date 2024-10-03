@@ -3,8 +3,8 @@ import { Group, Space, Stack } from "@mantine/core";
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlaceSearch } from "@/components/ui/PlaceSearch";
 import classes from "@/components/ui/PlaceSearch.module.scss";
-import { ReviewSection } from "@/features/Dashboard/components/ReviewSection";
-import { StatDisplay } from "@/features/Dashboard/components/StatDisplay";
+import { ReviewSection } from "@/features/Discover/components/ReviewSection";
+import { StatDisplay } from "@/features/Discover/components/StatDisplay";
 
 export const DiscoverPage: React.FC = () => {
   return (
