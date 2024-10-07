@@ -1,4 +1,9 @@
-import { Autocomplete, AutocompleteProps, CloseButton } from "@mantine/core";
+import {
+  Autocomplete,
+  AutocompleteProps,
+  CloseButton,
+  Text,
+} from "@mantine/core";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import React, { useEffect } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -59,21 +64,43 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
       value={value}
       onChange={setValue}
       data={data.map(
-        (suggestion) =>
-          `${suggestion.structured_formatting.main_text}, ${suggestion.structured_formatting.secondary_text}`,
+        (suggestion) => suggestion.structured_formatting.main_text,
       )}
       disabled={!places}
       onOptionSubmit={(value) =>
         onSelectSuggestion?.(
-          data.find((suggestion) =>
-            value.includes(suggestion.structured_formatting.main_text),
+          data.find(
+            (suggestion) => value == suggestion.structured_formatting.main_text,
           )!,
         )
       }
       rightSection={
         <CloseButton aria-label="Clear input" onClick={onClearInput} />
       }
+      renderOption={({ option }) => (
+        <SuggestionOption
+          suggestion={
+            data.find(
+              (suggestion) =>
+                option.value == suggestion.structured_formatting.main_text,
+            )!
+          }
+        />
+      )}
       {...props}
     />
+  );
+};
+
+const SuggestionOption: React.FC<{
+  suggestion?: google.maps.places.AutocompletePrediction;
+}> = ({ suggestion }) => {
+  return (
+    <div>
+      <Text>{suggestion?.structured_formatting.main_text}</Text>
+      <Text size="sm" c="dimmed">
+        {suggestion?.structured_formatting.secondary_text}
+      </Text>
+    </div>
   );
 };
