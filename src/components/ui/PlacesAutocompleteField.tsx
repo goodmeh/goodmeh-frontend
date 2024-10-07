@@ -1,6 +1,11 @@
-import { Autocomplete, AutocompleteProps, CloseButton } from "@mantine/core";
+import {
+  Autocomplete,
+  AutocompleteProps,
+  CloseButton,
+  Text,
+} from "@mantine/core";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
 import { SafeOmit } from "@/types/helpers";
@@ -41,6 +46,15 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     onSelectSuggestion?.(undefined);
   };
 
+  const findByMainText = useCallback(
+    (mainText: string) => {
+      return data.find(
+        (suggestion) => suggestion.structured_formatting.main_text == mainText,
+      );
+    },
+    [data],
+  );
+
   useEffect(() => {
     if (places) {
       init();
@@ -59,21 +73,30 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
       value={value}
       onChange={setValue}
       data={data.map(
-        (suggestion) =>
-          `${suggestion.structured_formatting.main_text}, ${suggestion.structured_formatting.secondary_text}`,
+        (suggestion) => suggestion.structured_formatting.main_text,
       )}
       disabled={!places}
-      onOptionSubmit={(value) =>
-        onSelectSuggestion?.(
-          data.find((suggestion) =>
-            value.includes(suggestion.structured_formatting.main_text),
-          )!,
-        )
-      }
+      onOptionSubmit={(value) => onSelectSuggestion?.(findByMainText(value))}
       rightSection={
         <CloseButton aria-label="Clear input" onClick={onClearInput} />
       }
+      renderOption={({ option }) => (
+        <SuggestionOption suggestion={findByMainText(option.value)} />
+      )}
       {...props}
     />
+  );
+};
+
+const SuggestionOption: React.FC<{
+  suggestion?: google.maps.places.AutocompletePrediction;
+}> = ({ suggestion }) => {
+  return (
+    <div>
+      <Text>{suggestion?.structured_formatting.main_text}</Text>
+      <Text size="sm" c="dimmed">
+        {suggestion?.structured_formatting.secondary_text}
+      </Text>
+    </div>
   );
 };
