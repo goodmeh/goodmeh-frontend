@@ -1,13 +1,21 @@
 export type Place = {
   id: string;
   name: string;
-  primary_type: string;
-  image_url?: string;
   rating: number;
   weighted_rating: number;
   user_rating_count: number;
   summary: string;
   last_scraped: string;
+  image_url: string | null;
+  primary_type: string | null;
+  business_summary: string | null;
+  price_range: string;
+  earliest_review_date: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  accuracy: string;
 };
 
 export type User = {
