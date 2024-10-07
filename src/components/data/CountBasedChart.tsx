@@ -1,14 +1,10 @@
 import { BarChart } from "@mantine/charts";
 
-const data = [
-  { keyword: "Cheap", count: 1200 },
-  { keyword: "Good Service", count: 1900 },
-  { keyword: "Fast Delivery", count: 400 },
-  { keyword: "Friendly Staff", count: 1000 },
-  { keyword: "Clean", count: 800 },
-];
+type Props = {
+  data: { keyword: string; count: number }[];
+};
 
-export const CountBasedChart: React.FC = () => {
+export const CountBasedChart: React.FC<Props> = ({ data }) => {
   return (
     <BarChart
       h={300}
