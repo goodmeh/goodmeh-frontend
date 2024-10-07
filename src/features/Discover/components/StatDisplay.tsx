@@ -35,12 +35,16 @@ export const StatDisplay: React.FC<Props> = ({ place }) => {
       ),
     },
     {
-      title: "How accurate?",
-      caption: "70% of all reviews",
+      title: "How sure?",
+      caption: place.accuracy,
       render: () => "🤷‍♂️",
     },
-    { title: "How much?", caption: "$10-20 per person", render: () => "💸" },
-    { title: "How long?", caption: "3 years", render: () => "🗓️" },
+    { title: "How much?", caption: place.price_range, render: () => "💸" },
+    {
+      title: "How long?",
+      caption: place.earliest_review_date,
+      render: () => "🗓️",
+    },
   ];
   const stats = data.map((stat) => {
     return (

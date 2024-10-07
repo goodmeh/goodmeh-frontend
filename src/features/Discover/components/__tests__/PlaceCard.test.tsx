@@ -25,6 +25,14 @@ describe("PlaceCard component", () => {
     primary_type: "Restaurant",
     last_scraped: new Date().toISOString(),
     summary: "This is a sample place summary.",
+    business_summary: "This is a sample business summary.",
+    price_range: "$10-20 per person",
+    earliest_review_date: "3 years",
+    accuracy: "70% of all reviews",
+    location: {
+      lat: 1.3521,
+      lng: 103.7942,
+    },
   };
 
   it("renders place name", () => {
@@ -55,7 +63,7 @@ describe("PlaceCard component", () => {
 
   it("renders place primary type", () => {
     render(<PlaceCard place={place} />);
-    expect(screen.getByText(place.primary_type)).toBeInTheDocument();
+    expect(screen.getByText(place.primary_type!)).toBeInTheDocument();
   });
 
   it("renders last updated date", () => {

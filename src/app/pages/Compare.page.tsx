@@ -2,7 +2,7 @@ import { SimpleGrid, Space, Title } from "@mantine/core";
 import { useState } from "react";
 
 import { PlaceSearch } from "@/components/ui/PlaceSearch";
-import { PlaceComparisonTable } from "@/features/Compare/PlaceComparisonTable";
+import { PlaceComparisonTable } from "@/features/Compare/components/PlaceComparisonTable";
 import { Place } from "@/types/data";
 
 export const ComparePage: React.FC = () => {
@@ -22,10 +22,7 @@ export const ComparePage: React.FC = () => {
       </SimpleGrid>
       <Space h="md" />
       {place1 && place2 && (
-        <PlaceComparisonTable
-          place1Name={place1.name}
-          place2Name={place2.name}
-        />
+        <PlaceComparisonTable place1={place1} place2={place2} />
       )}
     </>
   );
