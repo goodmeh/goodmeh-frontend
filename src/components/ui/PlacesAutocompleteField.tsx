@@ -50,8 +50,8 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     (address: string) => {
       return data.find(
         (suggestion) =>
-          address.includes(suggestion.structured_formatting.main_text) &&
-          address.includes(suggestion.structured_formatting.secondary_text),
+          address ===
+          `${suggestion.structured_formatting.main_text}, ${suggestion.structured_formatting.secondary_text}`,
       );
     },
     [data],
