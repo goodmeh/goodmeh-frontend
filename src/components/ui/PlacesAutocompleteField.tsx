@@ -47,9 +47,11 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   };
 
   const findByMainText = useCallback(
-    (mainText: string) => {
+    (address: string) => {
       return data.find(
-        (suggestion) => suggestion.structured_formatting.main_text == mainText,
+        (suggestion) =>
+          address.includes(suggestion.structured_formatting.main_text) &&
+          address.includes(suggestion.structured_formatting.secondary_text),
       );
     },
     [data],
@@ -73,7 +75,8 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
       value={value}
       onChange={setValue}
       data={data.map(
-        (suggestion) => suggestion.structured_formatting.main_text,
+        (suggestion) =>
+          `${suggestion.structured_formatting.main_text}, ${suggestion.structured_formatting.secondary_text}`,
       )}
       disabled={!places}
       onOptionSubmit={(value) => onSelectSuggestion?.(findByMainText(value))}
