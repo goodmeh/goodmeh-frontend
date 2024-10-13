@@ -46,11 +46,11 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
   }, [currentPage, isLoading, hasNextPage, place?.id]);
 
   useEffect(() => {
-    if (!place?.id) return;
-    scrollarea.current?.scrollTo({ top: 0 });
     setReviews([]);
     setHasNextPage(true);
     setCurrentPage(0);
+    if (!place?.id) return;
+    scrollarea.current?.scrollTo({ top: 0 });
     loadMore();
     // we want to run this once at the start
     // subsequent calls will be triggered by scrolling
