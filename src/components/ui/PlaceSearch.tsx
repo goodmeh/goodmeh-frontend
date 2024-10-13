@@ -34,10 +34,10 @@ export const PlaceSearch: React.FC<Props> = ({
   const [refreshCountdown, setRefreshCountdown] = useState(0);
 
   const loadLocation = useCallback(() => {
+    setPlace(undefined);
+    onPlaceChange?.(undefined);
+    setRequestStatus(undefined);
     if (!location) {
-      setPlace(undefined);
-      onPlaceChange?.(undefined);
-      setRequestStatus(undefined);
       return;
     }
 
