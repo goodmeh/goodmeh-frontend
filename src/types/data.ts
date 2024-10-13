@@ -25,6 +25,7 @@ export type User = {
   rating_count: number;
   review_count: number;
   photo_count: number;
+  is_local_guide: boolean;
 };
 
 export type Review = {
@@ -39,4 +40,8 @@ export type Review = {
   image_urls: string[];
   summary: string | null;
   business_summary: string | null;
+  reply?: {
+    text: string;
+    created_at: string;
+  };
 };
