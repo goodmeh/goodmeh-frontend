@@ -15,10 +15,13 @@ import {
   TimeBasedChartData,
 } from "@/components/data/TimeBasedChart";
 import { getMockKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
-import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
 import {
+  getMockRatingDistribution,
+  getRatingDistribution,
+} from "@/features/Dashboard/api/getRatingDistribution";
+import {
+  getMockRatingTrend,
   getRatingTrend,
-  GetRatingTrendResponse,
 } from "@/features/Dashboard/api/getRatingTrend";
 
 const CHART_COLORS = [
@@ -55,7 +58,7 @@ const DashboardPage: React.FC = () => {
   const [keywordCount, setKeywordCount] = useState<CountBasedChartData[]>([]);
   const [ratingTrend, setRatingTrend] = useState<TimeBasedChartData[]>([]);
   useEffect(() => {
-    getRatingDistribution(placeId).then((data) => {
+    getMockRatingDistribution(placeId).then((data) => {
       setRatingDistribution(
         data.map(({ rating, count }, index) => {
           return {
@@ -76,7 +79,7 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
-    getRatingTrend(placeId).then((data) => {
+    getMockRatingTrend(placeId).then((data) => {
       setRatingTrend(
         data.data.map(({ date, value }) => {
           return { date, value };
