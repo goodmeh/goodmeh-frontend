@@ -1,7 +1,12 @@
 import { LineChart } from "@mantine/charts";
 
+export type TimeBasedChartData = {
+  date: string;
+  value: number;
+};
+
 type Props = {
-  data: { date: string; value: number }[];
+  data: TimeBasedChartData[];
 };
 
 export const TimeBasedChart: React.FC<Props> = ({ data }) => {
@@ -13,7 +18,7 @@ export const TimeBasedChart: React.FC<Props> = ({ data }) => {
       series={[{ name: "value", color: "indigo.6" }]}
       curveType="monotone"
       tickLine="x"
-      withPointLabels
+      yAxisProps={{ domain: [1, 5] }}
       strokeDasharray="15 15"
     />
   );

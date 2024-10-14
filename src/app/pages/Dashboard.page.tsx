@@ -10,9 +10,16 @@ import {
   PercentageBasedChart,
   PercentageBasedChartData,
 } from "@/components/data/PercentageBasedChart";
-import { TimeBasedChart } from "@/components/data/TimeBasedChart";
+import {
+  TimeBasedChart,
+  TimeBasedChartData,
+} from "@/components/data/TimeBasedChart";
 import { getMockKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
+import {
+  getRatingTrend,
+  GetRatingTrendResponse,
+} from "@/features/Dashboard/api/getRatingTrend";
 
 const CHART_COLORS = [
   "indigo.6",
@@ -105,6 +112,7 @@ const DashboardPage: React.FC = () => {
     PercentageBasedChartData[]
   >([]);
   const [keywordCount, setKeywordCount] = useState<CountBasedChartData[]>([]);
+  const [ratingTrend, setRatingTrend] = useState<TimeBasedChartData[]>([]);
   useEffect(() => {
     getRatingDistribution(placeId).then((data) => {
       setRatingDistribution(
@@ -127,11 +135,18 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
+    getRatingTrend(placeId).then((data) => {
+      setRatingTrend(
+        data.data.map(({ date, value }) => {
+          return { date, value };
+        }),
+      );
+    });
   }, []);
   return (
     <Grid gutter={50} styles={{ inner: { maxWidth: "100%" } }}>
       <Grid.Col span={{ base: 12, xs: 12 }}>
-        <TimeBasedChart data={TIME_CHART_DATA} />
+        <TimeBasedChart data={ratingTrend} />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
         <PercentageBasedChart
