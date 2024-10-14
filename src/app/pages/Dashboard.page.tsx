@@ -5,7 +5,10 @@ import {
   CountBasedChart,
   CountBasedChartData,
 } from "@/components/data/CountBasedChart";
-import { CriteriaBasedChart } from "@/components/data/CriteriaBasedChart";
+import {
+  CriteriaBasedChart,
+  CriteriaBasedChartData,
+} from "@/components/data/CriteriaBasedChart";
 import {
   PercentageBasedChart,
   PercentageBasedChartData,
@@ -14,6 +17,7 @@ import {
   TimeBasedChart,
   TimeBasedChartData,
 } from "@/components/data/TimeBasedChart";
+import { getMockCriteria } from "@/features/Dashboard/api/getCriteria";
 import { getMockKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import {
   getMockRatingDistribution,
@@ -23,6 +27,7 @@ import {
   getMockRatingTrend,
   getRatingTrend,
 } from "@/features/Dashboard/api/getRatingTrend";
+import { getMockReviewAge } from "@/features/Dashboard/api/getReviewAge";
 
 const CHART_COLORS = [
   "indigo.6",
@@ -32,13 +37,6 @@ const CHART_COLORS = [
   "blue.6",
   "green.6",
   "red.6",
-];
-
-const PERCENTAGE_CHART_DATA = [
-  { name: "Enthus", value: 300, color: "indigo.6" },
-  { name: "Trollers", value: 300, color: "yellow.6" },
-  { name: "Lurkers", value: 200, color: "teal.6" },
-  { name: "Bots", value: 200, color: "gray.6" },
 ];
 
 const CRITERIA_BASED_CHART_DATA = [
@@ -57,6 +55,8 @@ const DashboardPage: React.FC = () => {
   >([]);
   const [keywordCount, setKeywordCount] = useState<CountBasedChartData[]>([]);
   const [ratingTrend, setRatingTrend] = useState<TimeBasedChartData[]>([]);
+  const [reviewAge, setReviewAge] = useState<PercentageBasedChartData[]>([]);
+  const [criteria, setCriteria] = useState<CriteriaBasedChartData[]>([]);
   useEffect(() => {
     getMockRatingDistribution(placeId).then((data) => {
       setRatingDistribution(
@@ -86,6 +86,20 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
+    getMockReviewAge(placeId).then((data) => {
+      setReviewAge(
+        data.map(({ dateCreated, count }, index) => {
+          return {
+            name: dateCreated,
+            value: count,
+            color: CHART_COLORS[index],
+          };
+        }),
+      );
+    });
+    getMockCriteria(placeId).then((data) => {
+      setCriteria(data);
+    });
   }, []);
   return (
     <Grid gutter={50} styles={{ inner: { maxWidth: "100%" } }}>
@@ -99,13 +113,10 @@ const DashboardPage: React.FC = () => {
         />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
-        <CriteriaBasedChart data={CRITERIA_BASED_CHART_DATA} />
+        <CriteriaBasedChart data={criteria} />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
-        <PercentageBasedChart
-          data={PERCENTAGE_CHART_DATA}
-          title="Types of users"
-        />
+        <PercentageBasedChart data={reviewAge} title="Review Age" />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 12 }}>
         <CountBasedChart data={keywordCount} />

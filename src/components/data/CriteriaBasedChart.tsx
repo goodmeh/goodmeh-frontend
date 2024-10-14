@@ -1,7 +1,12 @@
 import { RadarChart } from "@mantine/charts";
 
+export type CriteriaBasedChartData = {
+  criteria: string;
+  score: number;
+};
+
 type Props = {
-  data: { criteria: string; score: number }[];
+  data: CriteriaBasedChartData[];
 };
 
 export const CriteriaBasedChart: React.FC<Props> = ({ data }) => {
