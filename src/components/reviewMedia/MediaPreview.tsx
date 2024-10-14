@@ -17,5 +17,5 @@ export const MediaPreview: React.FC<Props> = ({
     return <video src={mediaUrl} controls style={{ height, width }} muted />;
   }
 
-  return <Image h={height} maw={width} src={mediaUrl} />;
+  return <Image loading="lazy" h={height} maw={width} src={mediaUrl} />;
 };
