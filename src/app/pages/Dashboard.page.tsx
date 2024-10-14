@@ -19,14 +19,8 @@ import {
 } from "@/components/data/TimeBasedChart";
 import { getMockCriteria } from "@/features/Dashboard/api/getCriteria";
 import { getMockKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
-import {
-  getMockRatingDistribution,
-  getRatingDistribution,
-} from "@/features/Dashboard/api/getRatingDistribution";
-import {
-  getMockRatingTrend,
-  getRatingTrend,
-} from "@/features/Dashboard/api/getRatingTrend";
+import { getMockRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
+import { getMockRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
 import { getMockReviewAge } from "@/features/Dashboard/api/getReviewAge";
 
 const CHART_COLORS = [
@@ -37,14 +31,6 @@ const CHART_COLORS = [
   "blue.6",
   "green.6",
   "red.6",
-];
-
-const CRITERIA_BASED_CHART_DATA = [
-  { criteria: "Pricing", score: 7.8 },
-  { criteria: "Confidence", score: 3.8 },
-  { criteria: "Longevity", score: 8.8 },
-  { criteria: "Location", score: 5.9 },
-  { criteria: "Reputation", score: 9.9 },
 ];
 
 const placeId = "ChIJcXPxPAAb2jERncmNWc0znBk";
