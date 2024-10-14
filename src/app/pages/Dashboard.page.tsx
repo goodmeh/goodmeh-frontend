@@ -1,9 +1,28 @@
 import { Grid } from "@mantine/core";
+import { useEffect, useState } from "react";
 
-import { CountBasedChart } from "@/components/data/CountBasedChart";
+import {
+  CountBasedChart,
+  CountBasedChartData,
+} from "@/components/data/CountBasedChart";
 import { CriteriaBasedChart } from "@/components/data/CriteriaBasedChart";
-import { PercentageBasedChart } from "@/components/data/PercentageBasedChart";
+import {
+  PercentageBasedChart,
+  PercentageBasedChartData,
+} from "@/components/data/PercentageBasedChart";
 import { TimeBasedChart } from "@/components/data/TimeBasedChart";
+import { getMockKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
+import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
+
+const CHART_COLORS = [
+  "indigo.6",
+  "yellow.6",
+  "teal.6",
+  "gray.6",
+  "blue.6",
+  "green.6",
+  "red.6",
+];
 
 const TIME_CHART_DATA = [
   {
@@ -79,7 +98,36 @@ const COUNT_BASED_CHART_DATA = [
   { keyword: "Clean", count: 800 },
 ];
 
+const placeId = "ChIJcXPxPAAb2jERncmNWc0znBk";
+
 const DashboardPage: React.FC = () => {
+  const [ratingDistribution, setRatingDistribution] = useState<
+    PercentageBasedChartData[]
+  >([]);
+  const [keywordCount, setKeywordCount] = useState<CountBasedChartData[]>([]);
+  useEffect(() => {
+    getRatingDistribution(placeId).then((data) => {
+      setRatingDistribution(
+        data.map(({ rating, count }, index) => {
+          return {
+            name: `${rating} Star`,
+            value: count,
+            color: CHART_COLORS[index],
+          };
+        }),
+      );
+    });
+    getMockKeywordCount(placeId).then((data) => {
+      setKeywordCount(
+        Object.entries(data).map(([keyword, count]) => {
+          return {
+            keyword,
+            count,
+          };
+        }),
+      );
+    });
+  }, []);
   return (
     <Grid gutter={50} styles={{ inner: { maxWidth: "100%" } }}>
       <Grid.Col span={{ base: 12, xs: 12 }}>
@@ -87,8 +135,8 @@ const DashboardPage: React.FC = () => {
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
         <PercentageBasedChart
-          data={PERCENTAGE_CHART_DATA}
-          title="Types of users"
+          data={ratingDistribution}
+          title="★ Rating Percentage"
         />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
@@ -101,7 +149,7 @@ const DashboardPage: React.FC = () => {
         />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 12 }}>
-        <CountBasedChart data={COUNT_BASED_CHART_DATA} />
+        <CountBasedChart data={keywordCount} />
       </Grid.Col>
     </Grid>
   );

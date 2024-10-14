@@ -1,8 +1,14 @@
 import { PieChart } from "@mantine/charts";
 import { Box, Group, Stack, Text, Title } from "@mantine/core";
 
+export type PercentageBasedChartData = {
+  name: string;
+  value: number;
+  color: string;
+};
+
 type Props = {
-  data: { name: string; value: number; color: string }[];
+  data: PercentageBasedChartData[];
   title: string;
 };
 

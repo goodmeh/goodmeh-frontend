@@ -1,7 +1,12 @@
 import { BarChart } from "@mantine/charts";
 
+export type CountBasedChartData = {
+  keyword: string;
+  count: number;
+};
+
 type Props = {
-  data: { keyword: string; count: number }[];
+  data: CountBasedChartData[];
 };
 
 export const CountBasedChart: React.FC<Props> = ({ data }) => {
