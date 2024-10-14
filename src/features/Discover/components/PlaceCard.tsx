@@ -1,36 +1,17 @@
-import {
-  Card,
-  Image,
-  ScrollArea,
-  SimpleGrid,
-  Space,
-  Tabs,
-  Text,
-} from "@mantine/core";
+import { Card, Image, Space, Tabs, Text } from "@mantine/core";
 import { format } from "date-fns";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 
-import { MediaPreview } from "@/components/reviewMedia/MediaPreview";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { Place } from "@/types/data";
 
-import { getPlaceImages, GetPlaceImagesResponse } from "../api/getPlaceImages";
+import { PlaceGallery } from "./PlaceGallery";
 
 type Props = {
   place: Place;
 };
 
 export const PlaceCard: React.FC<Props> = ({ place }) => {
-  const [images, setImages] = useState<GetPlaceImagesResponse[]>([]);
-  const flattenedImages = useMemo(
-    () => images.flatMap((image) => image.image_urls),
-    [images],
-  );
-
-  useEffect(() => {
-    getPlaceImages(place.id).then(setImages);
-  }, [place.id]);
-
   return (
     <Card radius="md" padding="lg" withBorder flex={1}>
       {place.image_url && (
@@ -71,18 +52,7 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
           </Tabs.Panel>
 
           <Tabs.Panel value="Gallery" p="md">
-            <ScrollArea type="always" h={300}>
-              <SimpleGrid cols={3}>
-                {flattenedImages.map((image) => (
-                  <MediaPreview
-                    key={image}
-                    mediaUrl={image}
-                    height="100%"
-                    width="100%"
-                  />
-                ))}
-              </SimpleGrid>
-            </ScrollArea>
+            <PlaceGallery placeId={place.id} />
           </Tabs.Panel>
         </Tabs>
       </Card.Section>
