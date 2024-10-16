@@ -17,9 +17,9 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
   }, [place1, place2]);
 
   const rows = data.map((row) => (
-    <Table.Tr key={row.property}>
+    <Table.Tr key={row.property.formal}>
       <Table.Td w="150px" fw="bold">
-        {row.property}
+        {row.property.formal}
       </Table.Td>
       <Table.Td
         ta="center"
@@ -29,7 +29,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             ? {}
             : { c: "green.5", fw: "bold" })}
       >
-        {row.description_1}
+        {row.description_1.formal}
       </Table.Td>
       <Table.Td
         ta="center"
@@ -39,7 +39,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             ? {}
             : { c: "green.5", fw: "bold" })}
       >
-        {row.description_2}
+        {row.description_2.formal}
       </Table.Td>
     </Table.Tr>
   ));

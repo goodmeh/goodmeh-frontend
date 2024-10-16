@@ -1,3 +1,9 @@
+export type AudienceLabel = {
+  casual: string;
+  formal: string;
+  business: string;
+};
+
 export type Place = {
   id: string;
   name: string;
@@ -9,13 +15,13 @@ export type Place = {
   image_url: string | null;
   primary_type: string | null;
   business_summary: string | null;
-  price_range: string;
-  earliest_review_date: string;
+  price_range: AudienceLabel;
+  earliest_review_date: AudienceLabel;
   location: {
     lat: number;
     lng: number;
   };
-  accuracy: string;
+  accuracy: AudienceLabel;
 };
 
 export type User = {

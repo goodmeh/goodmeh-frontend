@@ -15,13 +15,25 @@ const MOCK_PLACE: Place = {
   last_scraped: "2024-09-07T14:55:50.855Z",
   business_summary:
     "A Hot Hideout @ Bukit Panjang is a Chinese restaurant that offers a unique Singaporean Mala experience. The restaurant offers a variety of ingredients, including deep-fried lotus roots, potato, and fish, and can be topped with creamy scrambled eggs. All ingredients are priced at $2.88/100g. The restaurant also offers a hidden DIY menu, including deep-fried mantou dipped in peanut sauce for a special peanut butter topping. The food is delicious, but there is a long wait time due to an unexpected equipment malfunction. The secret powder is a must-try, and the Mala Collagen Soup is a must-try.",
-  price_range: "$10-20 per person",
-  earliest_review_date: "3 years",
+  price_range: {
+    casual: "$10-20 per person",
+    formal: "$10-20 per person",
+    business: "$10-20 per person",
+  },
+  earliest_review_date: {
+    casual: "3 years",
+    formal: "3 years",
+    business: "3 years",
+  },
   location: {
     lat: 1.3521,
     lng: 103.7942,
   },
-  accuracy: "70% of all reviews",
+  accuracy: {
+    casual: "70% of all reviews",
+    formal: "70% of all reviews",
+    business: "70% of all reviews",
+  },
 };
 
 export const getMockPlace = async (id: string) => {
