@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import React from "react";
 
 import { RatingStars } from "@/components/ui/RatingStars";
+import { useViewMode } from "@/hooks/useViewMode";
 import { Place } from "@/types/data";
 
 import { PlaceGallery } from "./PlaceGallery";
@@ -12,6 +13,8 @@ type Props = {
 };
 
 export const PlaceCard: React.FC<Props> = ({ place }) => {
+  const { viewMode } = useViewMode();
+
   return (
     <Card radius="md" padding="lg" withBorder flex={1}>
       {place.image_url && (
@@ -48,7 +51,9 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
           </Tabs.List>
 
           <Tabs.Panel value="Summary" p="md">
-            <Text size="sm">{place.summary}</Text>
+            <Text size="sm">
+              {viewMode == "consumer" ? place.summary : place.business_summary}
+            </Text>
           </Tabs.Panel>
 
           <Tabs.Panel value="Gallery" p="md">
