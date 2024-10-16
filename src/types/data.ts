@@ -1,7 +1,7 @@
 export type AudienceLabel = {
   casual: string;
   formal: string;
-  business: string;
+  biz: string;
 };
 
 export type Place = {
