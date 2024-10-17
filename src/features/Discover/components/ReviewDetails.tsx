@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { IconSparkles } from "@tabler/icons-react";
 import { formatDistanceToNow } from "date-fns";
+import Markdown from "markdown-to-jsx";
 import pluralize from "pluralize";
 import { useMemo } from "react";
 
@@ -72,7 +73,7 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
       </Group>
 
       <Group align="start" wrap="nowrap">
-        <Spoiler flex={3} maxHeight={120} showLabel="More" hideLabel="Less">
+        <Spoiler flex={3} maxHeight={124} showLabel="More" hideLabel="Less">
           <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
         </Spoiler>
 
@@ -83,7 +84,7 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
                 className={classes.ReviewCard__Blockquote}
                 icon={<IconSparkles />}
               >
-                {summaryToDisplay}
+                <Markdown>{summaryToDisplay}</Markdown>
               </Blockquote>
               <Space h="md" />
             </>

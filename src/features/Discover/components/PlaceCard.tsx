@@ -1,5 +1,6 @@
 import { Card, Image, Space, Tabs, Text } from "@mantine/core";
 import { format } from "date-fns";
+import Markdown from "markdown-to-jsx";
 import React from "react";
 
 import { RatingStars } from "@/components/ui/RatingStars";
@@ -52,7 +53,11 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
 
           <Tabs.Panel value="Summary" p="md">
             <Text size="sm">
-              {viewMode == "consumer" ? place.summary : place.business_summary}
+              <Markdown>
+                {viewMode == "consumer"
+                  ? place.summary
+                  : place.business_summary || ""}
+              </Markdown>
             </Text>
           </Tabs.Panel>
 
