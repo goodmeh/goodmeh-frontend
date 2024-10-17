@@ -1,6 +1,7 @@
 import { Table } from "@mantine/core";
 import { useEffect, useState } from "react";
 
+import { useViewMode } from "@/hooks/useViewMode";
 import { Place } from "@/types/data";
 
 import { comparePlaces, MetricComparisonResult } from "../api/comparePlaces";
@@ -12,14 +13,16 @@ type Props = {
 
 export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
   const [data, setData] = useState<MetricComparisonResult[]>([]);
+  const { viewMode } = useViewMode();
+  const audienceLabel = viewMode === "consumer" ? "casual" : "biz";
   useEffect(() => {
     comparePlaces(place1.id, place2.id).then(setData);
   }, [place1, place2]);
 
   const rows = data.map((row) => (
-    <Table.Tr key={row.property}>
-      <Table.Td w="150px" fw="bold">
-        {row.property}
+    <Table.Tr key={row.property.formal}>
+      <Table.Td w="300px" fw="bold">
+        {row.property[audienceLabel]}
       </Table.Td>
       <Table.Td
         ta="center"
@@ -29,7 +32,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             ? {}
             : { c: "green.5", fw: "bold" })}
       >
-        {row.description_1}
+        {row.description_1[audienceLabel]}
       </Table.Td>
       <Table.Td
         ta="center"
@@ -39,7 +42,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             ? {}
             : { c: "green.5", fw: "bold" })}
       >
-        {row.description_2}
+        {row.description_2[audienceLabel]}
       </Table.Td>
     </Table.Tr>
   ));
