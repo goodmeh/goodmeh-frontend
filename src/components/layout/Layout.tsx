@@ -6,7 +6,7 @@ import {
   Space,
   useMantineColorScheme,
 } from "@mantine/core";
-import { IconBrightnessHalf, IconMoon, IconSun } from "@tabler/icons-react";
+import { IconDeviceDesktop, IconMoon, IconSun } from "@tabler/icons-react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
 import logo from "@/assets/logo/GoodMehLogo.png";
@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
         ) : colorScheme == "dark" ? (
           <IconMoon />
         ) : (
-          <IconBrightnessHalf />
+          <IconDeviceDesktop />
         )}
       </ActionIcon>
     </AppShell.Header>
@@ -68,7 +68,10 @@ const NavBar: React.FC = () => {
 
 export const Layout: React.FC = () => {
   return (
-    <AppShell header={{ height: 60 }} padding="xl">
+    <AppShell
+      header={{ height: 60 }}
+      padding={{ base: "md", xs: "lg", sm: "xl" }}
+    >
       <NavBar />
       <AppShell.Main>
         <Outlet />
