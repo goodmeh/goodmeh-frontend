@@ -1,4 +1,4 @@
-import { Grid } from "@mantine/core";
+import { Grid, GridColProps, useMatches } from "@mantine/core";
 
 import { useViewMode } from "@/hooks/useViewMode";
 
@@ -60,12 +60,16 @@ const BUSINESS_FEATURES = [
 
 export const FeaturesSection: React.FC = () => {
   const { viewMode } = useViewMode();
+  const span = useMatches<GridColProps["span"]>({
+    base: 12,
+    xs: 6,
+  });
 
   return (
     <Grid>
       {(viewMode == "consumer" ? CONSUMER_FEATURES : BUSINESS_FEATURES).map(
         (feature) => (
-          <Grid.Col display="flex" span={6} key={feature.title}>
+          <Grid.Col display="flex" span={span} key={feature.title}>
             <FeatureCard {...feature} />
           </Grid.Col>
         ),

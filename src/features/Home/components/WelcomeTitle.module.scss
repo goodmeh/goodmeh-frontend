@@ -1,4 +1,4 @@
-.title {
+.Welcome__Title {
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-size: 100px;
   font-weight: 900;
@@ -22,5 +22,23 @@
     &:nth-of-type(5) {
       color: #34a853;
     }
+  }
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: 80px;
+  }
+  @media (max-width: $mantine-breakpoint-xs) {
+    font-size: 60px;
+  }
+}
+
+.Welcome__Subtitle {
+  font-size: var(--mantine-h1-font-size);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: var(--mantine-h2-font-size);
+  }
+  @media (max-width: $mantine-breakpoint-xs) {
+    font-size: var(--mantine-h3-font-size);
   }
 }
