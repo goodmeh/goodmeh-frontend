@@ -1,90 +1,41 @@
 import { Stack, Text } from "@mantine/core";
-import { useCallback, useEffect, useState } from "react";
+import { useUncontrolled } from "@mantine/hooks";
 
-import {
-  getPlace,
-  RequestPlaceStatusResponse,
-} from "@/features/Discover/api/getPlace";
 import { PlaceCard } from "@/features/Discover/components/PlaceCard";
 import { PlaceCardSkeleton } from "@/features/Discover/components/PlaceCardSkeleton";
+import { usePlaceLoader } from "@/hooks/usePlaceLoader";
 import { Place } from "@/types/data";
 
 import { PlacesAutocompleteField } from "./PlacesAutocompleteField";
 
-type ChildProps = {
+export type PlaceSearchChildProps = {
   placeCard: React.ReactNode;
   place: Place | undefined;
-  location: google.maps.places.AutocompletePrediction;
+  placeId: string;
 };
 
 type Props = {
-  onPlaceChange?: (place: Place | undefined) => void;
-  children?: React.FC<ChildProps>;
+  onPlaceIdChange?: (placeId: string | undefined) => void;
+  children?: React.FC<PlaceSearchChildProps>;
+  onClickCompare?: () => void;
+  placeId?: string;
+  showCompareButton?: boolean;
 };
 
 export const PlaceSearch: React.FC<Props> = ({
-  onPlaceChange,
+  onPlaceIdChange,
   children = ({ placeCard }) => placeCard,
+  onClickCompare,
+  placeId,
+  showCompareButton = false,
 }) => {
-  const [location, setLocation] =
-    useState<google.maps.places.AutocompletePrediction>();
-  const [place, setPlace] = useState<Place>();
-  const [requestStatus, setRequestStatus] =
-    useState<RequestPlaceStatusResponse>();
-  const [refreshCountdown, setRefreshCountdown] = useState(0);
-
-  const loadLocation = useCallback(() => {
-    setPlace(undefined);
-    onPlaceChange?.(undefined);
-    setRequestStatus(undefined);
-    if (!location) {
-      return;
-    }
-
-    let timeout: number;
-
-    getPlace(location.place_id).then((response) => {
-      if ("status" in response) {
-        setRequestStatus(response);
-        setPlace(undefined);
-        onPlaceChange?.(undefined);
-        if (response.failed) {
-          return;
-        }
-      } else {
-        setPlace(response);
-        onPlaceChange?.(response);
-        setRequestStatus(undefined);
-      }
-      if (!("status" in response) && response.summary) {
-        return;
-      }
-      setRefreshCountdown(10);
-      timeout = setTimeout(() => {
-        setRefreshCountdown((countdown) => countdown - 1);
-      }, 1000);
-      return;
-    });
-
-    return () => clearTimeout(timeout);
-  }, [location, onPlaceChange]);
-
-  // When location changes, load data
-  useEffect(() => {
-    return loadLocation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- we only want to run this effect when the location changes
-  }, [location]);
-
-  // When countdown reaches 0, load data. Otherwise, decrement countdown every second.
-  useEffect(() => {
-    if (refreshCountdown <= 0) {
-      return loadLocation();
-    }
-    const timeout = setTimeout(() => {
-      setRefreshCountdown((countdown) => countdown - 1);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [refreshCountdown, loadLocation]);
+  const [effectivePlaceId, onChange] = useUncontrolled<string | undefined>({
+    value: placeId,
+    onChange: onPlaceIdChange,
+  });
+  const { place, requestStatus } = usePlaceLoader({
+    placeId: effectivePlaceId,
+  });
 
   const ChildComponent = children;
   const placeCard = place ? <PlaceCard place={place} /> : <PlaceCardSkeleton />;
@@ -93,20 +44,24 @@ export const PlaceSearch: React.FC<Props> = ({
     <Stack>
       <PlacesAutocompleteField
         placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
-        onSelectSuggestion={setLocation}
+        onSelectSuggestion={(location) => {
+          onChange(location?.place_id ?? "");
+        }}
+        showCompareButton={showCompareButton}
+        onClickCompare={onClickCompare}
       />
 
-      {location && !requestStatus?.failed && (
+      {effectivePlaceId && !requestStatus?.failed && (
         <ChildComponent
           placeCard={placeCard}
           place={place}
-          location={location}
+          placeId={effectivePlaceId}
         />
       )}
-      {location && requestStatus?.failed && (
+      {requestStatus?.failed && (
         <Text>
-          Our servers are still {requestStatus.status.toLowerCase()} data for{" "}
-          {location.description}! Please try again later.
+          Our servers are still {requestStatus.status.toLowerCase()} data!
+          Please try again later.
         </Text>
       )}
     </Stack>

@@ -3,7 +3,9 @@ import {
   AutocompleteProps,
   CloseButton,
   Text,
+  Tooltip,
 } from "@mantine/core";
+import { IconSwitchHorizontal } from "@tabler/icons-react";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import React, { useCallback, useEffect } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -11,6 +13,8 @@ import usePlacesAutocomplete from "use-places-autocomplete";
 import { SafeOmit } from "@/types/helpers";
 
 type Props = {
+  showCompareButton?: boolean;
+  onClickCompare?: () => void;
   /**
    * This function is called whenever the value of the input changes.
    */
@@ -24,6 +28,8 @@ type Props = {
 } & SafeOmit<AutocompleteProps, "value" | "onChange" | "data">;
 
 export const PlacesAutocompleteField: React.FC<Props> = ({
+  showCompareButton,
+  onClickCompare,
   onChange,
   onSelectSuggestion,
   ...props
@@ -81,11 +87,22 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
       disabled={!places}
       onOptionSubmit={(value) => onSelectSuggestion?.(findByMainText(value))}
       rightSection={
-        <CloseButton aria-label="Clear input" onClick={onClearInput} />
+        showCompareButton ? (
+          <Tooltip label="Compare with another place">
+            <CloseButton
+              aria-label="Compare with another place"
+              onClick={onClickCompare}
+              icon={<IconSwitchHorizontal />}
+            />
+          </Tooltip>
+        ) : (
+          <CloseButton aria-label="Clear input" onClick={onClearInput} />
+        )
       }
       renderOption={({ option }) => (
         <SuggestionOption suggestion={findByMainText(option.value)} />
       )}
+      filter={({ options }) => options}
       {...props}
     />
   );

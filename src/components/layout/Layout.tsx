@@ -69,8 +69,6 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
           <Space w="md" />
 
           <NavLink path="/discover" label="Discover" />
-          <Space w="md" />
-          <NavLink path="/compare" label="Compare" />
         </>
       )}
 
@@ -109,12 +107,6 @@ const AppNavbar: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
           <NavLink
             path="/discover"
             label="Discover"
-            variant="button"
-            toggleMenu={toggleMenu}
-          />
-          <NavLink
-            path="/compare"
-            label="Compare"
             variant="button"
             toggleMenu={toggleMenu}
           />
