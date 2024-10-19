@@ -1,3 +1,9 @@
+enum ScrapeStatus {
+  SCRAPING = "scraping",
+  SUMMARIZING = "summarizing",
+  ANALYSING = "analysing",
+}
+
 export type Place = {
   id: string;
   name: string;
@@ -16,6 +22,7 @@ export type Place = {
     lng: number;
   };
   accuracy: string;
+  status?: ScrapeStatus;
 };
 
 export type User = {

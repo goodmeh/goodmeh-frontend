@@ -1,12 +1,9 @@
 import { Stack, Text } from "@mantine/core";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 
-import {
-  getPlace,
-  RequestPlaceStatusResponse,
-} from "@/features/Discover/api/getPlace";
 import { PlaceCard } from "@/features/Discover/components/PlaceCard";
 import { PlaceCardSkeleton } from "@/features/Discover/components/PlaceCardSkeleton";
+import { usePlaceLoader } from "@/hooks/usePlaceLoader";
 import { Place } from "@/types/data";
 
 import { PlacesAutocompleteField } from "./PlacesAutocompleteField";
@@ -28,63 +25,10 @@ export const PlaceSearch: React.FC<Props> = ({
 }) => {
   const [location, setLocation] =
     useState<google.maps.places.AutocompletePrediction>();
-  const [place, setPlace] = useState<Place>();
-  const [requestStatus, setRequestStatus] =
-    useState<RequestPlaceStatusResponse>();
-  const [refreshCountdown, setRefreshCountdown] = useState(0);
-
-  const loadLocation = useCallback(() => {
-    setPlace(undefined);
-    onPlaceChange?.(undefined);
-    setRequestStatus(undefined);
-    if (!location) {
-      return;
-    }
-
-    let timeout: number;
-
-    getPlace(location.place_id).then((response) => {
-      if ("status" in response) {
-        setRequestStatus(response);
-        setPlace(undefined);
-        onPlaceChange?.(undefined);
-        if (response.failed) {
-          return;
-        }
-      } else {
-        setPlace(response);
-        onPlaceChange?.(response);
-        setRequestStatus(undefined);
-      }
-      if (!("status" in response) && response.summary) {
-        return;
-      }
-      setRefreshCountdown(10);
-      timeout = setTimeout(() => {
-        setRefreshCountdown((countdown) => countdown - 1);
-      }, 1000);
-      return;
-    });
-
-    return () => clearTimeout(timeout);
-  }, [location, onPlaceChange]);
-
-  // When location changes, load data
-  useEffect(() => {
-    return loadLocation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- we only want to run this effect when the location changes
-  }, [location]);
-
-  // When countdown reaches 0, load data. Otherwise, decrement countdown every second.
-  useEffect(() => {
-    if (refreshCountdown <= 0) {
-      return loadLocation();
-    }
-    const timeout = setTimeout(() => {
-      setRefreshCountdown((countdown) => countdown - 1);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [refreshCountdown, loadLocation]);
+  const { place, requestStatus } = usePlaceLoader({
+    placeId: location?.place_id,
+    onPlaceChange,
+  });
 
   const ChildComponent = children;
   const placeCard = place ? <PlaceCard place={place} /> : <PlaceCardSkeleton />;
@@ -94,6 +38,7 @@ export const PlaceSearch: React.FC<Props> = ({
       <PlacesAutocompleteField
         placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
         onSelectSuggestion={setLocation}
+        showSplitButton
       />
 
       {location && !requestStatus?.failed && (
