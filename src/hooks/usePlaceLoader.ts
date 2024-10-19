@@ -1,37 +1,38 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   getPlace,
   RequestPlaceStatusResponse,
 } from "@/features/Discover/api/getPlace";
+import { PlaceActions } from "@/stores/places";
+import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
 type UsePlaceLoaderProps = {
   placeId?: string;
-  onPlaceChange?: (place: Place | undefined) => void;
 };
 
-export const usePlaceLoader = ({
-  placeId,
-  onPlaceChange,
-}: UsePlaceLoaderProps) => {
-  const [place, setPlace] = useState<Place>();
+export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
+  const places = useAppSelector((state) => state.places);
+  const dispatch = useAppDispatch();
+  const place = useMemo<Place | undefined>(
+    () => places[placeId ?? ""],
+    [placeId, places],
+  );
   const [requestStatus, setRequestStatus] =
     useState<RequestPlaceStatusResponse>();
   const refreshInterval = useRef<number>();
-
-  const updatePlace = useCallback(
-    (place: Place | undefined) => {
-      setPlace(place);
-      onPlaceChange?.(place);
-    },
-    [onPlaceChange],
-  );
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadPlace = async (placeId: string) => {
+    if (places[placeId]) {
+      return;
+    }
+    setIsLoading(true);
     const response = await getPlace(placeId);
     if ("id" in response) {
-      updatePlace(response);
+      dispatch(PlaceActions.addPlace(response));
+      setIsLoading(false);
       return;
     }
     setRequestStatus(response);
@@ -48,7 +49,6 @@ export const usePlaceLoader = ({
 
   useEffect(() => {
     if (!placeId) {
-      updatePlace(undefined);
       setRequestStatus(undefined);
       return;
     }
@@ -66,5 +66,6 @@ export const usePlaceLoader = ({
   return {
     place,
     requestStatus,
+    isLoading,
   };
 };
