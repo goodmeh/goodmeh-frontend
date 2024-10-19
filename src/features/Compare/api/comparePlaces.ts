@@ -1,9 +1,12 @@
 import api from "@/lib/api";
+import { AudienceLabel } from "@/types/data";
 
 export type MetricComparisonResult = {
-  property: string;
-  description_1: string;
-  description_2: string;
+  property: AudienceLabel;
+  score_1: number;
+  score_2: number;
+  description_1: AudienceLabel;
+  description_2: AudienceLabel;
   is_place_1_better: boolean | null;
 };
 

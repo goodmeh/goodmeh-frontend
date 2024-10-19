@@ -26,9 +26,21 @@ describe("PlaceCard component", () => {
     last_scraped: new Date().toISOString(),
     summary: "This is a sample place summary.",
     business_summary: "This is a sample business summary.",
-    price_range: "$10-20 per person",
-    earliest_review_date: "3 years",
-    accuracy: "70% of all reviews",
+    price_range: {
+      casual: "$10-20 per person",
+      formal: "$10-20 per person",
+      biz: "$10-20 per person",
+    },
+    earliest_review_date: {
+      casual: "3 years",
+      formal: "3 years",
+      biz: "3 years",
+    },
+    accuracy: {
+      casual: "70% of all reviews",
+      formal: "70% of all reviews",
+      biz: "70% of all reviews",
+    },
     location: {
       lat: 1.3521,
       lng: 103.7942,
