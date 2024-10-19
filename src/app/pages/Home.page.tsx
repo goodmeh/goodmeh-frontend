@@ -6,7 +6,7 @@ import { WelcomeTitle } from "@/features/Home/components/WelcomeTitle";
 
 const HomePage: React.FC = () => {
   return (
-    <Container>
+    <Container p={0}>
       <WelcomeTitle />
       <Space h="xl" />
       <FeaturesSection />
