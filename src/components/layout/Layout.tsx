@@ -46,8 +46,6 @@ const NavBar: React.FC = () => {
       <Space w="md" />
 
       <NavLink path="/discover" label="Discover" />
-      <Space w="md" />
-      <NavLink path="/compare" label="Compare" />
 
       <Space flex={1} />
 
