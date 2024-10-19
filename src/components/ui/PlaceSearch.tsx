@@ -1,5 +1,5 @@
 import { Stack, Text } from "@mantine/core";
-import { useState } from "react";
+import { useUncontrolled } from "@mantine/hooks";
 
 import { PlaceCard } from "@/features/Discover/components/PlaceCard";
 import { PlaceCardSkeleton } from "@/features/Discover/components/PlaceCardSkeleton";
@@ -8,26 +8,33 @@ import { Place } from "@/types/data";
 
 import { PlacesAutocompleteField } from "./PlacesAutocompleteField";
 
-type ChildProps = {
+export type PlaceSearchChildProps = {
   placeCard: React.ReactNode;
   place: Place | undefined;
-  location: google.maps.places.AutocompletePrediction;
+  placeId: string;
 };
 
 type Props = {
-  onPlaceChange?: (place: Place | undefined) => void;
-  children?: React.FC<ChildProps>;
+  onPlaceIdChange?: (placeId: string | undefined) => void;
+  children?: React.FC<PlaceSearchChildProps>;
+  onClickCompare?: () => void;
+  placeId?: string;
+  showCompareButton?: boolean;
 };
 
 export const PlaceSearch: React.FC<Props> = ({
-  onPlaceChange,
+  onPlaceIdChange,
   children = ({ placeCard }) => placeCard,
+  onClickCompare,
+  placeId,
+  showCompareButton = false,
 }) => {
-  const [location, setLocation] =
-    useState<google.maps.places.AutocompletePrediction>();
+  const [effectivePlaceId, onChange] = useUncontrolled<string | undefined>({
+    value: placeId,
+    onChange: onPlaceIdChange,
+  });
   const { place, requestStatus } = usePlaceLoader({
-    placeId: location?.place_id,
-    onPlaceChange,
+    placeId: effectivePlaceId,
   });
 
   const ChildComponent = children;
@@ -37,21 +44,24 @@ export const PlaceSearch: React.FC<Props> = ({
     <Stack>
       <PlacesAutocompleteField
         placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
-        onSelectSuggestion={setLocation}
-        showSplitButton
+        onSelectSuggestion={(location) => {
+          onChange(location?.place_id ?? "");
+        }}
+        showCompareButton={showCompareButton}
+        onClickCompare={onClickCompare}
       />
 
-      {location && !requestStatus?.failed && (
+      {effectivePlaceId && !requestStatus?.failed && (
         <ChildComponent
           placeCard={placeCard}
           place={place}
-          location={location}
+          placeId={effectivePlaceId}
         />
       )}
-      {location && requestStatus?.failed && (
+      {requestStatus?.failed && (
         <Text>
-          Our servers are still {requestStatus.status.toLowerCase()} data for{" "}
-          {location.description}! Please try again later.
+          Our servers are still {requestStatus.status.toLowerCase()} data!
+          Please try again later.
         </Text>
       )}
     </Stack>
