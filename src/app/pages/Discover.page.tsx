@@ -10,6 +10,7 @@ import classes from "@/components/ui/PlaceSearch.module.scss";
 import { PlaceComparisonTable } from "@/features/Compare/components/PlaceComparisonTable";
 import { ReviewSection } from "@/features/Discover/components/ReviewSection";
 import { StatDisplay } from "@/features/Discover/components/StatDisplay";
+import { useSearchParamsState } from "@/hooks/useSearchParamsState";
 import { useAppSelector } from "@/stores/store";
 
 enum Mode {
@@ -46,8 +47,8 @@ const DiscoverLayout: React.FC<PlaceSearchChildProps> = ({
 );
 
 export const DiscoverPage: React.FC = () => {
-  const [place1Id, setPlace1Id] = useState<string>();
-  const [place2Id, setPlace2Id] = useState<string>();
+  const [place1Id, setPlace1Id] = useSearchParamsState("place1Id");
+  const [place2Id, setPlace2Id] = useSearchParamsState("place2Id");
   const places = useAppSelector((state) => state.places);
   const place1 = useMemo(
     () => place1Id && places[place1Id],
