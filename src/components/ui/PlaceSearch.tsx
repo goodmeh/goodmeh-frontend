@@ -49,6 +49,7 @@ export const PlaceSearch: React.FC<Props> = ({
         }}
         showCompareButton={showCompareButton}
         onClickCompare={onClickCompare}
+        placeId={effectivePlaceId}
       />
 
       {effectivePlaceId && !requestStatus?.failed && (
