@@ -110,12 +110,6 @@ const AppNavbar: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
             variant="button"
             toggleMenu={toggleMenu}
           />
-          <NavLink
-            path="/compare"
-            label="Compare"
-            variant="button"
-            toggleMenu={toggleMenu}
-          />
         </Stack>
         <ViewModeControl />
       </Stack>
