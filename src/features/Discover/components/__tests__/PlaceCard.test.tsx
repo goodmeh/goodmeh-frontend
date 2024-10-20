@@ -34,21 +34,26 @@ describe("PlaceCard component", () => {
       lng: 103.7942,
     },
   };
+  const preloadedState = {
+    places: {
+      [place.id]: place,
+    },
+  };
 
   it("renders place name", () => {
-    render(<PlaceCard place={place} />);
+    render(<PlaceCard placeId={place.id} />, { preloadedState });
     expect(screen.getByText(place.name)).toBeInTheDocument();
   });
 
   it("renders place image if imageUrl is provided", () => {
-    render(<PlaceCard place={place} />);
+    render(<PlaceCard placeId={place.id} />, { preloadedState });
     const image = screen.getByAltText(place.name);
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute("src", place.image_url);
   });
 
   it("renders place rating", () => {
-    render(<PlaceCard place={place} />);
+    render(<PlaceCard placeId={place.id} />, { preloadedState });
     expect(
       screen.getByText((content) => {
         return content.includes(place.rating.toFixed(1));
@@ -62,12 +67,12 @@ describe("PlaceCard component", () => {
   });
 
   it("renders place primary type", () => {
-    render(<PlaceCard place={place} />);
+    render(<PlaceCard placeId={place.id} />, { preloadedState });
     expect(screen.getByText(place.primary_type!)).toBeInTheDocument();
   });
 
   it("renders last updated date", () => {
-    render(<PlaceCard place={place} />);
+    render(<PlaceCard placeId={place.id} />, { preloadedState });
     const formattedDate = format(place.last_scraped, "d MMM yyyy, hh:mm a");
     expect(
       screen.getByText(`Last updated: ${formattedDate}`),
