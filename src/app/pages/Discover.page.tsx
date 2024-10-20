@@ -1,63 +1,51 @@
-import { Group, SimpleGrid, Space, Stack } from "@mantine/core";
-import { useEffect, useMemo, useState } from "react";
+import { Portal, SimpleGrid, Stack } from "@mantine/core";
+import { useEffect, useState } from "react";
 
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
-import {
-  PlaceSearch,
-  PlaceSearchChildProps,
-} from "@/components/ui/PlaceSearch";
-import classes from "@/components/ui/PlaceSearch.module.scss";
+import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import { PlaceComparisonTable } from "@/features/Compare/components/PlaceComparisonTable";
+import { PlaceCard } from "@/features/Discover/components/PlaceCard";
 import { ReviewSection } from "@/features/Discover/components/ReviewSection";
 import { StatDisplay } from "@/features/Discover/components/StatDisplay";
+import { usePlaceLoader } from "@/hooks/usePlaceLoader";
 import { useSearchParamsState } from "@/hooks/useSearchParamsState";
 import { useAppSelector } from "@/stores/store";
+import { Place } from "@/types/data";
 
 enum Mode {
   Discover,
   Compare,
 }
 
-const DiscoverLayout: React.FC<PlaceSearchChildProps> = ({
-  placeCard,
-  place,
-  placeId,
-}) => (
-  <>
-    <Group
-      wrap="nowrap"
-      align="stretch"
-      className={classes.PlaceSearch__PlaceGroup}
-    >
-      <Stack>
-        {placeCard}
-        <GoogleMapsEmbed
-          placeId={placeId}
-          style={{
-            borderRadius: "var(--mantine-radius-md)",
-            height: "auto",
-          }}
-        />
-      </Stack>
+const DiscoverLayout: React.FC<{ placeId: string }> = ({ placeId }) => {
+  const place = useAppSelector<Place | undefined>(
+    (state) => state.places[placeId],
+  );
+
+  return (
+    <Stack>
+      <GoogleMapsEmbed
+        placeId={placeId}
+        style={{
+          borderRadius: "var(--mantine-radius-md)",
+          height: "auto",
+          flex: 1,
+        }}
+      />
       <StatDisplay place={place} />
-    </Group>
-    <Space h="md" />
-    <ReviewSection place={place} />
-  </>
-);
+    </Stack>
+  );
+};
 
 export const DiscoverPage: React.FC = () => {
   const [place1Id, setPlace1Id] = useSearchParamsState("place1Id");
   const [place2Id, setPlace2Id] = useSearchParamsState("place2Id");
-  const places = useAppSelector((state) => state.places);
-  const place1 = useMemo(
-    () => place1Id && places[place1Id],
-    [place1Id, places],
-  );
-  const place2 = useMemo(
-    () => place2Id && places[place2Id],
-    [place2Id, places],
-  );
+  const { place: place1 } = usePlaceLoader({
+    placeId: place1Id,
+  });
+  const { place: place2 } = usePlaceLoader({
+    placeId: place2Id,
+  });
   const [mode, setMode] = useState(Mode.Discover);
 
   useEffect(() => {
@@ -74,20 +62,34 @@ export const DiscoverPage: React.FC = () => {
 
   return (
     <Stack>
-      <SimpleGrid cols={mode == Mode.Compare ? 2 : 1}>
-        <PlaceSearch
-          placeId={place1Id}
-          onClickCompare={() => setMode(Mode.Compare)}
-          showCompareButton={!!place1Id && mode == Mode.Discover}
-          onPlaceIdChange={setPlace1Id}
-        >
-          {mode == Mode.Discover ? DiscoverLayout : undefined}
-        </PlaceSearch>
+      <SimpleGrid cols={2}>
+        <Portal target="#header-portal">
+          <PlacesAutocompleteField
+            placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
+            placeId={place1Id}
+            onSelectSuggestion={(location) =>
+              setPlace1Id(location?.place_id ?? "")
+            }
+            showCompareButton={mode == Mode.Discover && !!place1Id}
+            onClickCompare={() => setMode(Mode.Compare)}
+          />
+          {mode == Mode.Compare && (
+            <PlacesAutocompleteField
+              placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
+              placeId={place2Id}
+              onSelectSuggestion={(location) =>
+                setPlace2Id(location?.place_id ?? "")
+              }
+            />
+          )}
+        </Portal>
 
-        {mode === Mode.Compare && (
-          <PlaceSearch placeId={place2Id} onPlaceIdChange={setPlace2Id} />
-        )}
+        {place1Id && <PlaceCard placeId={place1Id} />}
+        {mode == Mode.Discover
+          ? place1Id && <DiscoverLayout placeId={place1Id} />
+          : place2Id && <PlaceCard placeId={place2Id} />}
       </SimpleGrid>
+      {mode == Mode.Discover && place1 && <ReviewSection place={place1} />}
       {mode == Mode.Compare && place1 && place2 && (
         <PlaceComparisonTable place1={place1} place2={place2} />
       )}
