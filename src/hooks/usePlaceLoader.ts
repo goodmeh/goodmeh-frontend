@@ -33,9 +33,13 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     if ("id" in response) {
       dispatch(PlaceActions.addPlace(response));
       setIsLoading(false);
+    } else {
+      setRequestStatus(response);
+    }
+    // If no status, meaning the place has been successfully scraped and summarized, return
+    if (!response.status) {
       return;
     }
-    setRequestStatus(response);
     let refreshCountdown = 10;
     refreshInterval.current = setInterval(() => {
       if (refreshCountdown > 0) {
@@ -44,7 +48,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
       }
       clearInterval(refreshInterval.current);
       loadPlace(placeId);
-    });
+    }, 1000);
   };
 
   useEffect(() => {
