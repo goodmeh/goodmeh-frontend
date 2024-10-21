@@ -90,7 +90,7 @@ const DashboardPage: React.FC = () => {
   return (
     <Grid gutter={50} styles={{ inner: { maxWidth: "100%" } }}>
       <Grid.Col span={{ base: 12, xs: 12 }}>
-        <TimeBasedChart data={ratingTrend} />
+        <TimeBasedChart data={ratingTrend} title="Rating Trend Over Time" />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
         <PercentageBasedChart
@@ -105,7 +105,7 @@ const DashboardPage: React.FC = () => {
         <PercentageBasedChart data={reviewAge} title="Review Age" />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 12 }}>
-        <CountBasedChart data={keywordCount} />
+        <CountBasedChart data={keywordCount} title="Keyword Count" />
       </Grid.Col>
     </Grid>
   );
