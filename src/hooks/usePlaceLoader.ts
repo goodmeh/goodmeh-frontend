@@ -40,7 +40,8 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     // means the place will no longer be updated
     if (
       !response.status ||
-      response.status === ScrapeStatus.SUMMARIZING_INDIVIDUAL_REVIEWS
+      response.status === ScrapeStatus.SUMMARIZING_INDIVIDUAL_REVIEWS ||
+      ("failed" in response && response.failed)
     ) {
       return;
     }
