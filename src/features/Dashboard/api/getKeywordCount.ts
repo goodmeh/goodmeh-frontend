@@ -26,7 +26,7 @@ export const getMockKeywordCount = async (placeId: string) => {
 
 export const getKeywordCount = async (placeId: string) => {
   const response = await api.get<GetKeywordCountResponse>(
-    `/v1/places/${placeId}/keywords`,
+    `/v1/dashboard/keywords/${placeId}`,
   );
   return response.data;
 };

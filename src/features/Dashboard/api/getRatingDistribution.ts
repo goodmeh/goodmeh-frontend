@@ -1,17 +1,22 @@
 import api from "@/lib/api";
 
 export type GetRatingDistributionResponse = {
-  rating: number;
-  count: number;
-}[];
+  rating_count: {
+    [key: string]: number;
+  };
+  total_count: number;
+};
 
-const MOCK_RATING_DISTRIBUTION: GetRatingDistributionResponse = [
-  { rating: 1, count: 500 },
-  { rating: 2, count: 400 },
-  { rating: 3, count: 300 },
-  { rating: 4, count: 200 },
-  { rating: 5, count: 100 },
-];
+const MOCK_RATING_DISTRIBUTION: GetRatingDistributionResponse = {
+  rating_count: {
+    "1": 11,
+    "2": 9,
+    "3": 37,
+    "4": 99,
+    "5": 390,
+  },
+  total_count: 546,
+};
 
 export const getMockRatingDistribution = async (placeId: string) => {
   return new Promise<GetRatingDistributionResponse>((resolve) => {
@@ -23,7 +28,7 @@ export const getMockRatingDistribution = async (placeId: string) => {
 
 export const getRatingDistribution = async (placeId: string) => {
   const response = await api.get<GetRatingDistributionResponse>(
-    `/v1/places/${placeId}/rating-distribution`,
+    `/v1/dashboard/rating-count/${placeId}`,
   );
   return response.data;
 };

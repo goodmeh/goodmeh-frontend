@@ -18,8 +18,8 @@ import {
   TimeBasedChartData,
 } from "@/components/data/TimeBasedChart";
 import { getMockCriteria } from "@/features/Dashboard/api/getCriteria";
-import { getMockKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
-import { getMockRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
+import { getKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
+import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
 import { getMockRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
 import { getMockReviewAge } from "@/features/Dashboard/api/getReviewAge";
 
@@ -44,9 +44,9 @@ const DashboardPage: React.FC = () => {
   const [reviewAge, setReviewAge] = useState<PercentageBasedChartData[]>([]);
   const [criteria, setCriteria] = useState<CriteriaBasedChartData[]>([]);
   useEffect(() => {
-    getMockRatingDistribution(placeId).then((data) => {
+    getRatingDistribution(placeId).then((data) => {
       setRatingDistribution(
-        data.map(({ rating, count }, index) => {
+        Object.entries(data.rating_count).map(([rating, count], index) => {
           return {
             name: `${rating} Star`,
             value: count,
@@ -55,7 +55,7 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
-    getMockKeywordCount(placeId).then((data) => {
+    getKeywordCount(placeId).then((data) => {
       setKeywordCount(
         Object.entries(data).map(([keyword, count]) => {
           return {
