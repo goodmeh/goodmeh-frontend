@@ -1,7 +1,8 @@
-enum ScrapeStatus {
+export enum ScrapeStatus {
   SCRAPING = "scraping",
   SUMMARIZING = "summarizing",
   ANALYSING = "analysing",
+  SUMMARIZING_INDIVIDUAL_REVIEWS = "summarizing_individual_reviews",
 }
 
 export type Place = {

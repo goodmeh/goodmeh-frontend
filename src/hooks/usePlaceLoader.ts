@@ -6,7 +6,7 @@ import {
 } from "@/features/Discover/api/getPlace";
 import { PlaceActions } from "@/stores/places";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
-import { Place } from "@/types/data";
+import { Place, ScrapeStatus } from "@/types/data";
 
 type UsePlaceLoaderProps = {
   placeId?: string;
@@ -36,8 +36,12 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     } else {
       setRequestStatus(response);
     }
-    // If no status, meaning the place has been successfully scraped and summarized, return
-    if (!response.status) {
+    // If no status or the status is summarizing individual reviews
+    // means the place will no longer be updated
+    if (
+      !response.status ||
+      response.status === ScrapeStatus.SUMMARIZING_INDIVIDUAL_REVIEWS
+    ) {
       return;
     }
     let refreshCountdown = 10;
