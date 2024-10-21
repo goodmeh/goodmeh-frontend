@@ -9,3 +9,11 @@
     background-color: rgba(from var(--mantine-color-dark-8) r g b / 0.8);
   }
 }
+
+.header-portal {
+  flex: 1 1 0;
+  margin-inline: var(--mantine-spacing-md);
+  > * {
+    flex-grow: 1;
+  }
+}
