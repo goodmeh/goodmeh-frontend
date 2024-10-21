@@ -4,6 +4,7 @@ import {
   AppShell,
   Burger,
   Button,
+  Group,
   MantineColorScheme,
   Space,
   Stack,
@@ -72,7 +73,7 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
         </>
       )}
 
-      <Space flex={1} />
+      <Group className={classes["header-portal"]} id="header-portal"></Group>
 
       {!isMobile && (
         <>

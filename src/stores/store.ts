@@ -3,10 +3,15 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import placesReducer from "./places";
 
-export const store = configureStore({
-  reducer: placesReducer,
-});
+export const setupStore = (preloadedState?: RootState) => {
+  return configureStore({
+    reducer: placesReducer,
+    preloadedState,
+  });
+};
+export const store = setupStore();
 
+export type AppStore = typeof store;
 export type RootState = ReturnType<typeof placesReducer>;
 export type AppDispatch = typeof store.dispatch;
 

@@ -5,16 +5,23 @@ import React from "react";
 
 import { RatingStars } from "@/components/ui/RatingStars";
 import { useViewMode } from "@/hooks/useViewMode";
+import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
+import { PlaceCardSkeleton } from "./PlaceCardSkeleton";
 import { PlaceGallery } from "./PlaceGallery";
 
 type Props = {
-  place: Place;
+  placeId?: string;
 };
 
-export const PlaceCard: React.FC<Props> = ({ place }) => {
+export const PlaceCard: React.FC<Props> = ({ placeId }) => {
   const { viewMode } = useViewMode();
+  const place = useAppSelector<Place | undefined>(
+    (state) => state.places[placeId ?? ""],
+  );
+
+  if (!place) return <PlaceCardSkeleton />;
 
   return (
     <Card radius="md" padding="lg" withBorder flex={1}>

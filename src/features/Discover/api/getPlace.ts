@@ -40,7 +40,7 @@ export type RequestPlaceStatusResponse = {
   failed: boolean;
 };
 
-type GetPlaceResponse = Place | RequestPlaceStatusResponse;
+export type GetPlaceResponse = Place | RequestPlaceStatusResponse;
 
 export const getPlace = async (id: string) => {
   const response = await api.post<GetPlaceResponse>(`/v1/places/${id}`);
