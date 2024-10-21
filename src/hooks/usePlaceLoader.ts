@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   getPlace,
+  GetPlaceResponse,
   RequestPlaceStatusResponse,
 } from "@/features/Discover/api/getPlace";
 import { PlaceActions } from "@/stores/places";
@@ -24,12 +25,31 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
   const refreshInterval = useRef<number>();
   const [isLoading, setIsLoading] = useState(false);
 
+  const setTimeout = (placeId: string) => {
+    let refreshCountdown = 10;
+    refreshInterval.current = setInterval(() => {
+      if (refreshCountdown > 0) {
+        refreshCountdown -= 1;
+        return;
+      }
+      clearInterval(refreshInterval.current);
+      loadPlace(placeId);
+    }, 1000);
+  };
+
   const loadPlace = async (placeId: string) => {
     if (places[placeId]) {
       return;
     }
     setIsLoading(true);
-    const response = await getPlace(placeId);
+    let response: GetPlaceResponse;
+    try {
+      response = await getPlace(placeId);
+    } catch (error) {
+      console.error(error);
+      setTimeout(placeId);
+      return;
+    }
     if ("id" in response) {
       dispatch(PlaceActions.addPlace(response));
       setIsLoading(false);
@@ -45,15 +65,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     ) {
       return;
     }
-    let refreshCountdown = 10;
-    refreshInterval.current = setInterval(() => {
-      if (refreshCountdown > 0) {
-        refreshCountdown -= 1;
-        return;
-      }
-      clearInterval(refreshInterval.current);
-      loadPlace(placeId);
-    }, 1000);
+    setTimeout(placeId);
   };
 
   useEffect(() => {
