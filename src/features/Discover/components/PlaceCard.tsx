@@ -1,35 +1,20 @@
-import {
-  Card,
-  Image,
-  ScrollArea,
-  SimpleGrid,
-  Space,
-  Tabs,
-  Text,
-} from "@mantine/core";
+import { Card, Image, Space, Tabs, Text } from "@mantine/core";
 import { format } from "date-fns";
-import React, { useEffect, useMemo, useState } from "react";
+import Markdown from "markdown-to-jsx";
+import React from "react";
 
-import { MediaPreview } from "@/components/reviewMedia/MediaPreview";
 import { RatingStars } from "@/components/ui/RatingStars";
+import { useViewMode } from "@/hooks/useViewMode";
 import { Place } from "@/types/data";
 
-import { getPlaceImages, GetPlaceImagesResponse } from "../api/getPlaceImages";
+import { PlaceGallery } from "./PlaceGallery";
 
 type Props = {
   place: Place;
 };
 
 export const PlaceCard: React.FC<Props> = ({ place }) => {
-  const [images, setImages] = useState<GetPlaceImagesResponse[]>([]);
-  const flattenedImages = useMemo(
-    () => images.flatMap((image) => image.image_urls),
-    [images],
-  );
-
-  useEffect(() => {
-    getPlaceImages(place.id).then(setImages);
-  }, [place.id]);
+  const { viewMode } = useViewMode();
 
   return (
     <Card radius="md" padding="lg" withBorder flex={1}>
@@ -67,22 +52,17 @@ export const PlaceCard: React.FC<Props> = ({ place }) => {
           </Tabs.List>
 
           <Tabs.Panel value="Summary" p="md">
-            <Text size="sm">{place.summary}</Text>
+            <Text size="sm">
+              <Markdown>
+                {viewMode == "consumer"
+                  ? place.summary
+                  : place.business_summary || ""}
+              </Markdown>
+            </Text>
           </Tabs.Panel>
 
           <Tabs.Panel value="Gallery" p="md">
-            <ScrollArea type="always" h={300}>
-              <SimpleGrid cols={3}>
-                {flattenedImages.map((image) => (
-                  <MediaPreview
-                    key={image}
-                    mediaUrl={image}
-                    height="100%"
-                    width="100%"
-                  />
-                ))}
-              </SimpleGrid>
-            </ScrollArea>
+            <PlaceGallery placeId={place.id} />
           </Tabs.Panel>
         </Tabs>
       </Card.Section>

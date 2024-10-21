@@ -4,8 +4,6 @@ import { Layout } from "@/components/layout/Layout";
 
 const HomePage = () => import("./pages/Home.page");
 const DiscoverPage = () => import("./pages/Discover.page");
-const ComparePage = () => import("./pages/Compare.page");
-const DashboardPage = () => import("./pages/Dashboard.page");
 
 const router = createBrowserRouter([
   {
@@ -13,8 +11,6 @@ const router = createBrowserRouter([
     children: [
       { path: "/", lazy: HomePage },
       { path: "/discover", lazy: DiscoverPage },
-      { path: "/compare", lazy: ComparePage },
-      { path: "/dashboard", lazy: DashboardPage },
     ],
   },
 ]);

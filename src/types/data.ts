@@ -1,13 +1,29 @@
+export enum ScrapeStatus {
+  SCRAPING = "scraping",
+  SUMMARIZING = "summarizing",
+  ANALYSING = "analysing",
+  SUMMARIZING_INDIVIDUAL_REVIEWS = "summarizing_individual_reviews",
+}
+
 export type Place = {
   id: string;
   name: string;
-  primary_type: string;
-  image_url?: string;
   rating: number;
   weighted_rating: number;
   user_rating_count: number;
   summary: string;
   last_scraped: string;
+  image_url: string | null;
+  primary_type: string | null;
+  business_summary: string | null;
+  price_range: string;
+  earliest_review_date: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  accuracy: string;
+  status?: ScrapeStatus;
 };
 
 export type User = {
@@ -17,6 +33,7 @@ export type User = {
   rating_count: number;
   review_count: number;
   photo_count: number;
+  is_local_guide: boolean;
 };
 
 export type Review = {
@@ -31,4 +48,8 @@ export type Review = {
   image_urls: string[];
   summary: string | null;
   business_summary: string | null;
+  reply?: {
+    text: string;
+    created_at: string;
+  };
 };

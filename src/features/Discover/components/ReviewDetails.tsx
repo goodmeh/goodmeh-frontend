@@ -6,10 +6,12 @@ import {
   Progress,
   Space,
   Spoiler,
+  Stack,
   Text,
 } from "@mantine/core";
 import { IconSparkles } from "@tabler/icons-react";
-import { formatRelative } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
+import Markdown from "markdown-to-jsx";
 import pluralize from "pluralize";
 import { useMemo } from "react";
 
@@ -28,6 +30,9 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
   const { viewMode } = useViewMode();
   const userSubtext = useMemo(() => {
     const parts: string[] = [];
+    if (review.user.is_local_guide) {
+      parts.push("Local Guide");
+    }
     if (review.user.review_count > 0) {
       parts.push(
         `${review.user.review_count} ${pluralize("review", review.user.review_count)}`,
@@ -46,8 +51,8 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
     [viewMode, review],
   );
   return (
-    <Box>
-      <Group mb="xs">
+    <Stack gap="md">
+      <Group>
         <Avatar
           src={review.user.photo_uri}
           radius={0}
@@ -63,12 +68,12 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
       <Group>
         <RatingStars rating={review.rating} />
         <Text size="sm" c="dimmed">
-          {formatRelative(review.created_at, new Date())}
+          {formatDistanceToNow(review.created_at, { addSuffix: true })}
         </Text>
       </Group>
 
       <Group align="start" wrap="nowrap">
-        <Spoiler flex={3} maxHeight={120} showLabel="More" hideLabel="Less">
+        <Spoiler flex={3} maxHeight={124} showLabel="More" hideLabel="Less">
           <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
         </Spoiler>
 
@@ -79,7 +84,7 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
                 className={classes.ReviewCard__Blockquote}
                 icon={<IconSparkles />}
               >
-                {summaryToDisplay}
+                <Markdown>{summaryToDisplay}</Markdown>
               </Blockquote>
               <Space h="md" />
             </>
@@ -90,7 +95,24 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
           <Progress value={(review.weight / 9) * 100} />
         </Box>
       </Group>
+
       <ReviewGallery imageUrls={review.image_urls} />
-    </Box>
+
+      {review.reply && (
+        <Blockquote py="md">
+          <span>
+            <Text component="b" fw={700}>
+              Response from the owner
+            </Text>
+            <Text component="span" c="dimmed" ml="md">
+              {formatDistanceToNow(review.reply.created_at, {
+                addSuffix: true,
+              })}
+            </Text>
+          </span>
+          <Text>{review.reply.text}</Text>
+        </Blockquote>
+      )}
+    </Stack>
   );
 };
