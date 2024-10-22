@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import { PlaceComparisonTable } from "@/features/Compare/components/PlaceComparisonTable";
-import { PlaceCard } from "@/features/Discover/components/PlaceCard";
-import { ReviewSection } from "@/features/Discover/components/ReviewSection";
-import { StatDisplay } from "@/features/Discover/components/StatDisplay";
+import { PlaceCard } from "@/features/Place/components/PlaceCard";
+import { StatDisplay } from "@/features/Place/components/Stats/StatDisplay";
+import { ReviewSection } from "@/features/Review/components/ReviewSection";
 import { usePlaceLoader } from "@/hooks/usePlaceLoader";
 import { useSearchParamsState } from "@/hooks/useSearchParamsState";
-import { useAppSelector } from "@/stores/store";
-import { Place } from "@/types/data";
 
 enum Mode {
   Discover,
@@ -18,10 +16,6 @@ enum Mode {
 }
 
 const DiscoverLayout: React.FC<{ placeId: string }> = ({ placeId }) => {
-  const place = useAppSelector<Place | undefined>(
-    (state) => state.places[placeId],
-  );
-
   return (
     <Stack>
       <GoogleMapsEmbed
@@ -32,7 +26,7 @@ const DiscoverLayout: React.FC<{ placeId: string }> = ({ placeId }) => {
           flex: 1,
         }}
       />
-      <StatDisplay place={place} />
+      <StatDisplay placeId={placeId} />
     </Stack>
   );
 };

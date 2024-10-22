@@ -1,15 +1,19 @@
 import { SimpleGrid } from "@mantine/core";
 
+import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
 import { StatCard } from "./StatCard";
 import { StatCardSkeleton } from "./StatDisplaySkeleton";
 
 type Props = {
-  place: Place | undefined;
+  placeId: string;
 };
 
-export const StatDisplay: React.FC<Props> = ({ place }) => {
+export const StatDisplay: React.FC<Props> = ({ placeId }) => {
+  const place = useAppSelector<Place | undefined>(
+    (state) => state.places[placeId],
+  );
   if (!place)
     return (
       <SimpleGrid cols={3}>

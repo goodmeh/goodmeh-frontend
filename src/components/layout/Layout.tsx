@@ -16,7 +16,7 @@ import { IconDeviceDesktop, IconMoon, IconSun } from "@tabler/icons-react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
 import logo from "@/assets/logo/GoodMehLogo.png";
-import { ViewModeControl } from "@/features/Home/components/ViewModeControl";
+import { ViewModeControl } from "@/components/viewMode/ViewModeControl";
 
 import classes from "./Layout.module.scss";
 
