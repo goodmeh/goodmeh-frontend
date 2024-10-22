@@ -20,7 +20,10 @@ import {
 import { getMockCriteria } from "@/features/Dashboard/api/getCriteria";
 import { getKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
-import { getRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
+import {
+  getMockRatingTrend,
+  getRatingTrend,
+} from "@/features/Dashboard/api/getRatingTrend";
 import { getMockReviewAge } from "@/features/Dashboard/api/getReviewAge";
 
 const CHART_COLORS = [
@@ -65,7 +68,7 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
-    getRatingTrend(placeId).then((data) => {
+    getMockRatingTrend(placeId).then((data) => {
       setRatingTrend(
         data.data.map(({ date, value }) => {
           return { date, value };

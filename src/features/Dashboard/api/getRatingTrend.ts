@@ -4,7 +4,7 @@ export type GetRatingTrendResponse = {
   name: string;
   data: {
     date: string;
-    value: number;
+    value: number | null;
   }[];
 };
 
@@ -15,7 +15,7 @@ const MOCK_RATING_TREND: GetRatingTrendResponse = {
     { date: "Feb 2023", value: 4.0 },
     { date: "Mar 2023", value: 3.8 },
     { date: "Apr 2023", value: 3.5 },
-    { date: "May 2023", value: 4.0 },
+    { date: "May 2023", value: null },
     { date: "Jun 2023", value: 3.8 },
     { date: "Jul 2023", value: 3.5 },
     { date: "Aug 2023", value: 4.0 },

@@ -2,7 +2,7 @@ import { LineChart } from "@mantine/charts";
 import { Stack, Title } from "@mantine/core";
 export type TimeBasedChartData = {
   date: string;
-  value: number;
+  value: number | null;
 };
 
 type Props = {
