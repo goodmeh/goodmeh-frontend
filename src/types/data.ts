@@ -3,6 +3,12 @@ export type AudienceLabel = {
   formal: string;
   biz: string;
 };
+export enum ScrapeStatus {
+  SCRAPING = "scraping",
+  SUMMARIZING = "summarizing",
+  ANALYSING = "analysing",
+  SUMMARIZING_INDIVIDUAL_REVIEWS = "summarizing_individual_reviews",
+}
 
 export type Place = {
   id: string;
@@ -22,6 +28,7 @@ export type Place = {
     lng: number;
   };
   accuracy: AudienceLabel;
+  status?: ScrapeStatus;
 };
 
 export type User = {

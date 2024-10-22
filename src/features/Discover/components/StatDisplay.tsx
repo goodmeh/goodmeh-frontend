@@ -12,8 +12,7 @@ type Props = {
 export const StatDisplay: React.FC<Props> = ({ place }) => {
   if (!place)
     return (
-      <SimpleGrid cols={2}>
-        <StatCardSkeleton />
+      <SimpleGrid cols={3}>
         <StatCardSkeleton />
         <StatCardSkeleton />
         <StatCardSkeleton />
@@ -35,11 +34,6 @@ export const StatDisplay: React.FC<Props> = ({ place }) => {
       ),
     },
     {
-      title: "How sure?",
-      caption: place.accuracy.formal,
-      render: () => "🤷‍♂️",
-    },
-    {
       title: "How much?",
       caption: place.price_range.formal,
       render: () => "💸",
@@ -58,5 +52,5 @@ export const StatDisplay: React.FC<Props> = ({ place }) => {
     );
   });
 
-  return <SimpleGrid cols={2}>{stats}</SimpleGrid>;
+  return <SimpleGrid cols={3}>{stats}</SimpleGrid>;
 };

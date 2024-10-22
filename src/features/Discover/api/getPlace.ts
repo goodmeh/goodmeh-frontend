@@ -1,5 +1,5 @@
 import api from "@/lib/api";
-import { Place } from "@/types/data";
+import { Place, ScrapeStatus } from "@/types/data";
 
 const MOCK_PLACE: Place = {
   id: "ChIJ1yl3DkYR2jER0EUpkr2Eo28",
@@ -48,11 +48,11 @@ export const getMockPlace = async (id: string) => {
 };
 
 export type RequestPlaceStatusResponse = {
-  status: string;
+  status: ScrapeStatus;
   failed: boolean;
 };
 
-type GetPlaceResponse = Place | RequestPlaceStatusResponse;
+export type GetPlaceResponse = Place | RequestPlaceStatusResponse;
 
 export const getPlace = async (id: string) => {
   const response = await api.post<GetPlaceResponse>(`/v1/places/${id}`);
