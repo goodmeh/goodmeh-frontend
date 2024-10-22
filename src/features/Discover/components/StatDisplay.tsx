@@ -33,10 +33,14 @@ export const StatDisplay: React.FC<Props> = ({ place }) => {
         </div>
       ),
     },
-    { title: "How much?", caption: place.price_range, render: () => "💸" },
+    {
+      title: "How much?",
+      caption: place.price_range.formal,
+      render: () => "💸",
+    },
     {
       title: "How long?",
-      caption: place.earliest_review_date,
+      caption: place.earliest_review_date.formal,
       render: () => "🗓️",
     },
   ];
