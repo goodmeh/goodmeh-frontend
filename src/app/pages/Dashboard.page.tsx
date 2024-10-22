@@ -70,8 +70,8 @@ const DashboardPage: React.FC = () => {
     });
     getMockRatingTrend(placeId).then((data) => {
       setRatingTrend(
-        data.data.map(({ date, value }) => {
-          return { date, value };
+        data.data.map(({ date, rating }) => {
+          return { date, rating };
         }),
       );
     });

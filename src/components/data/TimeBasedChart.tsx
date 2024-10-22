@@ -2,7 +2,7 @@ import { LineChart } from "@mantine/charts";
 import { Stack, Title } from "@mantine/core";
 export type TimeBasedChartData = {
   date: string;
-  value: number | null;
+  rating: number | null;
 };
 
 type Props = {
@@ -23,7 +23,7 @@ export const TimeBasedChart: React.FC<Props> = ({ data, title }) => {
         h={300}
         data={data}
         dataKey="date"
-        series={[{ name: "value", color: "indigo.6" }]}
+        series={[{ name: "rating", color: "indigo.6" }]}
         curveType="monotone"
         tickLine="x"
         yAxisProps={{ domain: [1, 5] }}
