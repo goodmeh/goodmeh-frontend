@@ -1,10 +1,9 @@
 import { Card, Stack, Text, Title } from "@mantine/core";
-import { AudienceLabel } from "@/types/data";
 
 type Props = {
   title: string;
   children: React.ReactNode;
-  caption: AudienceLabel;
+  caption: string;
 };
 
 export const StatCard: React.FC<Props> = ({ title, children, caption }) => {
