@@ -24,8 +24,10 @@ import {
   getMockRatingTrend,
   getRatingTrend,
 } from "@/features/Dashboard/api/getRatingTrend";
-import { getMockReviewAge } from "@/features/Dashboard/api/getReviewAge";
-
+import {
+  getMockReviewsWithMedia,
+  getReviewsWithMedia,
+} from "@/features/Dashboard/api/getReviewsWithMedia";
 const CHART_COLORS = [
   "indigo.6",
   "yellow.6",
@@ -46,6 +48,9 @@ const DashboardPage: React.FC = () => {
   const [ratingTrend, setRatingTrend] = useState<TimeBasedChartData[]>([]);
   const [reviewAge, setReviewAge] = useState<PercentageBasedChartData[]>([]);
   const [criteria, setCriteria] = useState<CriteriaBasedChartData[]>([]);
+  const [reviewsWithMedia, setReviewsWithMedia] = useState<
+    PercentageBasedChartData[]
+  >([]);
   useEffect(() => {
     getRatingDistribution(placeId).then((data) => {
       setRatingDistribution(
@@ -75,12 +80,12 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
-    getMockReviewAge(placeId).then((data) => {
-      setReviewAge(
-        data.map(({ dateCreated, count }, index) => {
+    getMockReviewsWithMedia(placeId).then((data) => {
+      setReviewsWithMedia(
+        data.map(({ label, amount }, index) => {
           return {
-            name: dateCreated,
-            value: count,
+            name: label,
+            value: amount,
             color: CHART_COLORS[index],
           };
         }),
@@ -105,7 +110,10 @@ const DashboardPage: React.FC = () => {
         <CriteriaBasedChart data={criteria} />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
-        <PercentageBasedChart data={reviewAge} title="Review Age" />
+        <PercentageBasedChart
+          data={reviewsWithMedia}
+          title="Reviews with Media"
+        />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 12 }}>
         <CountBasedChart data={keywordCount} title="Keyword Count" />
