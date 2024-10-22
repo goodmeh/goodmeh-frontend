@@ -24,7 +24,7 @@ export const PlacePreviewCard: React.FC<Props> = ({ placeId }) => {
   return (
     <Card
       radius="md"
-      padding="lg"
+      padding="md"
       withBorder
       component={Link}
       to={`/?place1Id=${place.id}`}
@@ -41,7 +41,7 @@ export const PlacePreviewCard: React.FC<Props> = ({ placeId }) => {
           </AspectRatio>
         </Card.Section>
       )}
-      <Space h="sm" />
+      <Space h={4} />
       <Text size="lg" fw="bold" lineClamp={1}>
         {place.name}
       </Text>
@@ -52,7 +52,7 @@ export const PlacePreviewCard: React.FC<Props> = ({ placeId }) => {
       <Text size="sm" c="dimmed" lineClamp={1}>
         {place.primary_type}
       </Text>
-      <Text size="xs" c="dimmed">
+      <Text size="sm" c="dimmed">
         Last updated: {format(place.last_scraped, "d MMM yyyy")}
       </Text>
     </Card>
