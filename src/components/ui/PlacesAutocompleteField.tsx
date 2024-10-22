@@ -28,6 +28,7 @@ type Props = {
   onSelectSuggestion?: (
     value: google.maps.places.AutocompletePrediction | undefined,
   ) => void;
+  onClear?: () => void;
 } & SafeOmit<AutocompleteProps, "value" | "onChange" | "data">;
 
 export const PlacesAutocompleteField: React.FC<Props> = ({
@@ -36,6 +37,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   onClickCompare,
   onChange,
   onSelectSuggestion,
+  onClear,
   ...props
 }) => {
   const placesLibrary = useMapsLibrary("places");
@@ -60,6 +62,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   const onClearInput = () => {
     setValue("");
     onSelectSuggestion?.(undefined);
+    onClear?.();
   };
 
   const findByMainText = useCallback(
