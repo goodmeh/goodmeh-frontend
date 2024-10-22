@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Anchor,
   AppShell,
   Burger,
   Button,
@@ -8,11 +7,18 @@ import {
   MantineColorScheme,
   Space,
   Stack,
+  Text,
   useMantineColorScheme,
   useMatches,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconDeviceDesktop, IconMoon, IconSun } from "@tabler/icons-react";
+import {
+  IconDeviceDesktop,
+  IconHome,
+  IconMoon,
+  IconSearch,
+  IconSun,
+} from "@tabler/icons-react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
 import logo from "@/assets/logo/GoodMehLogo.png";
@@ -23,21 +29,34 @@ import classes from "./Layout.module.scss";
 const NavLink: React.FC<{
   path: string;
   label: string;
-  variant?: "button" | "link";
+  variant?: "mobile" | "desktop";
+  icon?: React.ReactNode;
   toggleMenu?: () => void;
-}> = ({ path, label, variant = "link", toggleMenu }) => {
+}> = ({ path, label, variant = "desktop", icon, toggleMenu }) => {
   const { pathname } = useLocation();
   const isMatch = matchPath(path, pathname);
-  return variant == "link" ? (
-    <Anchor component={Link} to={path} underline={isMatch ? "always" : "hover"}>
-      <b>{label}</b>
-    </Anchor>
+  return variant == "desktop" ? (
+    <Button
+      size="md"
+      px={4}
+      variant={isMatch ? "filled" : "subtle"}
+      component={Link}
+      to={path}
+    >
+      <div>
+        {icon}
+        <Text size="xs" lh={0.5}>
+          {label}
+        </Text>
+      </div>
+    </Button>
   ) : (
     <Button
       onClick={toggleMenu}
       variant={isMatch ? "filled" : "subtle"}
       component={Link}
       to={path}
+      leftSection={icon}
     >
       {label}
     </Button>
@@ -62,14 +81,14 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
   return (
     <AppShell.Header className={classes.Layout__AppBar}>
       {isMobile && <Burger opened={isMenuOpen} onClick={toggle} />}
-      <Link to="/">
-        <img src={logo} alt="GoodMeh Logo" height={50} />
+      <Link to="/" style={{ display: "contents" }}>
+        <img src={logo} alt="GoodMeh Logo" height={40} />
       </Link>
       {!isMobile && (
         <>
           <Space w="md" />
 
-          <NavLink path="/discover" label="Discover" />
+          <NavLink path="/discover" label="Discover" icon={<IconSearch />} />
         </>
       )}
 
@@ -102,14 +121,16 @@ const AppNavbar: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
           <NavLink
             path="/"
             label="Home"
-            variant="button"
+            variant="mobile"
             toggleMenu={toggleMenu}
+            icon={<IconHome />}
           />
           <NavLink
             path="/discover"
             label="Discover"
-            variant="button"
+            variant="mobile"
             toggleMenu={toggleMenu}
+            icon={<IconSearch />}
           />
         </Stack>
         <ViewModeControl />

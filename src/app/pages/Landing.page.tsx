@@ -20,6 +20,7 @@ const LandingPage: React.FC = () => {
   usePlaceLoader({ placeId: place1Id });
   usePlaceLoader({ placeId: place2Id });
   const [mode, setMode] = useState(Mode.Discover);
+  const isShowingLandingScreen = !place1Id;
 
   const placeFields = (
     <>
@@ -30,7 +31,7 @@ const LandingPage: React.FC = () => {
         showCompareButton={mode == Mode.Discover && !!place1Id}
         onClickCompare={() => setMode(Mode.Compare)}
         leftSectionPointerEvents="none"
-        leftSection={<IconSearch />}
+        leftSection={isShowingLandingScreen && <IconSearch />}
       />
 
       {mode == Mode.Compare && (
