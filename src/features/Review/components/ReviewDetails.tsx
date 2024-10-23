@@ -1,14 +1,14 @@
 import {
   Avatar,
   Blockquote,
-  Box,
+  Button,
   Group,
   Progress,
   Space,
-  Spoiler,
   Stack,
   Text,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { IconSparkles } from "@tabler/icons-react";
 import { formatDistanceToNow } from "date-fns";
 import Markdown from "markdown-to-jsx";
@@ -19,7 +19,6 @@ import { RatingStars } from "@/components/ui/RatingStars";
 import { useViewMode } from "@/hooks/useViewMode";
 import { Review } from "@/types/data";
 
-import classes from "./ReviewDetails.module.scss";
 import { ReviewGallery } from "./ReviewGallery";
 
 type Props = {
@@ -50,6 +49,8 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
     () => (viewMode == "business" ? review.business_summary : review.summary),
     [viewMode, review],
   );
+  const [showSummary, { toggle: toggleShowSummary }] = useDisclosure(true);
+
   return (
     <Stack gap="md">
       <Group>
@@ -65,6 +66,7 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
           </Text>
         </div>
       </Group>
+
       <Group>
         <RatingStars rating={review.rating} />
         <Text size="sm" c="dimmed">
@@ -72,29 +74,32 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
         </Text>
       </Group>
 
-      <Group align="start" wrap="nowrap">
-        <Spoiler flex={3} maxHeight={124} showLabel="More" hideLabel="Less">
-          <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
-        </Spoiler>
-
-        <Box flex={1}>
-          {summaryToDisplay && (
-            <>
-              <Blockquote
-                className={classes.ReviewCard__Blockquote}
-                icon={<IconSparkles />}
-              >
-                <Markdown>{summaryToDisplay}</Markdown>
-              </Blockquote>
-              <Space h="md" />
-            </>
-          )}
-          <Text c="dimmed" size="sm">
-            Review Insight
-          </Text>
-          <Progress value={review.weight / 10} />
-        </Box>
+      <Group>
+        <div>
+          <Text size="xs">Review Helpfulness</Text>
+          <Progress w={200} value={review.weight / 10}></Progress>
+        </div>
+        {summaryToDisplay && (
+          <>
+            <Space flex={1} />
+            <Button variant="transparent" onClick={toggleShowSummary} p={0}>
+              {showSummary ? "Show Original" : "Show Summary"}
+            </Button>
+          </>
+        )}
       </Group>
+
+      {summaryToDisplay && showSummary ? (
+        <div>
+          <Text c="dimmed">
+            <IconSparkles style={{ verticalAlign: "middle", marginRight: 4 }} />{" "}
+            Summarised by AI
+          </Text>
+          <Markdown options={{ wrapper: "div" }}>{summaryToDisplay}</Markdown>
+        </div>
+      ) : (
+        <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
+      )}
 
       <ReviewGallery imageUrls={review.image_urls} />
 
@@ -104,7 +109,12 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
             <Text component="b" fw={700}>
               Response from the owner
             </Text>
-            <Text component="span" c="dimmed" ml="md">
+            <Text
+              style={{ whiteSpace: "pre-line" }}
+              component="span"
+              c="dimmed"
+              ml="md"
+            >
               {formatDistanceToNow(review.reply.created_at, {
                 addSuffix: true,
               })}
