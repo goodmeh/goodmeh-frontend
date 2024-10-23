@@ -1,4 +1,4 @@
-import { Card, Image, Space, Tabs, Text } from "@mantine/core";
+import { AspectRatio, Card, Space, Tabs, Text } from "@mantine/core";
 import { format } from "date-fns";
 import Markdown from "markdown-to-jsx";
 import React from "react";
@@ -27,13 +27,13 @@ export const PlaceCard: React.FC<Props> = ({ placeId }) => {
     <Card radius="md" padding="lg" withBorder flex={1}>
       {place.image_url && (
         <Card.Section>
-          <Image
-            src={place.image_url}
-            alt={place.name}
-            mah={200}
-            mih={100}
-            referrerPolicy="no-referrer"
-          />
+          <AspectRatio ratio={12 / 5}>
+            <img
+              src={place.image_url}
+              alt={place.name}
+              referrerPolicy="no-referrer"
+            />
+          </AspectRatio>
         </Card.Section>
       )}
       <Space h="sm" />
