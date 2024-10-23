@@ -25,7 +25,6 @@ const LandingPage: React.FC = () => {
   const placeFields = (
     <>
       <PlacesAutocompleteField
-        placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
         placeId={place1Id}
         onSelectSuggestion={(location) => setPlace1Id(location?.place_id ?? "")}
         showCompareButton={mode == Mode.Discover && !!place1Id}
@@ -36,7 +35,6 @@ const LandingPage: React.FC = () => {
 
       {mode == Mode.Compare && (
         <PlacesAutocompleteField
-          placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
           placeId={place2Id}
           onSelectSuggestion={(location) =>
             setPlace2Id(location?.place_id ?? "")

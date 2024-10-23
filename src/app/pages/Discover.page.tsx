@@ -1,36 +1,16 @@
-import { SimpleGrid, Stack, useMatches } from "@mantine/core";
+import { Portal, SimpleGrid, useMatches } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
+import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import { discoverPlaces } from "@/features/Discover/api/discoverPlaces";
 import { PlacePreviewCard } from "@/features/Discover/components/PlacePreviewCard";
-import { StatDisplay } from "@/features/Place/components/Stats/StatDisplay";
 import { PlaceActions } from "@/stores/places";
 import { useAppDispatch } from "@/stores/store";
 import { Place } from "@/types/data";
 
-enum Mode {
-  Discover,
-  Compare,
-}
-
-const DiscoverLayout: React.FC<{ placeId: string }> = ({ placeId }) => {
-  return (
-    <Stack>
-      <GoogleMapsEmbed
-        placeId={placeId}
-        style={{
-          borderRadius: "var(--mantine-radius-md)",
-          height: "auto",
-          flex: 1,
-        }}
-      />
-      <StatDisplay placeId={placeId} />
-    </Stack>
-  );
-};
-
 export const DiscoverPage: React.FC = () => {
+  const navigate = useNavigate();
   const [places, setPlaces] = useState<Place[]>([]);
   const dispatch = useAppDispatch();
   const cols = useMatches({
@@ -41,6 +21,15 @@ export const DiscoverPage: React.FC = () => {
     lg: 5,
   });
 
+  const onSelectSuggestion = (
+    suggestion?: google.maps.places.AutocompletePrediction,
+  ) => {
+    if (!suggestion) {
+      return;
+    }
+    navigate(`/?place1Id=${suggestion.place_id}`);
+  };
+
   useEffect(() => {
     discoverPlaces().then((places) => {
       places.map((place) => dispatch(PlaceActions.addPlace(place)));
@@ -49,11 +38,19 @@ export const DiscoverPage: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <SimpleGrid cols={cols}>
-      {places.map((place) => (
-        <PlacePreviewCard key={place.id} placeId={place.id} />
-      ))}
-    </SimpleGrid>
+    <>
+      <Portal target="#header-portal">
+        <PlacesAutocompleteField
+          leftSectionPointerEvents="none"
+          onSelectSuggestion={onSelectSuggestion}
+        />
+      </Portal>
+      <SimpleGrid cols={cols}>
+        {places.map((place) => (
+          <PlacePreviewCard key={place.id} placeId={place.id} />
+        ))}
+      </SimpleGrid>
+    </>
   );
 };
 

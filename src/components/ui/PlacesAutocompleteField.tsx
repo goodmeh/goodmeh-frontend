@@ -123,6 +123,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
         <SuggestionOption suggestion={findByMainText(option.value)} />
       )}
       filter={({ options }) => options}
+      placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
       {...props}
     />
   );
