@@ -92,7 +92,7 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
           <Text c="dimmed" size="sm">
             Review Insight
           </Text>
-          <Progress value={(review.weight / 9) * 100} />
+          <Progress value={review.weight / 10} />
         </Box>
       </Group>
 
