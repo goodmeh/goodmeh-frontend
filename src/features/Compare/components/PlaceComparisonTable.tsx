@@ -46,7 +46,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             <Text fz="xl" fw={700}>
               {row.property[audienceLabel]}{" "}
             </Text>
-            <Tooltip label="Lorem ipsum dolor sit amet.">
+            <Tooltip label={row.tooltip}>
               <IconHelp size={20} />
             </Tooltip>
           </Group>
