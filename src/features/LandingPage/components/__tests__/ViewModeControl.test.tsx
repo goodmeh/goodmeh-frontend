@@ -1,7 +1,7 @@
 import { render } from "@test/testUtils";
 import { fireEvent, screen } from "@testing-library/react";
 
-import { ViewModeControl } from "@/components/viewMode/ViewModeControl";
+import { ViewModeControl } from "@/components/controls/ViewModeControl";
 import { ViewModeContext } from "@/hooks/useViewMode";
 
 describe("ViewModeControl component", () => {

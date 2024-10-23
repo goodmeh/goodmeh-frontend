@@ -5,6 +5,7 @@ import {
   Button,
   Group,
   MantineColorScheme,
+  Popover,
   Space,
   Stack,
   Text,
@@ -17,13 +18,15 @@ import {
   IconHome,
   IconMoon,
   IconSearch,
+  IconSettings,
   IconSun,
 } from "@tabler/icons-react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
 import logo from "@/assets/logo/GoodMehLogo.png";
-import { ViewModeControl } from "@/components/viewMode/ViewModeControl";
+import { ViewModeControl } from "@/components/controls/ViewModeControl";
 
+import { ColorSchemeControl } from "../controls/ColorSchemeControl";
 import classes from "./Layout.module.scss";
 
 const NavLink: React.FC<{
@@ -77,6 +80,45 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
     setColorScheme(next);
   };
   const isMobile = useMatches({ base: true, xs: false });
+  const settings = useMatches({
+    base: (
+      <Popover floatingStrategy="fixed">
+        <Popover.Target>
+          <ActionIcon>
+            <IconSettings />
+          </ActionIcon>
+        </Popover.Target>
+        <Popover.Dropdown>
+          <Stack>
+            <Stack gap={0}>
+              <Text>I am a</Text>
+              <ViewModeControl />
+            </Stack>
+
+            <Stack gap={0}>
+              <Text>Color scheme</Text>
+              <ColorSchemeControl />
+            </Stack>
+          </Stack>
+        </Popover.Dropdown>
+      </Popover>
+    ),
+    md: (
+      <>
+        <ViewModeControl />
+        <Space w="md" />
+        <ActionIcon onClick={toggleColorScheme}>
+          {colorScheme == "light" ? (
+            <IconSun />
+          ) : colorScheme == "dark" ? (
+            <IconMoon />
+          ) : (
+            <IconDeviceDesktop />
+          )}
+        </ActionIcon>
+      </>
+    ),
+  });
 
   return (
     <AppShell.Header className={classes.Layout__AppBar}>
@@ -94,21 +136,7 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
 
       <Group className={classes["header-portal"]} id="header-portal"></Group>
 
-      {!isMobile && (
-        <>
-          <ViewModeControl />
-          <Space w="md" />
-        </>
-      )}
-      <ActionIcon onClick={toggleColorScheme}>
-        {colorScheme == "light" ? (
-          <IconSun />
-        ) : colorScheme == "dark" ? (
-          <IconMoon />
-        ) : (
-          <IconDeviceDesktop />
-        )}
-      </ActionIcon>
+      {settings}
     </AppShell.Header>
   );
 };
