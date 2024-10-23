@@ -52,21 +52,21 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
           </Group>
           <SimpleGrid cols={2} spacing={0} w="100%" maw={700}>
             <Text c={getColour(row.is_place_1_better, 1, 7) ?? "dimmed"}>
-              {row.description_1[audienceLabel]}
+              {row.metric_1.description[audienceLabel]}
             </Text>
             <Text c={getColour(row.is_place_1_better, 2, 7) ?? "dimmed"}>
-              {row.description_2[audienceLabel]}
+              {row.metric_2.description[audienceLabel]}
             </Text>
             <Progress
               radius={0}
-              value={row.score_1}
+              value={row.metric_1.normalized_score}
               size="xl"
               style={{ transform: "rotateY(180deg)" }}
               color={getColour(row.is_place_1_better, 1, 8)}
             />
             <Progress
               radius={0}
-              value={row.score_2}
+              value={row.metric_2.normalized_score}
               size="xl"
               color={getColour(row.is_place_1_better, 2, 8)}
             />

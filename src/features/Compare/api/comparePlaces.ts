@@ -3,11 +3,16 @@ import { AudienceLabel } from "@/types/data";
 
 export type MetricComparisonResult = {
   property: AudienceLabel;
-  score_1: number;
-  score_2: number;
-  description_1: AudienceLabel;
-  description_2: AudienceLabel;
+  metric_1: PlaceMetricData;
+  metric_2: PlaceMetricData;
   is_place_1_better: boolean | null;
+};
+
+export type PlaceMetricData = {
+  property: AudienceLabel;
+  normalized_score: number;
+  level: number;
+  description: AudienceLabel;
 };
 
 export type ComparePlacesResponse = MetricComparisonResult[];
