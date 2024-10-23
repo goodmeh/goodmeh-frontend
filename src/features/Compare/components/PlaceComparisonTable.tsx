@@ -32,7 +32,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             ? {}
             : { c: "green.5", fw: "bold" })}
       >
-        {row.description_1[audienceLabel]}
+        {row.metric_1.description[audienceLabel]}
       </Table.Td>
       <Table.Td
         ta="center"
@@ -42,7 +42,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             ? {}
             : { c: "green.5", fw: "bold" })}
       >
-        {row.description_2[audienceLabel]}
+        {row.metric_2.description[audienceLabel]}
       </Table.Td>
     </Table.Tr>
   ));
