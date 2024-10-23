@@ -160,6 +160,12 @@ const AppNavbar: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
             toggleMenu={toggleMenu}
             icon={<IconSearch />}
           />
+          <NavLink
+            path="/dashboard"
+            label="Dashboard"
+            variant="button"
+            toggleMenu={toggleMenu}
+          />
         </Stack>
         <ViewModeControl />
       </Stack>
