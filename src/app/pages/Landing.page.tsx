@@ -10,7 +10,7 @@ import { usePlaceLoader } from "@/hooks/usePlaceLoader";
 import { useSearchParamsState } from "@/hooks/useSearchParamsState";
 
 enum Mode {
-  Discover,
+  Search,
   Compare,
 }
 
@@ -19,7 +19,7 @@ const LandingPage: React.FC = () => {
   const [place2Id, setPlace2Id] = useSearchParamsState("place2Id");
   usePlaceLoader({ placeId: place1Id });
   usePlaceLoader({ placeId: place2Id });
-  const [mode, setMode] = useState(Mode.Discover);
+  const [mode, setMode] = useState(Mode.Search);
   const isShowingLandingScreen = !place1Id;
 
   const placeFields = (
@@ -27,7 +27,7 @@ const LandingPage: React.FC = () => {
       <PlacesAutocompleteField
         placeId={place1Id}
         onSelectSuggestion={(location) => setPlace1Id(location?.place_id ?? "")}
-        showCompareButton={mode == Mode.Discover && !!place1Id}
+        showCompareButton={mode == Mode.Search && !!place1Id}
         onClickCompare={() => setMode(Mode.Compare)}
         leftSectionPointerEvents="none"
         leftSection={isShowingLandingScreen && <IconSearch />}
@@ -40,7 +40,7 @@ const LandingPage: React.FC = () => {
             setPlace2Id(location?.place_id ?? "")
           }
           onClear={() => {
-            setMode(Mode.Discover);
+            setMode(Mode.Search);
           }}
         />
       )}
@@ -49,7 +49,7 @@ const LandingPage: React.FC = () => {
 
   useEffect(() => {
     if (!place2Id) {
-      setMode(Mode.Discover);
+      setMode(Mode.Search);
     } else {
       setMode(Mode.Compare);
     }
@@ -57,7 +57,7 @@ const LandingPage: React.FC = () => {
 
   useEffect(() => {
     if (!place1Id) {
-      setMode(Mode.Discover);
+      setMode(Mode.Search);
     }
   }, [place1Id]);
 
@@ -69,7 +69,7 @@ const LandingPage: React.FC = () => {
     <>
       <OptionalPortal target="#header-portal">{placeFields}</OptionalPortal>
 
-      {mode == Mode.Discover ? (
+      {mode == Mode.Search ? (
         <SearchScreen place1Id={place1Id} />
       ) : (
         <CompareScreen place1Id={place1Id} place2Id={place2Id} />
