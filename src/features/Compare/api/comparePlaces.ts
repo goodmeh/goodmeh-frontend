@@ -1,12 +1,17 @@
 import api from "@/lib/api";
 import { AudienceLabel } from "@/types/data";
 
+type Metric = {
+  property: AudienceLabel;
+  normalized_score: number;
+  level: number;
+  description: AudienceLabel;
+};
+
 export type MetricComparisonResult = {
   property: AudienceLabel;
-  score_1: number;
-  score_2: number;
-  description_1: AudienceLabel;
-  description_2: AudienceLabel;
+  metric_1: Metric;
+  metric_2: Metric;
   is_place_1_better: boolean | null;
 };
 
