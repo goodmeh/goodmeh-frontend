@@ -1,18 +1,18 @@
 import api from "@/lib/api";
 import { AudienceLabel } from "@/types/data";
 
-export type MetricComparisonResult = {
-  property: AudienceLabel;
-  metric_1: PlaceMetricData;
-  metric_2: PlaceMetricData;
-  is_place_1_better: boolean | null;
-};
-
-export type PlaceMetricData = {
+type Metric = {
   property: AudienceLabel;
   normalized_score: number;
   level: number;
   description: AudienceLabel;
+};
+
+export type MetricComparisonResult = {
+  property: AudienceLabel;
+  metric_1: Metric;
+  metric_2: Metric;
+  is_place_1_better: boolean | null;
 };
 
 export type ComparePlacesResponse = MetricComparisonResult[];
