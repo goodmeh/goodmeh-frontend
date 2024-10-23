@@ -93,7 +93,7 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
         <div>
           <Text c="dimmed">
             <IconSparkles style={{ verticalAlign: "middle", marginRight: 4 }} />{" "}
-            Summarised by AI
+            {viewMode == "consumer" ? "Summarised" : "Analysed"} by AI
           </Text>
           <Markdown options={{ wrapper: "div" }}>{summaryToDisplay}</Markdown>
         </div>
