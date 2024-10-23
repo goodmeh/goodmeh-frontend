@@ -4,7 +4,7 @@ import {
   getPlace,
   GetPlaceResponse,
   RequestPlaceStatusResponse,
-} from "@/features/Discover/api/getPlace";
+} from "@/features/Place/api/getPlace";
 import { PlaceActions } from "@/stores/places";
 import { useAppDispatch, useAppSelector } from "@/stores/store";
 import { Place, ScrapeStatus } from "@/types/data";
