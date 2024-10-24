@@ -433,10 +433,15 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@mantine/core@^7.12.2":
-  version "7.12.2"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.12.2.tgz#d8fb7969a62dd5367331b141e053c4b2989c677a"
-  integrity sha512-FrMHOKq4s3CiPIxqZ9xnVX7H4PEGNmbtHMvWO/0YlfPgoV0Er/N/DNJOFW1ys4WSnidPTayYeB41riyxxGOpRQ==
+"@mantine/carousel@^7.13.3":
+  version "7.13.3"
+  resolved "https://registry.yarnpkg.com/@mantine/carousel/-/carousel-7.13.3.tgz#6172a1e35165965836a4b9d4a788414eadf5abad"
+  integrity sha512-FMJIRQJ2/HpnzKfiOnK2DHBxz6PT7ckFEYtaQHeGkSUl5VIyONUk1+brm8uwaFNNPKn8qjUD1ad9/6ePGQMsiA==
+
+"@mantine/core@^7.13.3":
+  version "7.13.3"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.13.3.tgz#ad31f00de6d6eb52f0bc2ce1b95f79ac7ab25a67"
+  integrity sha512-IV8xSr6rFQefKr2iOEhYYkJ6rZTDEp71qNkAfn90toSNjgT/2bgnqOxXwxqZ3bwo9DyNOAbEDzs1EfdIzln5aA==
   dependencies:
     "@floating-ui/react" "^0.26.9"
     clsx "^2.1.1"
@@ -445,17 +450,17 @@
     react-textarea-autosize "8.5.3"
     type-fest "^4.12.0"
 
-"@mantine/dates@^7.12.2":
-  version "7.12.2"
-  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-7.12.2.tgz#32fd7341283450487de884b6f996647431690938"
-  integrity sha512-qsDDl9qF80QLG1n6JiysyELAhbNLbV3qmXRAIU3GJLLxtZfyD9ntOUg0B64EpNl3Py4btXNo4yniFdu1JSUgwg==
+"@mantine/dates@^7.13.3":
+  version "7.13.3"
+  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-7.13.3.tgz#0efadb34cb13cf562ec1875376960af6b2ac3a8d"
+  integrity sha512-IjClxPcenDq2/iAxhaZyjrCpMhc9ybLfvh4YwEmjWg+pSfdIDtc9VkMSnXv2aYChLybUjNQmIcPibU7Vdu4Z8w==
   dependencies:
     clsx "^2.1.1"
 
-"@mantine/hooks@^7.12.2":
-  version "7.12.2"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.12.2.tgz#f8e6a8345bb0892d8d1f5d1dc544a568572b79f4"
-  integrity sha512-dVMw8jpM0hAzc8e7/GNvzkk9N0RN/m+PKycETB3H6lJGuXJJSRR4wzzgQKpEhHwPccktDpvb4rkukKDq2jA8Fg==
+"@mantine/hooks@^7.13.3":
+  version "7.13.3"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.13.3.tgz#0506dcc830f36ffd94a2212dab25687fe37a62a4"
+  integrity sha512-r2c+Z8CdvPKFeOwg6mSJmxOp9K/ave5ZFR7eJbgv4wQU8K1CAS5f5ven9K5uUX8Vf9B5dFnSaSgYp9UY3vOWTw==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -1467,6 +1472,18 @@ dom-accessibility-api@^0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/dom-accessibility-api/-/dom-accessibility-api-0.6.3.tgz#993e925cc1d73f2c662e7d75dd5a5445259a8fd8"
   integrity sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w==
+
+embla-carousel-react@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/embla-carousel-react/-/embla-carousel-react-7.1.0.tgz#e716f4df7fd31f7ca3e59a3e011158167bc3c468"
+  integrity sha512-tbYRPRZSDNd2QLNqYDcArAakGIxtUbhS7tkP0dGXktXHGgcX+3ji3VrOUTOftBiujZrMV8kRxtrRUe/1soloIQ==
+  dependencies:
+    embla-carousel "7.1.0"
+
+embla-carousel@7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/embla-carousel/-/embla-carousel-7.1.0.tgz#c770dd3ade9285a97f5e3b6bbf705bc35ec0f9b5"
+  integrity sha512-Bh8Pa8NWzgugLkf8sAGexQlBCNDFaej5BXiKgQdRJ1mUC9NWBrw9Z23YVPVGkguWoz5LMjZXXFVGCobl3UPt/Q==
 
 entities@^4.4.0:
   version "4.5.0"

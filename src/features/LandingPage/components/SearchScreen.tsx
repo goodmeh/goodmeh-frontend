@@ -18,7 +18,12 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
 
   return (
     <Stack>
-      <SimpleGrid cols={2}>
+      <SimpleGrid
+        cols={{
+          base: 1,
+          sm: 2,
+        }}
+      >
         <PlaceCard placeId={place1Id} />
         <Stack>
           <GoogleMapsEmbed
