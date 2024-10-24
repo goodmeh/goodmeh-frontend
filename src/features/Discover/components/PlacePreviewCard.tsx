@@ -7,8 +7,8 @@ import { RatingStars } from "@/components/ui/RatingStars";
 import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
-import { PlaceCardSkeleton } from "../../Place/components/PlaceCardSkeleton";
 import classes from "./PlacePreviewCard.module.scss";
+import { PlacePreviewCardSkeleton } from "./PlacePreviewCardSkeleton";
 
 type Props = {
   placeId?: string;
@@ -19,7 +19,7 @@ export const PlacePreviewCard: React.FC<Props> = ({ placeId }) => {
     (state) => state.places[placeId ?? ""],
   );
 
-  if (!place) return <PlaceCardSkeleton />;
+  if (!place) return <PlacePreviewCardSkeleton />;
 
   return (
     <Card
