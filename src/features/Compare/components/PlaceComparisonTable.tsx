@@ -63,6 +63,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
               size="xl"
               style={{ transform: "rotateY(180deg)" }}
               color={getColour(row.is_place_1_better, 1, 8)}
+              mr={2}
             />
             <Progress
               radius={0}
