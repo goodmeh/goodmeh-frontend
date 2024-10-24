@@ -15,6 +15,8 @@ import { Place } from "@/types/data";
 
 import { comparePlaces, MetricComparisonResult } from "../api/comparePlaces";
 
+const PROGRESS_BAR_RADIUS = "var(--mantine-radius-md)";
+
 type Props = {
   place1: Place;
   place2: Place;
@@ -50,7 +52,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
               <IconHelp size={20} />
             </Tooltip>
           </Group>
-          <SimpleGrid cols={2} spacing={0} w="100%" maw={700}>
+          <SimpleGrid cols={2} spacing={2} w="100%" maw={700}>
             <Text c={getColour(row.is_place_1_better, 1, 7) ?? "dimmed"}>
               {row.metric_1.description[audienceLabel]}
             </Text>
@@ -60,16 +62,23 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
             <Progress
               radius={0}
               value={row.metric_1.normalized_score}
-              size="xl"
-              style={{ transform: "rotateY(180deg)" }}
+              size="lg"
+              style={{
+                transform: "rotateY(180deg)",
+                borderTopRightRadius: PROGRESS_BAR_RADIUS,
+                borderBottomRightRadius: PROGRESS_BAR_RADIUS,
+              }}
               color={getColour(row.is_place_1_better, 1, 8)}
-              mr={2}
             />
             <Progress
               radius={0}
               value={row.metric_2.normalized_score}
-              size="xl"
+              size="lg"
               color={getColour(row.is_place_1_better, 2, 8)}
+              style={{
+                borderTopRightRadius: PROGRESS_BAR_RADIUS,
+                borderBottomRightRadius: PROGRESS_BAR_RADIUS,
+              }}
             />
           </SimpleGrid>
         </Stack>
