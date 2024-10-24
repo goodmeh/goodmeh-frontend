@@ -10,6 +10,7 @@ type Metric = {
 
 export type MetricComparisonResult = {
   property: AudienceLabel;
+  tooltip: string;
   metric_1: Metric;
   metric_2: Metric;
   is_place_1_better: boolean | null;
