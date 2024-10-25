@@ -14,12 +14,7 @@ type Props = {
 
 export const PercentageBasedChart: React.FC<Props> = ({ data, title }) => {
   return (
-    <Stack
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <Stack align="center">
       <Title order={4}>{title}</Title>
       <PieChart
         data={data}

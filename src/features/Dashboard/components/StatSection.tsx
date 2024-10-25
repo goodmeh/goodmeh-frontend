@@ -1,4 +1,4 @@
-import { Grid } from "@mantine/core";
+import { Card, Divider, Stack } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import {
@@ -22,6 +22,12 @@ import { getKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
 import { getRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
 import { getReviewsWithMedia } from "@/features/Dashboard/api/getReviewsWithMedia";
+import { Place } from "@/types/data";
+
+type Props = {
+  place: Place;
+};
+
 const CHART_COLORS = [
   "indigo.6",
   "yellow.6",
@@ -32,9 +38,8 @@ const CHART_COLORS = [
   "red.6",
 ];
 
-const placeId = "ChIJv1DkBMgZ2jERft-n2ibNvh0";
-
-const DashboardPage: React.FC = () => {
+export const StatSection: React.FC<Props> = ({ place }) => {
+  const placeId = place?.id;
   const [ratingDistribution, setRatingDistribution] = useState<
     PercentageBasedChartData[]
   >([]);
@@ -90,33 +95,29 @@ const DashboardPage: React.FC = () => {
     getCriteria(placeId).then((data) => {
       setCriteria(data);
     });
-  }, []);
+  }, [placeId]);
   return (
-    <Grid gutter={50} styles={{ inner: { maxWidth: "100%" } }}>
-      <Grid.Col span={{ base: 12, xs: 12 }}>
+    <Card withBorder>
+      <Stack>
+        <CriteriaBasedChart data={criteria} title="Criteria" />
+        <Divider />
         <TimeBasedChart data={ratingTrend} title="Rating Trend" />
-      </Grid.Col>
-      <Grid.Col span={{ base: 12, xs: 4 }}>
+        <Divider />
+        <CountBasedChart data={keywordCount} title="Keywords" />
+        <Divider />
         <PercentageBasedChart
           data={ratingDistribution}
           title="★ Rating Percentage"
         />
-      </Grid.Col>
-      <Grid.Col span={{ base: 12, xs: 4 }}>
-        <CriteriaBasedChart data={criteria} />
-      </Grid.Col>
-      <Grid.Col span={{ base: 12, xs: 4 }}>
+        <Divider />
         <PercentageBasedChart
           data={reviewsWithMedia}
           title="Reviews with Media"
         />
-      </Grid.Col>
-      <Grid.Col span={{ base: 12, xs: 12 }}>
-        <CountBasedChart data={keywordCount} title="Keywords" />
-      </Grid.Col>
-    </Grid>
+      </Stack>
+    </Card>
   );
 };
 
-export const Component = DashboardPage;
+export const Component = StatSection;
 Component.displayName = "DashboardPage";

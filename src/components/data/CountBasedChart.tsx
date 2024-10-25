@@ -12,12 +12,7 @@ type Props = {
 
 export const CountBasedChart: React.FC<Props> = ({ data, title }) => {
   return (
-    <Stack
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+    <Stack align="center">
       <Title order={4}>{title}</Title>
       <BarChart
         h={300}
