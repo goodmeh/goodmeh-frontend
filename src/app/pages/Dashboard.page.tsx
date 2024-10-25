@@ -69,8 +69,8 @@ const DashboardPage: React.FC = () => {
     });
     getMockRatingTrend(placeId).then((data) => {
       setRatingTrend(
-        data.data.map(({ date, rating }) => {
-          return { date, rating };
+        data.data.map(({ date, MonAvg, CumAvg, RollAvg }) => {
+          return { date, MonAvg, CumAvg, RollAvg };
         }),
       );
     });
