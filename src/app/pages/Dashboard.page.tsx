@@ -21,7 +21,7 @@ import { getCriteria } from "@/features/Dashboard/api/getCriteria";
 import { getKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
 import { getMockRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
-import { getMockReviewsWithMedia } from "@/features/Dashboard/api/getReviewsWithMedia";
+import { getReviewsWithMedia } from "@/features/Dashboard/api/getReviewsWithMedia";
 const CHART_COLORS = [
   "indigo.6",
   "yellow.6",
@@ -32,7 +32,7 @@ const CHART_COLORS = [
   "red.6",
 ];
 
-const placeId = "ChIJcXPxPAAb2jERncmNWc0znBk";
+const placeId = "ChIJv1DkBMgZ2jERft-n2ibNvh0";
 
 const DashboardPage: React.FC = () => {
   const [ratingDistribution, setRatingDistribution] = useState<
@@ -74,16 +74,19 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
-    getMockReviewsWithMedia(placeId).then((data) => {
-      setReviewsWithMedia(
-        data.map(({ label, amount }, index) => {
-          return {
-            name: label,
-            value: amount,
-            color: CHART_COLORS[index],
-          };
-        }),
-      );
+    getReviewsWithMedia(placeId).then((data) => {
+      setReviewsWithMedia([
+        {
+          name: "Has Media",
+          value: data.has_media,
+          color: CHART_COLORS[0],
+        },
+        {
+          name: "No Media",
+          value: data.no_media,
+          color: CHART_COLORS[1],
+        },
+      ]);
     });
     getCriteria(placeId).then((data) => {
       setCriteria(data);
