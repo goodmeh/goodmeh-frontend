@@ -4,7 +4,6 @@ import {
   Button,
   Group,
   Progress,
-  Space,
   Stack,
   Text,
 } from "@mantine/core";
@@ -67,38 +66,42 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
         </div>
       </Group>
 
-      <Group>
-        <RatingStars rating={review.rating} />
-        <Text size="sm" c="dimmed">
-          {formatDistanceToNow(review.created_at, { addSuffix: true })}
-        </Text>
-      </Group>
+      <Group align="flex-end" justify="space-between">
+        <Group>
+          <RatingStars rating={review.rating} />
+          <Text size="sm" c="dimmed">
+            {formatDistanceToNow(review.created_at, { addSuffix: true })}
+          </Text>
+        </Group>
 
-      <Group>
         <div>
           <Text size="xs">Review Helpfulness</Text>
-          <Progress w={200} value={review.weight / 10}></Progress>
+          <Progress value={review.weight / 10} />
         </div>
-        {summaryToDisplay && (
-          <>
-            <Space flex={1} />
-            <Button variant="transparent" onClick={toggleShowSummary} p={0}>
-              {showSummary ? "Show Original" : "Show Summary"}
-            </Button>
-          </>
-        )}
       </Group>
 
-      {summaryToDisplay && showSummary ? (
+      {summaryToDisplay && (
         <div>
-          <Text c="dimmed">
-            <IconSparkles style={{ verticalAlign: "middle", marginRight: 4 }} />{" "}
-            {viewMode == "consumer" ? "Summarised" : "Analysed"} by AI
-          </Text>
-          <Markdown options={{ wrapper: "div" }}>{summaryToDisplay}</Markdown>
+          {showSummary ? (
+            <div>
+              <Text c="dimmed">
+                <IconSparkles
+                  style={{ verticalAlign: "middle", marginRight: 4 }}
+                />{" "}
+                {viewMode == "consumer" ? "Summarised" : "Analysed"} by GoodMeh?
+              </Text>
+              <Markdown options={{ wrapper: "div" }}>
+                {summaryToDisplay}
+              </Markdown>
+            </div>
+          ) : (
+            <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
+          )}
+
+          <Button variant="transparent" onClick={toggleShowSummary} p={0}>
+            {showSummary ? "Show Original" : "Show Summary"}
+          </Button>
         </div>
-      ) : (
-        <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
       )}
 
       <ReviewGallery imageUrls={review.image_urls} />
