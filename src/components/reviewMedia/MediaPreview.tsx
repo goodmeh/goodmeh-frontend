@@ -17,10 +17,11 @@ export const MediaPreview: React.FC<Props> = ({
   showVideoControls = false,
 }) => {
   const isVideo = mediaUrl.startsWith("https://lh3.googleusercontent.com/ggms");
+  const cursor = onClick ? "pointer" : "default";
 
   if (isVideo) {
     return (
-      <div style={{ position: "relative" }} onClick={onClick}>
+      <div style={{ position: "relative", cursor }} onClick={onClick}>
         {!showVideoControls && (
           <Overlay backgroundOpacity={0}>
             <Center h="100%">
@@ -45,6 +46,7 @@ export const MediaPreview: React.FC<Props> = ({
       maw={width}
       src={mediaUrl}
       onClick={onClick}
+      style={{ cursor }}
     />
   );
 };

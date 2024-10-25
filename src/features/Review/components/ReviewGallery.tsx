@@ -13,7 +13,7 @@ import {
   useMatches,
 } from "@mantine/core";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { MediaPreview } from "@/components/reviewMedia/MediaPreview";
 
@@ -21,9 +21,15 @@ type MediaModalProps = {
   imageUrls: string[];
   opened: boolean;
   onClose: () => void;
+  initialSlide?: number;
 };
 
-const MediaModal = ({ imageUrls, opened, onClose }: MediaModalProps) => {
+const MediaModal = ({
+  imageUrls,
+  opened,
+  onClose,
+  initialSlide,
+}: MediaModalProps) => {
   return (
     <Modal
       opened={opened}
@@ -34,9 +40,9 @@ const MediaModal = ({ imageUrls, opened, onClose }: MediaModalProps) => {
         body: { padding: 0, height: "auto" },
       }}
     >
-      <Carousel loop withIndicators px="xl" pb="xl">
+      <Carousel loop withIndicators px="xl" pb="xl" initialSlide={initialSlide}>
         {imageUrls.map((imageUrl) => (
-          <Carousel.Slide key={imageUrl}>
+          <Carousel.Slide key={imageUrl} bg="black">
             <Center h="100%">
               <MediaPreview
                 showVideoControls
@@ -64,6 +70,11 @@ export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
     sm: 3,
   });
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`);
+  const [initialSlide, setInitialSlide] = useState<number>();
+  const onClickImage = (index: number) => {
+    setInitialSlide(index);
+    open();
+  };
 
   const displayedImages = useMemo(
     () => imageUrls.slice(0, numImagesToDisplay),
@@ -71,7 +82,12 @@ export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
   );
   const [isModalOpen, { open, close }] = useDisclosure();
   const modal = (
-    <MediaModal imageUrls={imageUrls} opened={isModalOpen} onClose={close} />
+    <MediaModal
+      imageUrls={imageUrls}
+      opened={isModalOpen}
+      onClose={close}
+      initialSlide={initialSlide}
+    />
   );
 
   if (imageUrls.length == 0) {
@@ -101,7 +117,7 @@ export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
                 height={200}
                 width="100%"
                 mediaUrl={imageUrl}
-                onClick={open}
+                onClick={() => onClickImage(index)}
               />
               <LastImageOverlay isLastImage={index == numImagesToDisplay - 1} />
             </Box>
@@ -121,7 +137,7 @@ export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
               height={200}
               width="auto"
               mediaUrl={imageUrl}
-              onClick={open}
+              onClick={() => onClickImage(index)}
             />
             <LastImageOverlay isLastImage={index == numImagesToDisplay - 1} />
           </Box>
