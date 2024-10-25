@@ -10,7 +10,7 @@ import {
 import { IconHelp } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
-import { HEADER_HEIGHT_COLLAPSED } from "@/components/layout/Layout";
+import { HEADER_HEIGHT_EXPANDED } from "@/components/layout/Layout";
 import { useViewMode } from "@/hooks/useViewMode";
 import { Place } from "@/types/data";
 
@@ -91,7 +91,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
     <Table
       withTableBorder
       stickyHeader
-      stickyHeaderOffset={HEADER_HEIGHT_COLLAPSED}
+      stickyHeaderOffset={HEADER_HEIGHT_EXPANDED}
     >
       <Table.Thead>
         <Table.Tr fz="xxl">
