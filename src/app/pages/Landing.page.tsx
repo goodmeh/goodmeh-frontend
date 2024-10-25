@@ -1,5 +1,5 @@
-import { Container, OptionalPortal } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { Button, Container, OptionalPortal } from "@mantine/core";
+import { IconSearch, IconSwitchHorizontal } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
@@ -27,13 +27,11 @@ const LandingPage: React.FC = () => {
       <PlacesAutocompleteField
         placeId={place1Id}
         onSelectSuggestion={(location) => setPlace1Id(location?.place_id ?? "")}
-        showCompareButton={mode == Mode.Search && !!place1Id}
-        onClickCompare={() => setMode(Mode.Compare)}
         leftSectionPointerEvents="none"
         leftSection={isShowingLandingScreen && <IconSearch />}
       />
 
-      {mode == Mode.Compare && (
+      {mode == Mode.Compare ? (
         <PlacesAutocompleteField
           placeId={place2Id}
           onSelectSuggestion={(location) =>
@@ -43,6 +41,12 @@ const LandingPage: React.FC = () => {
             setMode(Mode.Search);
           }}
         />
+      ) : (
+        place1Id && (
+          <Button flex={0.2} onClick={() => setMode(Mode.Compare)}>
+            <IconSwitchHorizontal />
+          </Button>
+        )
       )}
     </>
   );
@@ -66,7 +70,7 @@ const LandingPage: React.FC = () => {
   }
 
   return (
-    <Container>
+    <Container p={0}>
       <OptionalPortal target="#header-portal">{placeFields}</OptionalPortal>
 
       {mode == Mode.Search ? (
