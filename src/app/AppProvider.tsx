@@ -1,3 +1,4 @@
+import "@mantine/carousel/styles.css";
 import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";

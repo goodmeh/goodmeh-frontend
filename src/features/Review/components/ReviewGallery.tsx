@@ -1,22 +1,93 @@
-import { Box, Center, Group, Text } from "@mantine/core";
+import "./ReviewGallery.module.scss";
+
+import { Carousel } from "@mantine/carousel";
+import {
+  Box,
+  Center,
+  Group,
+  Modal,
+  Overlay,
+  SimpleGrid,
+  Text,
+  useMantineTheme,
+  useMatches,
+} from "@mantine/core";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { useMemo, useState } from "react";
 
 import { MediaPreview } from "@/components/reviewMedia/MediaPreview";
 
-import classes from "./ReviewGallery.module.scss";
+type MediaModalProps = {
+  imageUrls: string[];
+  opened: boolean;
+  onClose: () => void;
+  initialSlide?: number;
+};
+
+const MediaModal = ({
+  imageUrls,
+  opened,
+  onClose,
+  initialSlide,
+}: MediaModalProps) => {
+  return (
+    <Modal
+      opened={opened}
+      onClose={onClose}
+      centered
+      title="Review Media"
+      styles={{
+        body: { padding: 0, height: "auto" },
+      }}
+    >
+      <Carousel loop withIndicators px="xl" pb="xl" initialSlide={initialSlide}>
+        {imageUrls.map((imageUrl) => (
+          <Carousel.Slide key={imageUrl} bg="black">
+            <Center h="100%">
+              <MediaPreview
+                showVideoControls
+                mediaUrl={imageUrl}
+                height="auto"
+                width={400}
+              />
+            </Center>
+          </Carousel.Slide>
+        ))}
+      </Carousel>
+    </Modal>
+  );
+};
 
 type Props = {
   imageUrls: string[];
 };
 
-const MAX_DISPLAY_IMAGES = 4;
-
 export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
-  const [isShowingAllImages, setIsShowingAllImages] = useState(false);
+  const theme = useMantineTheme();
+  const numImagesToDisplay = useMatches({
+    base: 2,
+    xs: 3,
+    sm: 3,
+  });
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`);
+  const [initialSlide, setInitialSlide] = useState<number>();
+  const onClickImage = (index: number) => {
+    setInitialSlide(index);
+    open();
+  };
+
   const displayedImages = useMemo(
-    () =>
-      isShowingAllImages ? imageUrls : imageUrls.slice(0, MAX_DISPLAY_IMAGES),
-    [isShowingAllImages, imageUrls],
+    () => imageUrls.slice(0, numImagesToDisplay),
+    [imageUrls, numImagesToDisplay],
+  );
+  const [isModalOpen, { open, close }] = useDisclosure();
+  const modal = (
+    <MediaModal
+      imageUrls={imageUrls}
+      opened={isModalOpen}
+      onClose={close}
+      initialSlide={initialSlide}
+    />
   );
 
   if (imageUrls.length == 0) {
@@ -25,26 +96,53 @@ export const ReviewGallery: React.FC<Props> = ({ imageUrls }) => {
 
   const LastImageOverlay = ({ isLastImage }: { isLastImage: boolean }) =>
     isLastImage &&
-    imageUrls.length > MAX_DISPLAY_IMAGES &&
-    !isShowingAllImages && (
-      <Center
-        className={classes.ReviewGallery__LastImageOverlay}
-        onClick={() => setIsShowingAllImages(true)}
-      >
-        <Text size="xxl" fw="bold">
-          +{imageUrls.length - MAX_DISPLAY_IMAGES}
-        </Text>
-      </Center>
+    imageUrls.length > numImagesToDisplay && (
+      <Overlay style={{ pointerEvents: "none" }}>
+        <Center h="100%">
+          <Text size="xxl" fw="bold">
+            +{imageUrls.length - numImagesToDisplay}
+          </Text>
+        </Center>
+      </Overlay>
     );
 
+  if (isMobile) {
+    return (
+      <>
+        {modal}
+        <SimpleGrid cols={numImagesToDisplay} spacing="xs">
+          {displayedImages.map((imageUrl, index) => (
+            <Box pos="relative" key={imageUrl}>
+              <MediaPreview
+                height={200}
+                width="100%"
+                mediaUrl={imageUrl}
+                onClick={() => onClickImage(index)}
+              />
+              <LastImageOverlay isLastImage={index == numImagesToDisplay - 1} />
+            </Box>
+          ))}
+        </SimpleGrid>
+      </>
+    );
+  }
+
   return (
-    <Group mt="sm" gap="xs">
-      {displayedImages.map((imageUrl, index) => (
-        <Box pos="relative" key={imageUrl}>
-          <MediaPreview mediaUrl={imageUrl} />
-          <LastImageOverlay isLastImage={index == MAX_DISPLAY_IMAGES - 1} />
-        </Box>
-      ))}
-    </Group>
+    <>
+      {modal}
+      <Group gap="xs">
+        {displayedImages.map((imageUrl, index) => (
+          <Box pos="relative" key={imageUrl}>
+            <MediaPreview
+              height={200}
+              width="auto"
+              mediaUrl={imageUrl}
+              onClick={() => onClickImage(index)}
+            />
+            <LastImageOverlay isLastImage={index == numImagesToDisplay - 1} />
+          </Box>
+        ))}
+      </Group>
+    </>
   );
 };

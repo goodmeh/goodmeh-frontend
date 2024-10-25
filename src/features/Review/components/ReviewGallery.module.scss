@@ -1,6 +1,4 @@
-.ReviewGallery__LastImageOverlay {
-  background-color: rgba(0, 0, 0, 0.8);
-  position: absolute;
-  inset: 0;
-  cursor: pointer;
+:global(.mantine-Carousel-indicator) {
+  background-color: #fff;
+  border: 1px solid #000;
 }
