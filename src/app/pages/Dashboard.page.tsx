@@ -17,17 +17,11 @@ import {
   TimeBasedChart,
   TimeBasedChartData,
 } from "@/components/data/TimeBasedChart";
-import { getMockCriteria } from "@/features/Dashboard/api/getCriteria";
+import { getCriteria } from "@/features/Dashboard/api/getCriteria";
 import { getKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
-import {
-  getMockRatingTrend,
-  getRatingTrend,
-} from "@/features/Dashboard/api/getRatingTrend";
-import {
-  getMockReviewsWithMedia,
-  getReviewsWithMedia,
-} from "@/features/Dashboard/api/getReviewsWithMedia";
+import { getMockRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
+import { getMockReviewsWithMedia } from "@/features/Dashboard/api/getReviewsWithMedia";
 const CHART_COLORS = [
   "indigo.6",
   "yellow.6",
@@ -91,14 +85,14 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
-    getMockCriteria(placeId).then((data) => {
+    getCriteria(placeId).then((data) => {
       setCriteria(data);
     });
   }, []);
   return (
     <Grid gutter={50} styles={{ inner: { maxWidth: "100%" } }}>
       <Grid.Col span={{ base: 12, xs: 12 }}>
-        <TimeBasedChart data={ratingTrend} title="Rating Trend Over Time" />
+        <TimeBasedChart data={ratingTrend} title="Rating Trend" />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 4 }}>
         <PercentageBasedChart
@@ -116,7 +110,7 @@ const DashboardPage: React.FC = () => {
         />
       </Grid.Col>
       <Grid.Col span={{ base: 12, xs: 12 }}>
-        <CountBasedChart data={keywordCount} title="Keyword Count" />
+        <CountBasedChart data={keywordCount} title="Keywords" />
       </Grid.Col>
     </Grid>
   );

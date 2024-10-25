@@ -23,7 +23,6 @@ export const getMockCriteria = async (placeId: string) => {
 };
 
 export const getCriteria = async (placeId: string) => {
-  // to be changed when backend is ready
   const response = await api.get<GetCriteriaResponse>(
     `/v1/dashboard/criteria/${placeId}`,
   );
