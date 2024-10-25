@@ -80,29 +80,27 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
         </div>
       </Group>
 
-      {summaryToDisplay && (
-        <div>
-          {showSummary ? (
-            <div>
-              <Text c="dimmed">
-                <IconSparkles
-                  style={{ verticalAlign: "middle", marginRight: 4 }}
-                />{" "}
-                {viewMode == "consumer" ? "Summarised" : "Analysed"} by GoodMeh?
-              </Text>
-              <Markdown options={{ wrapper: "div" }}>
-                {summaryToDisplay}
-              </Markdown>
-            </div>
-          ) : (
-            <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
-          )}
+      <div>
+        {summaryToDisplay && showSummary ? (
+          <div>
+            <Text c="dimmed">
+              <IconSparkles
+                style={{ verticalAlign: "middle", marginRight: 4 }}
+              />{" "}
+              {viewMode == "consumer" ? "Summarised" : "Analysed"} by GoodMeh?
+            </Text>
+            <Markdown options={{ wrapper: "div" }}>{summaryToDisplay}</Markdown>
+          </div>
+        ) : (
+          <Text style={{ whiteSpace: "pre-line" }}>{review.text}</Text>
+        )}
 
+        {summaryToDisplay && (
           <Button variant="transparent" onClick={toggleShowSummary} p={0}>
             {showSummary ? "Show Original" : "Show Summary"}
           </Button>
-        </div>
-      )}
+        )}
+      </div>
 
       <ReviewGallery imageUrls={review.image_urls} />
 
