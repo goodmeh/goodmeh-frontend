@@ -20,7 +20,7 @@ import {
 import { getCriteria } from "@/features/Dashboard/api/getCriteria";
 import { getKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
-import { getMockRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
+import { getRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
 import { getReviewsWithMedia } from "@/features/Dashboard/api/getReviewsWithMedia";
 const CHART_COLORS = [
   "indigo.6",
@@ -40,7 +40,6 @@ const DashboardPage: React.FC = () => {
   >([]);
   const [keywordCount, setKeywordCount] = useState<CountBasedChartData[]>([]);
   const [ratingTrend, setRatingTrend] = useState<TimeBasedChartData[]>([]);
-  const [reviewAge, setReviewAge] = useState<PercentageBasedChartData[]>([]);
   const [criteria, setCriteria] = useState<CriteriaBasedChartData[]>([]);
   const [reviewsWithMedia, setReviewsWithMedia] = useState<
     PercentageBasedChartData[]
@@ -67,7 +66,7 @@ const DashboardPage: React.FC = () => {
         }),
       );
     });
-    getMockRatingTrend(placeId).then((data) => {
+    getRatingTrend(placeId).then((data) => {
       setRatingTrend(
         data.data.map(({ date, MonAvg, CumAvg, RollAvg }) => {
           return { date, MonAvg, CumAvg, RollAvg };
