@@ -68,3 +68,13 @@ body {
     background-color: var(--mantine-color-gray-0);
   }
 }
+
+// This is a workaround to prevent iOS from zooming in on input fields
+// https://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input {
+    font-size: 16px !important;
+  }
+}
