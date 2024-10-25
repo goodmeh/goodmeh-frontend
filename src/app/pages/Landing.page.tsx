@@ -1,4 +1,4 @@
-import { OptionalPortal } from "@mantine/core";
+import { Container, OptionalPortal } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 
@@ -66,7 +66,7 @@ const LandingPage: React.FC = () => {
   }
 
   return (
-    <>
+    <Container>
       <OptionalPortal target="#header-portal">{placeFields}</OptionalPortal>
 
       {mode == Mode.Search ? (
@@ -74,7 +74,7 @@ const LandingPage: React.FC = () => {
       ) : (
         <CompareScreen place1Id={place1Id} place2Id={place2Id} />
       )}
-    </>
+    </Container>
   );
 };
 
