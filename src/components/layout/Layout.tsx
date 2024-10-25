@@ -19,6 +19,7 @@ import {
   IconMoon,
   IconSearch,
   IconSettings,
+  IconShare,
   IconSun,
 } from "@tabler/icons-react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
@@ -28,6 +29,11 @@ import { ViewModeControl } from "@/components/controls/ViewModeControl";
 
 import { ColorSchemeControl } from "../controls/ColorSchemeControl";
 import classes from "./Layout.module.scss";
+
+const routes = [
+  { path: "/discover", label: "Discover", icon: <IconSearch /> },
+  { path: "/recommend", label: "Recommend", icon: <IconShare /> },
+];
 
 const NavLink: React.FC<{
   path: string;
@@ -129,8 +135,9 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
       {!isMobile && (
         <>
           <Space w="md" />
-
-          <NavLink path="/discover" label="Discover" icon={<IconSearch />} />
+          {routes.map((route) => (
+            <NavLink key={route.path} {...route} />
+          ))}
         </>
       )}
 
@@ -153,13 +160,15 @@ const AppNavbar: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
             toggleMenu={toggleMenu}
             icon={<IconHome />}
           />
-          <NavLink
-            path="/discover"
-            label="Discover"
-            variant="mobile"
-            toggleMenu={toggleMenu}
-            icon={<IconSearch />}
-          />
+
+          {routes.map((route) => (
+            <NavLink
+              key={route.path}
+              {...route}
+              variant="mobile"
+              toggleMenu={toggleMenu}
+            />
+          ))}
         </Stack>
         <ViewModeControl />
       </Stack>

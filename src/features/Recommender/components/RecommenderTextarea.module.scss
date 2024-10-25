@@ -1,0 +1,13 @@
+.RecommenderTextarea__Wrapper {
+  position: relative;
+}
+
+.RecommenderTextarea__PillsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+}
