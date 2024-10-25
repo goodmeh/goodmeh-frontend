@@ -76,7 +76,19 @@ export const ReviewDetails: React.FC<Props> = ({ review }) => {
 
         <div>
           <Text size="xs">Review Helpfulness</Text>
-          <Progress value={review.weight / 10} />
+          <Group gap={4} wrap="nowrap">
+            {[...Array(5)].map((_, index) => (
+              <Progress
+                key={index}
+                value={Math.min(
+                  100,
+                  Math.max(0, (review.weight / 10 - index * 20) * 5),
+                )}
+                w="20%"
+                size="sm"
+              />
+            ))}
+          </Group>
         </div>
       </Group>
 
