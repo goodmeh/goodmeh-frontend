@@ -6,7 +6,7 @@
   padding: 12px;
   gap: 4px;
 
-  @include dark {
+  @include mantine.dark {
     background-color: rgba(from var(--mantine-color-dark-8) r g b / 0.8);
   }
 }
