@@ -12,7 +12,7 @@ type Props = {
 
 export const CriteriaBasedChart: React.FC<Props> = ({ data, title }) => {
   return (
-    <Stack align="center">
+    <Stack ta="center">
       <Title order={4}>{title}</Title>
       <RadarChart
         h={400}
