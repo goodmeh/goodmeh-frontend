@@ -2,41 +2,42 @@ import {
   ActionIcon,
   Combobox,
   Pill,
+  ScrollArea,
   Textarea,
   useCombobox,
 } from "@mantine/core";
 import { IconArrowUp } from "@tabler/icons-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-import { useAppSelector } from "@/stores/store";
-import { Place } from "@/types/data";
-
+import { getAllPlaceNames } from "../api/getAllPlaceNames";
 import classes from "./RecommenderTextarea.module.scss";
 
 export const RecommenderTextarea: React.FC = () => {
+  const [placeNames, setPlaceNames] = useState<Record<string, string>>({});
+  const [selectedPlaceIds, setSelectedPlaceIds] = useState<string[]>([]);
   const [value, setValue] = useState("");
-  const availablePlaces = useAppSelector((state) => state.places);
-  const [selectedPlaces, setSelectedPlaces] = useState<Place[]>([]);
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
-  const filteredPlaces = useMemo(
-    () =>
-      value
-        ? Object.values(availablePlaces)
-            .filter(
-              (place) =>
-                place.name.toLowerCase().includes(value.toLowerCase()) &&
-                !selectedPlaces.some((p) => p.id === place.id),
-            )
-            .slice(0, 5)
-        : [],
-    [availablePlaces, selectedPlaces, value],
-  );
-  const onOptionSubmit = (value: string) => {
-    setSelectedPlaces((places) => [...places, availablePlaces[value]]);
+  const onOptionSubmit = (placeId: string) => {
+    setSelectedPlaceIds((placeIds) => [...placeIds, placeId]);
     setValue("");
   };
+  const filteredData = useMemo(
+    () =>
+      value
+        ? Object.entries(placeNames)
+            .filter(([placeId, name]) =>
+              name.toLowerCase().includes(value.toLowerCase()),
+            )
+            .map(([placeId]) => placeId)
+        : [],
+    [placeNames, value],
+  );
+
+  useEffect(() => {
+    getAllPlaceNames().then(setPlaceNames);
+  }, []);
 
   return (
     <Combobox store={combobox} onOptionSubmit={onOptionSubmit}>
@@ -54,7 +55,7 @@ export const RecommenderTextarea: React.FC = () => {
               <ActionIcon
                 mt="sm"
                 mr="md"
-                disabled={selectedPlaces.length === 0}
+                disabled={selectedPlaceIds.length === 0}
               >
                 <IconArrowUp />
               </ActionIcon>
@@ -68,29 +69,31 @@ export const RecommenderTextarea: React.FC = () => {
           />
 
           <div className={classes.RecommenderTextarea__PillsWrapper}>
-            {selectedPlaces.map((place) => (
+            {selectedPlaceIds.map((placeId) => (
               <Pill
-                key={place.id}
+                key={placeId}
                 withRemoveButton
                 onRemove={() =>
-                  setSelectedPlaces((places) =>
-                    places.filter((p) => p.id !== place.id),
+                  setSelectedPlaceIds((places) =>
+                    places.filter((p) => p !== placeId),
                   )
                 }
               >
-                {place.name}
+                {placeNames[placeId]}
               </Pill>
             ))}
           </div>
         </div>
       </Combobox.Target>
-      <Combobox.Dropdown hidden={filteredPlaces.length === 0}>
+      <Combobox.Dropdown hidden={filteredData.length === 0}>
         <Combobox.Options>
-          {filteredPlaces.map((place) => (
-            <Combobox.Option key={place.id} value={place.id}>
-              {place.name}
-            </Combobox.Option>
-          ))}
+          <ScrollArea.Autosize mah={200} type="auto">
+            {filteredData.map((placeId) => (
+              <Combobox.Option key={placeId} value={placeId}>
+                {placeNames[placeId]}
+              </Combobox.Option>
+            ))}
+          </ScrollArea.Autosize>
         </Combobox.Options>
       </Combobox.Dropdown>
     </Combobox>
