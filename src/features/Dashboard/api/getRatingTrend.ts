@@ -1,7 +1,11 @@
 import api from "@/lib/api";
 
 export type GetRatingTrendResponse = {
-  name: string;
+  names: {
+    MonAvg: string;
+    CumAvg: string;
+    RollAvg: string;
+  };
   data: {
     date: string;
     MonAvg: number | null;
@@ -11,7 +15,11 @@ export type GetRatingTrendResponse = {
 };
 
 const MOCK_RATING_TREND: GetRatingTrendResponse = {
-  name: "Monthly Average Rating",
+  names: {
+    MonAvg: "Monthly Average Rating",
+    CumAvg: "Cumulative Average Rating",
+    RollAvg: "Rolling Average Rating",
+  },
   data: [
     { date: "Jan 2023", MonAvg: 4.5, CumAvg: 4.5, RollAvg: 4.8 },
     { date: "Feb 2023", MonAvg: 4.0, CumAvg: 4.25, RollAvg: 4.3 },
