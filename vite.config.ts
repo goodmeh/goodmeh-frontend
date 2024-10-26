@@ -21,7 +21,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "/src/_mantine";`,
+        additionalData: `@use "/src/_mantine";`,
         api: "modern-compiler",
       },
     },
