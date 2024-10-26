@@ -39,7 +39,7 @@ const CHART_COLORS = [
 ];
 
 export const StatSection: React.FC<Props> = ({ place }) => {
-  const placeId = place?.id;
+  const placeId = place.id;
   const [ratingDistribution, setRatingDistribution] = useState<
     PercentageBasedChartData[]
   >([]);
