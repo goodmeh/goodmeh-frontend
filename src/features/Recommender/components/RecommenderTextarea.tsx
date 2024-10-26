@@ -12,7 +12,15 @@ import { useEffect, useMemo, useState } from "react";
 import { getAllPlaceNames } from "../api/getAllPlaceNames";
 import classes from "./RecommenderTextarea.module.scss";
 
-export const RecommenderTextarea: React.FC = () => {
+type Props = {
+  onSubmit: (placeIds: string[]) => void;
+  onSelectionChange: () => void;
+};
+
+export const RecommenderTextarea: React.FC<Props> = ({
+  onSubmit,
+  onSelectionChange,
+}) => {
   const [placeNames, setPlaceNames] = useState<Record<string, string>>({});
   const [selectedPlaceIds, setSelectedPlaceIds] = useState<string[]>([]);
   const [value, setValue] = useState("");
@@ -22,6 +30,7 @@ export const RecommenderTextarea: React.FC = () => {
   const onOptionSubmit = (placeId: string) => {
     setSelectedPlaceIds((placeIds) => [...placeIds, placeId]);
     setValue("");
+    onSelectionChange();
   };
   const filteredData = useMemo(
     () =>
@@ -34,6 +43,10 @@ export const RecommenderTextarea: React.FC = () => {
         : [],
     [placeNames, value],
   );
+  const onRemovePill = (placeId: string) => {
+    setSelectedPlaceIds((placeIds) => placeIds.filter((p) => p !== placeId));
+    onSelectionChange();
+  };
 
   useEffect(() => {
     getAllPlaceNames().then(setPlaceNames);
@@ -44,9 +57,14 @@ export const RecommenderTextarea: React.FC = () => {
       <Combobox.Target>
         <div className={classes.RecommenderTextarea__Wrapper}>
           <Textarea
+            readOnly={selectedPlaceIds.length === 3}
             autosize
             minRows={5}
-            placeholder="Tell us up to 3 places you love!"
+            placeholder={
+              selectedPlaceIds.length === 3
+                ? "Click on the button to generate recommendation!"
+                : "Tell us up to 3 places you love!"
+            }
             onFocus={() => combobox.openDropdown()}
             onBlur={() => combobox.closeDropdown()}
             value={value}
@@ -56,6 +74,7 @@ export const RecommenderTextarea: React.FC = () => {
                 mt="sm"
                 mr="md"
                 disabled={selectedPlaceIds.length === 0}
+                onClick={() => onSubmit(selectedPlaceIds)}
               >
                 <IconArrowUp />
               </ActionIcon>
@@ -73,11 +92,7 @@ export const RecommenderTextarea: React.FC = () => {
               <Pill
                 key={placeId}
                 withRemoveButton
-                onRemove={() =>
-                  setSelectedPlaceIds((places) =>
-                    places.filter((p) => p !== placeId),
-                  )
-                }
+                onRemove={() => onRemovePill(placeId)}
               >
                 {placeNames[placeId]}
               </Pill>
