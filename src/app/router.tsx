@@ -4,7 +4,6 @@ import { Layout } from "@/components/layout/Layout";
 
 const LandingPage = () => import("./pages/Landing.page");
 const DiscoverPage = () => import("./pages/Discover.page");
-
 const router = createBrowserRouter([
   {
     element: <Layout />,

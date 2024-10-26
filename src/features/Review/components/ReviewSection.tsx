@@ -1,4 +1,4 @@
-import { Card, Divider, ScrollArea, Stack, Title } from "@mantine/core";
+import { Card, Divider, ScrollArea, Stack } from "@mantine/core";
 import { cloneDeep } from "es-toolkit";
 import {
   Fragment,
@@ -59,7 +59,6 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
 
   return (
     <Stack mah={sectionHeight}>
-      <Title order={3}>Reviews</Title>
       <Card p={0} withBorder>
         <ScrollArea.Autosize
           onBottomReached={loadMore}

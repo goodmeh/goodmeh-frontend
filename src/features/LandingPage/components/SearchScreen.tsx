@@ -1,6 +1,7 @@
-import { SimpleGrid, Stack } from "@mantine/core";
+import { SimpleGrid, Stack, Tabs, Text } from "@mantine/core";
 
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
+import { StatSection } from "@/features/Dashboard/components/StatSection";
 import { PlaceCard } from "@/features/Place/components/PlaceCard";
 import { StatDisplay } from "@/features/Place/components/Stats/StatDisplay";
 import { ReviewSection } from "@/features/Review/components/ReviewSection";
@@ -37,7 +38,26 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
           <StatDisplay placeId={place1Id} />
         </Stack>
       </SimpleGrid>
-      {place && <ReviewSection place={place} />}
+      <Tabs variant="outline" defaultValue="reviews">
+        <Tabs.List grow>
+          <Tabs.Tab value="reviews">
+            <Text size="md" fw="bold">
+              Reviews
+            </Text>
+          </Tabs.Tab>
+          <Tabs.Tab value="dashboard">
+            <Text size="md" fw="bold">
+              Stats
+            </Text>
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="reviews">
+          {place && <ReviewSection place={place} />}
+        </Tabs.Panel>
+        <Tabs.Panel value="dashboard">
+          {place && <StatSection place={place} />}
+        </Tabs.Panel>
+      </Tabs>
     </Stack>
   );
 };
