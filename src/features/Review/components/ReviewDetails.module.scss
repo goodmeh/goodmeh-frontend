@@ -1,6 +1,6 @@
 .ReviewCard__Blockquote {
   :global(.mantine-Blockquote-icon) {
-    @include dark {
+    @include mantine.dark {
       background-color: var(--mantine-color-dark-6);
     }
   }

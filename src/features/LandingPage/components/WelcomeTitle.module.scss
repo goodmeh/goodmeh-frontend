@@ -24,10 +24,10 @@
     }
   }
 
-  @media (max-width: $mantine-breakpoint-sm) {
+  @media (max-width: mantine.$mantine-breakpoint-sm) {
     font-size: 80px;
   }
-  @media (max-width: $mantine-breakpoint-xs) {
+  @media (max-width: mantine.$mantine-breakpoint-xs) {
     font-size: 60px;
   }
 }
@@ -35,10 +35,10 @@
 .Welcome__Subtitle {
   font-size: var(--mantine-h1-font-size);
 
-  @media (max-width: $mantine-breakpoint-sm) {
+  @media (max-width: mantine.$mantine-breakpoint-sm) {
     font-size: var(--mantine-h2-font-size);
   }
-  @media (max-width: $mantine-breakpoint-xs) {
+  @media (max-width: mantine.$mantine-breakpoint-xs) {
     font-size: var(--mantine-h3-font-size);
   }
 }

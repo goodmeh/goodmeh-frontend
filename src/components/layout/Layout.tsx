@@ -3,25 +3,23 @@ import {
   AppShell,
   Burger,
   Button,
+  Container,
   Group,
   MantineColorScheme,
   Popover,
-  Space,
   Stack,
   Text,
   useMantineColorScheme,
   useMatches,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMutationObserver } from "@mantine/hooks";
 import {
   IconDeviceDesktop,
-  IconHome,
   IconMoon,
-  IconSearch,
   IconSettings,
-  IconShare,
   IconSun,
 } from "@tabler/icons-react";
+import { useState } from "react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
 import logo from "@/assets/logo/GoodMehLogo.png";
@@ -31,41 +29,33 @@ import { ColorSchemeControl } from "../controls/ColorSchemeControl";
 import classes from "./Layout.module.scss";
 
 const routes = [
-  { path: "/discover", label: "Discover", icon: <IconSearch /> },
-  { path: "/recommend", label: "Recommend", icon: <IconShare /> },
+  { path: "/discover", label: "Discover" },
+  { path: "/recommend", label: "Recommend" },
 ];
 
 const NavLink: React.FC<{
   path: string;
   label: string;
   variant?: "mobile" | "desktop";
-  icon?: React.ReactNode;
   toggleMenu?: () => void;
-}> = ({ path, label, variant = "desktop", icon, toggleMenu }) => {
+}> = ({ path, label, variant = "desktop", toggleMenu }) => {
   const { pathname } = useLocation();
   const isMatch = matchPath(path, pathname);
   return variant == "desktop" ? (
     <Button
-      size="md"
-      px={4}
-      variant={isMatch ? "filled" : "subtle"}
+      size="compact-md"
+      variant={isMatch ? "light" : "subtle"}
       component={Link}
       to={path}
     >
-      <div>
-        {icon}
-        <Text size="xs" lh={0.5}>
-          {label}
-        </Text>
-      </div>
+      {label}
     </Button>
   ) : (
     <Button
       onClick={toggleMenu}
-      variant={isMatch ? "filled" : "subtle"}
+      variant={isMatch ? "light" : "subtle"}
       component={Link}
       to={path}
-      leftSection={icon}
     >
       {label}
     </Button>
@@ -75,9 +65,14 @@ const NavLink: React.FC<{
 type HeaderProps = {
   isMenuOpen: boolean;
   toggle: () => void;
+  headerPortalRef: React.RefObject<HTMLDivElement>;
 };
 
-const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
+const AppHeader: React.FC<HeaderProps> = ({
+  isMenuOpen,
+  toggle,
+  headerPortalRef,
+}) => {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
   const toggleColorScheme = () => {
     const schemes: MantineColorScheme[] = ["light", "dark", "auto"];
@@ -112,7 +107,6 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
     md: (
       <>
         <ViewModeControl />
-        <Space w="md" />
         <ActionIcon onClick={toggleColorScheme}>
           {colorScheme == "light" ? (
             <IconSun />
@@ -128,22 +122,34 @@ const AppHeader: React.FC<HeaderProps> = ({ isMenuOpen, toggle }) => {
 
   return (
     <AppShell.Header className={classes.Layout__AppBar}>
-      {isMobile && <Burger opened={isMenuOpen} onClick={toggle} />}
-      <Link to="/" style={{ display: "contents" }}>
-        <img src={logo} alt="GoodMeh Logo" height={40} />
-      </Link>
-      {!isMobile && (
-        <>
-          <Space w="md" />
-          {routes.map((route) => (
-            <NavLink key={route.path} {...route} />
-          ))}
-        </>
-      )}
+      <Group align="center">
+        <Group gap={0} flex="1 0 0" wrap="nowrap">
+          {isMobile && <Burger opened={isMenuOpen} onClick={toggle} />}
+          <Link to="/" style={{ display: "contents" }}>
+            <img src={logo} alt="GoodMeh Logo" height={40} />
+          </Link>
+        </Group>
 
-      <Group className={classes["header-portal"]} id="header-portal"></Group>
+        {!isMobile && (
+          <div>
+            {routes.map((route) => (
+              <NavLink key={route.path} {...route} />
+            ))}
+          </div>
+        )}
 
-      {settings}
+        <Group flex="1 0 0" justify="flex-end">
+          {settings}
+        </Group>
+      </Group>
+      <Container p={0} w="100%">
+        <Group
+          className={classes["header-portal"]}
+          id="header-portal"
+          wrap="nowrap"
+          ref={headerPortalRef}
+        ></Group>
+      </Container>
     </AppShell.Header>
   );
 };
@@ -158,9 +164,7 @@ const AppNavbar: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
             label="Home"
             variant="mobile"
             toggleMenu={toggleMenu}
-            icon={<IconHome />}
           />
-
           {routes.map((route) => (
             <NavLink
               key={route.path}
@@ -176,12 +180,24 @@ const AppNavbar: React.FC<{ toggleMenu: () => void }> = ({ toggleMenu }) => {
   );
 };
 
+export const HEADER_HEIGHT_EXPANDED = 104;
+export const HEADER_HEIGHT_COLLAPSED = 64;
+
 export const Layout: React.FC = () => {
   const [isMenuOpen, { toggle }] = useDisclosure();
+  const [portalHasChildren, setPortalHasChildren] = useState(false);
+  const headerPortalRef = useMutationObserver<HTMLDivElement>(
+    (mutations) => {
+      setPortalHasChildren(mutations[0].target.childNodes.length > 0);
+    },
+    {
+      childList: true,
+    },
+  );
 
   return (
     <AppShell
-      header={{ height: 60 }}
+      header={{ height: portalHasChildren ? 104 : 64 }}
       navbar={{
         width: 300,
         breakpoint: "xs",
@@ -189,7 +205,11 @@ export const Layout: React.FC = () => {
       }}
       padding={{ base: "md", xs: "lg", sm: "xl" }}
     >
-      <AppHeader isMenuOpen={isMenuOpen} toggle={toggle} />
+      <AppHeader
+        isMenuOpen={isMenuOpen}
+        toggle={toggle}
+        headerPortalRef={headerPortalRef}
+      />
       <AppNavbar toggleMenu={toggle} />
       <AppShell.Main>
         <Outlet />
