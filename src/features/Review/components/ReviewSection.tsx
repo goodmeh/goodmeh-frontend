@@ -20,7 +20,7 @@ type Props = {
 };
 
 const sectionHeight =
-  "calc(100vh - var(--app-shell-header-offset, 0rem) - var(--app-shell-padding) - var(--app-shell-footer-offset, 0rem) - var(--app-shell-padding))";
+  "calc(100dvh - 45px - var(--app-shell-header-offset, 0rem) - var(--app-shell-padding) - var(--app-shell-footer-offset, 0rem) - var(--app-shell-padding))";
 
 export const ReviewSection: React.FC<Props> = ({ place }) => {
   const [reviews, setReviews] = useState<Review[][]>([]);
