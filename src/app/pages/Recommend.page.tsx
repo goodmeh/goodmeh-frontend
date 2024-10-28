@@ -1,4 +1,11 @@
-import { Container, LoadingOverlay, Text, Title } from "@mantine/core";
+import {
+  Container,
+  Group,
+  Loader,
+  LoadingOverlay,
+  Text,
+  Title,
+} from "@mantine/core";
 import { useState } from "react";
 
 import { PlaceCard } from "@/features/Place/components/PlaceCard";
@@ -25,7 +32,16 @@ const RecommendPage: React.FC = () => {
   };
   return (
     <Container>
-      <LoadingOverlay visible={isLoading} />
+      <LoadingOverlay
+        visible={isLoading}
+        loaderProps={{
+          children: (
+            <Group>
+              <Loader /> Finding a new place just for you...
+            </Group>
+          ),
+        }}
+      />
       <Title size="h2" mb="md">
         What are your favourite places?
       </Title>
