@@ -95,8 +95,12 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
     >
       <Table.Thead>
         <Table.Tr fz="xxl">
-          <Table.Th ta="center">{place1.name}</Table.Th>
-          <Table.Th ta="center">{place2.name}</Table.Th>
+          <Table.Th w="50%" ta="center">
+            {place1.name}
+          </Table.Th>
+          <Table.Th w="50%" ta="center">
+            {place2.name}
+          </Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody ta="center" fz="lg">
