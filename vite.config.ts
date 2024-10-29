@@ -15,7 +15,9 @@ export default defineConfig({
       typescript: true,
     }),
     tsconfigPaths(),
-    svgr(),
+    svgr({
+      include: "**/*.svg",
+    }),
   ],
   server: {
     port: 3203,

@@ -1,6 +1,6 @@
 import { Group, Text } from "@mantine/core";
 
-import GoodmehLogo from "/src/assets/logo/GoodMehLogo.svg?react";
+import GoodmehLogo from "@/assets/logo/GoodMehLogo.svg";
 
 import classes from "./WelcomeTitle.module.scss";
 
