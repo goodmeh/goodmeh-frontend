@@ -2,7 +2,7 @@
   font-family: "Super Foods";
   src:
     local("Super Foods"),
-    url("src/assets/fonts/Super Foods.ttf") format("truetype");
+    url("/src/assets/fonts/Super Foods.ttf") format("truetype");
 }
 
 // Regular
@@ -10,7 +10,7 @@
   font-family: "Helvetica";
   src:
     local("Helvetica"),
-    url("src/assets/fonts/helvetica/Helvetica.ttf") format("truetype");
+    url("/src/assets/fonts/helvetica/Helvetica.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -18,7 +18,7 @@
 // Italic
 @font-face {
   font-family: "Helvetica";
-  src: url("src/assets/fonts/helvetica/Helvetica-Oblique.ttf")
+  src: url("/src/assets/fonts/helvetica/Helvetica-Oblique.ttf")
     format("truetype");
   font-weight: normal;
   font-style: italic;
@@ -27,7 +27,7 @@
 // Bold
 @font-face {
   font-family: "Helvetica";
-  src: url("src/assets/fonts/helvetica/Helvetica-Bold.ttf") format("truetype");
+  src: url("/src/assets/fonts/helvetica/Helvetica-Bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
@@ -35,7 +35,7 @@
 // Bold Italic
 @font-face {
   font-family: "Helvetica";
-  src: url("src/assets/fonts/helvetica/Helvetica-Bold Oblique.ttf")
+  src: url("/src/assets/fonts/helvetica/Helvetica-Bold Oblique.ttf")
     format("truetype");
   font-weight: bold;
   font-style: italic;
@@ -44,7 +44,7 @@
 // Light
 @font-face {
   font-family: "Helvetica";
-  src: url("src/assets/fonts/helvetica/helvetica-light.ttf") format("truetype");
+  src: url("/src/assets/fonts/helvetica/helvetica-light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
@@ -52,7 +52,7 @@
 // Light Italic
 @font-face {
   font-family: "Helvetica";
-  src: url("src/assets/fonts/helvetica/Helvetica-LightOblique.ttf")
+  src: url("/src/assets/fonts/helvetica/Helvetica-LightOblique.ttf")
     format("truetype");
   font-weight: 300;
   font-style: italic;
@@ -61,7 +61,7 @@
 // Black
 @font-face {
   font-family: "Helvetica";
-  src: url("src/assets/fonts/helvetica/helvetica black.otf") format("opentype");
+  src: url("/src/assets/fonts/helvetica/helvetica black.otf") format("opentype");
   font-weight: 900;
   font-style: normal;
 }
@@ -69,7 +69,7 @@
 // Black Italic
 @font-face {
   font-family: "Helvetica";
-  src: url("src/assets/fonts/helvetica/Helvetica Black Oblique.otf")
+  src: url("/src/assets/fonts/helvetica/Helvetica Black Oblique.otf")
     format("opentype");
   font-weight: 900;
   font-style: italic;
