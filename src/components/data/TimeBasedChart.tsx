@@ -20,15 +20,18 @@ export const TimeBasedChart: React.FC<Props> = ({ data, title }) => {
         h={300}
         data={data}
         dataKey="date"
-        dotProps={{ r: 1, strokeWidth: 1, stroke: "#fff" }}
-        activeDotProps={{ r: 2, strokeWidth: 2, stroke: "#fff" }}
-        strokeWidth={2}
         series={[
           { name: "MonAvg", label: "Monthly Average", color: "indigo.6" },
           { name: "CumAvg", label: "Cumulative Average", color: "yellow.6" },
           { name: "RollAvg", label: "Rolling Average", color: "teal.6" },
         ]}
+        connectNulls
+        withLegend
+        legendProps={{ verticalAlign: "bottom", height: 50 }}
         curveType="monotone"
+        strokeWidth={2}
+        dotProps={{ r: 1, strokeWidth: 1, stroke: "#fff" }}
+        activeDotProps={{ r: 2, strokeWidth: 2, stroke: "#fff" }}
         tickLine="x"
         yAxisProps={{ domain: [1, 5] }}
         strokeDasharray="15 15"
