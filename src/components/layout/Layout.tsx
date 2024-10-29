@@ -22,9 +22,9 @@ import {
 import { useState } from "react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
+import Logo from "/src/assets/logo/GoodMehLogoInline.svg?react";
 import { ViewModeControl } from "@/components/controls/ViewModeControl";
 
-import Logo from "../../assets/logo/GoodMehLogoInline.svg?react";
 import { ColorSchemeControl } from "../controls/ColorSchemeControl";
 import classes from "./Layout.module.scss";
 

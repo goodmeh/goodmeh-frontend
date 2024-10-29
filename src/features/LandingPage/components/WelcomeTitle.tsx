@@ -1,6 +1,7 @@
 import { Group, Text } from "@mantine/core";
 
-import GoodmehLogo from "../../../assets/logo/GoodMehLogo.svg?react";
+import GoodmehLogo from "/src/assets/logo/GoodMehLogo.svg?react";
+
 import classes from "./WelcomeTitle.module.scss";
 
 export const WelcomeTitle: React.FC = () => {
