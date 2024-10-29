@@ -13,7 +13,7 @@ export const ColorSchemeControl: React.FC = () => {
         { label: "Dark", value: "dark" },
         { label: "Auto", value: "auto" },
       ]}
-      color="blue"
+      color="yellow"
       bg={colorScheme === "light" ? "gray.4" : "gray.8"}
     />
   );

@@ -16,7 +16,7 @@ export const ViewModeControl: React.FC = () => {
         value: view,
         label: capitalize(view),
       }))}
-      color="blue"
+      color="yellow"
       bg={colorScheme === "light" ? "gray.4" : "gray.8"}
     />
   );

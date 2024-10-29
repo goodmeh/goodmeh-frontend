@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
+/// <reference types="vite-plugin-svgr/client" />
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
