@@ -22,10 +22,10 @@ import {
 import { useState } from "react";
 import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
 
-import Logo from "@/assets/logo/GoodMehLogoInline.svg";
 import { ViewModeControl } from "@/components/controls/ViewModeControl";
 
 import { ColorSchemeControl } from "../controls/ColorSchemeControl";
+import { GoodmehLogoInline } from "../logos/GoodmehLogoInline";
 import classes from "./Layout.module.scss";
 
 const routes = [
@@ -126,8 +126,7 @@ const AppHeader: React.FC<HeaderProps> = ({
         <Group gap={0} flex="1 0 0" wrap="nowrap">
           {isMobile && <Burger opened={isMenuOpen} onClick={toggle} />}
           <Link to="/" style={{ display: "contents" }}>
-            {/* <Logo height={40} /> */}
-            <img src={Logo} alt="GoodMeh Logo" />
+            <GoodmehLogoInline height={40} />
           </Link>
         </Group>
 

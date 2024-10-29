@@ -3,7 +3,6 @@ import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import checker from "vite-plugin-checker";
 import eslint from "vite-plugin-eslint2";
-import svgr from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
@@ -15,9 +14,6 @@ export default defineConfig({
       typescript: true,
     }),
     tsconfigPaths(),
-    svgr({
-      include: "**/*.svg",
-    }),
   ],
   server: {
     port: 3203,
