@@ -1,4 +1,4 @@
-import { createTheme, Skeleton } from "@mantine/core";
+import { createTheme } from "@mantine/core";
 
 export const theme = createTheme({
   fontSizes: {
@@ -15,4 +15,6 @@ export const theme = createTheme({
       },
     },
   },
+  primaryColor: "yellow",
+  fontFamily: "Helvetica, sans-serif",
 });
