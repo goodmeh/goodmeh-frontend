@@ -20,6 +20,9 @@ export const TimeBasedChart: React.FC<Props> = ({ data, title }) => {
         h={300}
         data={data}
         dataKey="date"
+        dotProps={{ r: 1, strokeWidth: 1, stroke: "#fff" }}
+        activeDotProps={{ r: 2, strokeWidth: 2, stroke: "#fff" }}
+        strokeWidth={2}
         series={[
           { name: "MonAvg", label: "Monthly Average", color: "indigo.6" },
           { name: "CumAvg", label: "Cumulative Average", color: "yellow.6" },
