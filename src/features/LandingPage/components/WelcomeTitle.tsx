@@ -8,7 +8,8 @@ export const WelcomeTitle: React.FC = () => {
   return (
     <>
       <Group align="center" justify="center">
-        <GoodmehLogo height={200} pointerEvents="none" />
+        {/* <GoodmehLogo height={200} pointerEvents="none" /> */}
+        <img src={GoodmehLogo} alt="GoodMeh Logo" />
       </Group>
       <Text
         className={classes.Welcome__Subtitle}

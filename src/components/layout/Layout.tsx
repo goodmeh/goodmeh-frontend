@@ -126,7 +126,8 @@ const AppHeader: React.FC<HeaderProps> = ({
         <Group gap={0} flex="1 0 0" wrap="nowrap">
           {isMobile && <Burger opened={isMenuOpen} onClick={toggle} />}
           <Link to="/" style={{ display: "contents" }}>
-            <Logo height={40} />
+            {/* <Logo height={40} /> */}
+            <img src={Logo} alt="GoodMeh Logo" />
           </Link>
         </Group>
 
