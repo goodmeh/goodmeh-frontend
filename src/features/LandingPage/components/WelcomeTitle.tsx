@@ -1,23 +1,23 @@
-import { Text, Title } from "@mantine/core";
+import { Group, Text } from "@mantine/core";
+
+import { GoodmehLogo } from "@/components/logos/GoodmehLogo";
 
 import classes from "./WelcomeTitle.module.scss";
 
 export const WelcomeTitle: React.FC = () => {
   return (
     <>
-      <Title className={classes.Welcome__Title} ta="center">
-        {"GoodMeh?".split("").map((char, index) => (
-          <span key={index}>{char}</span>
-        ))}
-      </Title>
+      <Group align="center" justify="center">
+        <GoodmehLogo height={200} pointerEvents="none" />
+      </Group>
       <Text
         className={classes.Welcome__Subtitle}
         ta="center"
         maw={580}
         mx="auto"
-        fw="500"
+        fw="700"
       >
-        Good or Meh? You decide lor.
+        good or meh? you decide lor.
       </Text>
     </>
   );
