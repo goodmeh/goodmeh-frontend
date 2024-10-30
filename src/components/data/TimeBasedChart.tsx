@@ -30,8 +30,8 @@ export const TimeBasedChart: React.FC<Props> = ({ data, title }) => {
         legendProps={{ verticalAlign: "bottom", height: 50 }}
         curveType="monotone"
         strokeWidth={2}
-        dotProps={{ r: 1, strokeWidth: 1, stroke: "#fff" }}
-        activeDotProps={{ r: 2, strokeWidth: 2, stroke: "#fff" }}
+        dotProps={{ r: 0 }}
+        activeDotProps={{ r: 0 }}
         tickLine="x"
         yAxisProps={{ domain: [1, 5] }}
         strokeDasharray="15 15"
