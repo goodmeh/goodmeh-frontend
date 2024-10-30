@@ -1,4 +1,4 @@
-import { Card, Divider, ScrollArea, Stack } from "@mantine/core";
+import { Button, Card, Divider, ScrollArea, Stack } from "@mantine/core";
 import { cloneDeep } from "es-toolkit";
 import {
   Fragment,
@@ -80,6 +80,11 @@ export const ReviewSection: React.FC<Props> = ({ place }) => {
                   <ReviewDetailsSkeleton />
                 </Fragment>
               ))}
+            {hasNextPage && (
+              <Button loading={isLoading} onClick={loadMore} variant="subtle">
+                Load more
+              </Button>
+            )}
           </Stack>
         </ScrollArea.Autosize>
       </Card>

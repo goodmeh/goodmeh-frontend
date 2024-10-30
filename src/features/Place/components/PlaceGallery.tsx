@@ -1,4 +1,4 @@
-import { ScrollArea, SimpleGrid } from "@mantine/core";
+import { Button, ScrollArea, SimpleGrid } from "@mantine/core";
 import { cloneDeep } from "es-toolkit";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -51,6 +51,16 @@ export const PlaceGallery: React.FC<Props> = ({ placeId }) => {
           />
         ))}
       </SimpleGrid>
+      {hasNextPage && (
+        <Button
+          w="100%"
+          loading={isLoading}
+          onClick={loadImages}
+          variant="subtle"
+        >
+          Load more
+        </Button>
+      )}
     </ScrollArea>
   );
 };
