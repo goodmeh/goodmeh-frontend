@@ -1,5 +1,6 @@
 import { Portal, SimpleGrid, useMatches } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
@@ -9,7 +10,6 @@ import { PlacePreviewCardSkeleton } from "@/features/Discover/components/PlacePr
 import { PlaceActions } from "@/stores/places";
 import { useAppDispatch } from "@/stores/store";
 import { Place } from "@/types/data";
-
 export const DiscoverPage: React.FC = () => {
   const navigate = useNavigate();
   const [places, setPlaces] = useState<Place[]>([]);
@@ -42,6 +42,9 @@ export const DiscoverPage: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>GoodMeh? - Discover</title>
+      </Helmet>
       <Portal target="#header-portal">
         <PlacesAutocompleteField
           leftSectionPointerEvents="none"
