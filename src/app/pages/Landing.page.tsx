@@ -1,6 +1,7 @@
 import { Button, Container, OptionalPortal } from "@mantine/core";
 import { IconSearch, IconSwitchHorizontal } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useSearchParams } from "react-router-dom";
 
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
@@ -85,11 +86,21 @@ const LandingPage: React.FC = () => {
   }, [place1Id]);
 
   if (!place1Id) {
-    return <LandingScreen placesAutocompleteField={placeFields} />;
+    return (
+      <>
+        <Helmet>
+          <title>GoodMeh?</title>
+        </Helmet>
+        <LandingScreen placesAutocompleteField={placeFields} />
+      </>
+    );
   }
 
   return (
     <Container p={0}>
+      <Helmet>
+        <title>GoodMeh?</title>
+      </Helmet>
       <OptionalPortal target="#header-portal">{placeFields}</OptionalPortal>
 
       {mode == Mode.Search ? (

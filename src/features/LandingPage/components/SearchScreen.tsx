@@ -1,4 +1,5 @@
 import { SimpleGrid, Stack, Tabs, Text } from "@mantine/core";
+import { Helmet } from "react-helmet";
 
 import { GoogleMapsEmbed } from "@/components/ui/GoogleMapsEmbed";
 import { StatSection } from "@/features/Dashboard/components/StatSection";
@@ -18,46 +19,53 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
   );
 
   return (
-    <Stack>
-      <SimpleGrid
-        cols={{
-          base: 1,
-          sm: 2,
-        }}
-      >
-        <PlaceCard placeId={place1Id} />
-        <Stack>
-          <GoogleMapsEmbed
-            placeId={place1Id}
-            style={{
-              borderRadius: "var(--mantine-radius-md)",
-              height: "auto",
-              flex: 1,
-            }}
-          />
-          <StatDisplay placeId={place1Id} />
-        </Stack>
-      </SimpleGrid>
-      <Tabs variant="outline" defaultValue="reviews">
-        <Tabs.List grow>
-          <Tabs.Tab value="reviews">
-            <Text size="md" fw="bold">
-              Reviews
-            </Text>
-          </Tabs.Tab>
-          <Tabs.Tab value="dashboard">
-            <Text size="md" fw="bold">
-              Stats
-            </Text>
-          </Tabs.Tab>
-        </Tabs.List>
-        <Tabs.Panel value="reviews">
-          {place && <ReviewSection place={place} />}
-        </Tabs.Panel>
-        <Tabs.Panel value="dashboard">
-          {place && <StatSection place={place} />}
-        </Tabs.Panel>
-      </Tabs>
-    </Stack>
+    <>
+      {place && (
+        <Helmet>
+          <title>GoodMeh? – {place?.name}</title>
+        </Helmet>
+      )}
+      <Stack>
+        <SimpleGrid
+          cols={{
+            base: 1,
+            sm: 2,
+          }}
+        >
+          <PlaceCard placeId={place1Id} />
+          <Stack>
+            <GoogleMapsEmbed
+              placeId={place1Id}
+              style={{
+                borderRadius: "var(--mantine-radius-md)",
+                height: "auto",
+                flex: 1,
+              }}
+            />
+            <StatDisplay placeId={place1Id} />
+          </Stack>
+        </SimpleGrid>
+        <Tabs variant="outline" defaultValue="reviews">
+          <Tabs.List grow>
+            <Tabs.Tab value="reviews">
+              <Text size="md" fw="bold">
+                Reviews
+              </Text>
+            </Tabs.Tab>
+            <Tabs.Tab value="dashboard">
+              <Text size="md" fw="bold">
+                Stats
+              </Text>
+            </Tabs.Tab>
+          </Tabs.List>
+          <Tabs.Panel value="reviews">
+            {place && <ReviewSection place={place} />}
+          </Tabs.Panel>
+          <Tabs.Panel value="dashboard">
+            {place && <StatSection place={place} />}
+          </Tabs.Panel>
+        </Tabs>
+      </Stack>
+    </>
   );
 };
