@@ -31,8 +31,7 @@ export const TimeBasedChart: React.FC<Props> = ({ data, title }) => {
         curveType="monotone"
         strokeWidth={2}
         dotProps={{ r: 0 }}
-        activeDotProps={{ r: 0 }}
-        tickLine="x"
+        activeDotProps={{ r: 2, strokeWidth: 2, stroke: "#fff" }}
         yAxisProps={{ domain: [1, 5] }}
         strokeDasharray="15 15"
       />
