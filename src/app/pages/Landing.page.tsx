@@ -1,6 +1,8 @@
 import { Button, Container, OptionalPortal } from "@mantine/core";
 import { IconSearch, IconSwitchHorizontal } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
+import { useSearchParams } from "react-router-dom";
 
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
 import { CompareScreen } from "@/features/Compare/components/CompareScreen";
@@ -15,6 +17,7 @@ enum Mode {
 }
 
 const LandingPage: React.FC = () => {
+  const [, setSearchParams] = useSearchParams();
   const [place1Id, setPlace1Id] = useSearchParamsState("place1Id");
   const [place2Id, setPlace2Id] = useSearchParamsState("place2Id");
   usePlaceLoader({ placeId: place1Id });
@@ -22,23 +25,40 @@ const LandingPage: React.FC = () => {
   const [mode, setMode] = useState(Mode.Search);
   const isShowingLandingScreen = !place1Id;
 
+  const onClearPlace1 = () => {
+    // We need to manually call useSearchParams here instead of using setPlace1Id
+    // because we want to perform a more complex update - swapping place1Id with place2Id.
+    // The useSearchParamsState hook's setter only handles updating a single param,
+    // while here we need to update multiple params atomically in a single operation.
+    setSearchParams((prevParams) => {
+      const params = new URLSearchParams(prevParams);
+      const place2Id = params.get("place2Id");
+      params.delete("place1Id");
+      if (place2Id) {
+        params.set("place1Id", place2Id);
+        params.delete("place2Id");
+      }
+      return params;
+    });
+  };
+
   const placeFields = (
     <>
       <PlacesAutocompleteField
         placeId={place1Id}
-        onSelectSuggestion={(location) => setPlace1Id(location?.place_id ?? "")}
+        onSelectSuggestion={(location) => setPlace1Id(location?.place_id)}
         leftSectionPointerEvents="none"
         leftSection={isShowingLandingScreen && <IconSearch />}
+        onClear={onClearPlace1}
       />
 
       {mode == Mode.Compare ? (
         <PlacesAutocompleteField
           placeId={place2Id}
-          onSelectSuggestion={(location) =>
-            setPlace2Id(location?.place_id ?? "")
-          }
+          onSelectSuggestion={(location) => setPlace2Id(location?.place_id)}
           onClear={() => {
             setMode(Mode.Search);
+            setPlace2Id(undefined);
           }}
         />
       ) : (
@@ -66,11 +86,21 @@ const LandingPage: React.FC = () => {
   }, [place1Id]);
 
   if (!place1Id) {
-    return <LandingScreen placesAutocompleteField={placeFields} />;
+    return (
+      <>
+        <Helmet>
+          <title>GoodMeh?</title>
+        </Helmet>
+        <LandingScreen placesAutocompleteField={placeFields} />
+      </>
+    );
   }
 
   return (
     <Container p={0}>
+      <Helmet>
+        <title>GoodMeh?</title>
+      </Helmet>
       <OptionalPortal target="#header-portal">{placeFields}</OptionalPortal>
 
       {mode == Mode.Search ? (

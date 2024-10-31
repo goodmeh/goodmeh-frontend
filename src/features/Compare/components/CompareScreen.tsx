@@ -1,4 +1,5 @@
 import { SimpleGrid, Stack } from "@mantine/core";
+import { Helmet } from "react-helmet";
 
 import { PlaceComparisonTable } from "@/features/Compare/components/PlaceComparisonTable";
 import { PlaceCard } from "@/features/Place/components/PlaceCard";
@@ -19,14 +20,23 @@ export const CompareScreen: React.FC<Props> = ({ place1Id, place2Id }) => {
   );
 
   return (
-    <Stack>
-      <SimpleGrid cols={2}>
-        <PlaceCard placeId={place1Id} />
-        {place2Id && <PlaceCard placeId={place2Id} />}
-      </SimpleGrid>
+    <>
       {place1 && place2 && (
-        <PlaceComparisonTable place1={place1} place2={place2} />
+        <Helmet>
+          <title>
+            GoodMeh? – {place1.name} vs {place2.name}
+          </title>
+        </Helmet>
       )}
-    </Stack>
+      <Stack>
+        <SimpleGrid cols={2}>
+          <PlaceCard placeId={place1Id} />
+          {place2Id && <PlaceCard placeId={place2Id} />}
+        </SimpleGrid>
+        {place1 && place2 && (
+          <PlaceComparisonTable place1={place1} place2={place2} />
+        )}
+      </Stack>
+    </>
   );
 };

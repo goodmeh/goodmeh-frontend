@@ -25,8 +25,13 @@ export const TimeBasedChart: React.FC<Props> = ({ data, title }) => {
           { name: "CumAvg", label: "Cumulative Average", color: "yellow.6" },
           { name: "RollAvg", label: "Rolling Average", color: "teal.6" },
         ]}
+        connectNulls
+        withLegend
+        legendProps={{ verticalAlign: "bottom", height: 50 }}
         curveType="monotone"
-        tickLine="x"
+        strokeWidth={2}
+        dotProps={{ r: 0 }}
+        activeDotProps={{ r: 2, strokeWidth: 2, stroke: "#fff" }}
         yAxisProps={{ domain: [1, 5] }}
         strokeDasharray="15 15"
       />
