@@ -54,6 +54,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   } = usePlacesAutocomplete({
     requestOptions: {
       componentRestrictions: { country: "sg" },
+      types: ["establishment"],
     },
     initOnMount: false,
   });
