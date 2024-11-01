@@ -1,16 +1,18 @@
 import {
-  Autocomplete,
-  AutocompleteProps,
   CloseButton,
+  Combobox,
+  Input,
+  InputProps,
+  ScrollArea,
   Text,
+  useCombobox,
 } from "@mantine/core";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
 import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
-import { SafeOmit } from "@/types/helpers";
 
 type Props = {
   placeId?: string;
@@ -25,7 +27,7 @@ type Props = {
     value: google.maps.places.AutocompletePrediction | undefined,
   ) => void;
   onClear?: () => void;
-} & SafeOmit<AutocompleteProps, "value" | "onChange" | "data">;
+} & InputProps;
 
 export const PlacesAutocompleteField: React.FC<Props> = ({
   placeId,
@@ -40,6 +42,9 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     () => places[placeId ?? ""],
     [placeId, places],
   );
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
 
   const {
     value,
@@ -49,6 +54,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   } = usePlacesAutocomplete({
     requestOptions: {
       componentRestrictions: { country: "sg" },
+      types: ["establishment"],
     },
     initOnMount: false,
   });
@@ -59,16 +65,12 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     onClear?.();
   };
 
-  const findByMainText = useCallback(
-    (address: string) => {
-      return data.find(
-        (suggestion) =>
-          address ===
-          `${suggestion.structured_formatting.main_text}, ${suggestion.structured_formatting.secondary_text}`,
-      );
-    },
-    [data],
-  );
+  const onOptionSubmit = (value: string) => {
+    const suggestion = data.find((suggestion) => suggestion.place_id === value);
+    onSelectSuggestion?.(suggestion);
+    setValue(suggestion?.structured_formatting.main_text ?? "");
+    combobox.closeDropdown();
+  };
 
   useEffect(() => {
     if (placesLibrary) {
@@ -91,25 +93,36 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   }, [place]);
 
   return (
-    <Autocomplete
-      value={value}
-      onChange={setValue}
-      data={data.map(
-        (suggestion) =>
-          `${suggestion.structured_formatting.main_text}, ${suggestion.structured_formatting.secondary_text}`,
-      )}
-      disabled={!placesLibrary}
-      onOptionSubmit={(value) => onSelectSuggestion?.(findByMainText(value))}
-      rightSection={
-        <CloseButton aria-label="Clear input" onClick={onClearInput} />
-      }
-      renderOption={({ option }) => (
-        <SuggestionOption suggestion={findByMainText(option.value)} />
-      )}
-      filter={({ options }) => options}
-      placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
-      {...props}
-    />
+    <Combobox store={combobox} onOptionSubmit={onOptionSubmit}>
+      <Combobox.Target>
+        <Input
+          value={value}
+          onChange={(event) => setValue(event.currentTarget.value)}
+          disabled={!placesLibrary}
+          rightSection={
+            <CloseButton aria-label="Clear input" onClick={onClearInput} />
+          }
+          placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
+          onFocus={() => combobox.openDropdown()}
+          onBlur={() => combobox.closeDropdown()}
+          {...props}
+        />
+      </Combobox.Target>
+      <Combobox.Dropdown hidden={data.length === 0}>
+        <Combobox.Options>
+          <ScrollArea.Autosize mah={200} type="auto">
+            {data.map((suggestion) => (
+              <Combobox.Option
+                key={suggestion.place_id}
+                value={suggestion.place_id}
+              >
+                <SuggestionOption suggestion={suggestion} />
+              </Combobox.Option>
+            ))}
+          </ScrollArea.Autosize>
+        </Combobox.Options>
+      </Combobox.Dropdown>
+    </Combobox>
   );
 };
 
