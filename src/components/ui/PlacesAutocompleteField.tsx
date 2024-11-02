@@ -102,6 +102,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
           rightSection={
             <CloseButton aria-label="Clear input" onClick={onClearInput} />
           }
+          rightSectionPointerEvents="auto"
           placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
           onFocus={() => combobox.openDropdown()}
           onBlur={() => combobox.closeDropdown()}
