@@ -1,6 +1,6 @@
-import { Group, Text } from "@mantine/core";
+import { Group, Image, Text } from "@mantine/core";
 
-import { GoodmehLogo } from "@/components/logos/GoodmehLogo";
+import GoodmehLogo from "@/assets/logo/GoodmehLogo.svg";
 
 import classes from "./WelcomeTitle.module.scss";
 
@@ -8,7 +8,7 @@ export const WelcomeTitle: React.FC = () => {
   return (
     <>
       <Group align="center" justify="center">
-        <GoodmehLogo height={200} pointerEvents="none" />
+        <Image src={GoodmehLogo} height={160} my="md" />
       </Group>
       <Text
         className={classes.Welcome__Subtitle}
