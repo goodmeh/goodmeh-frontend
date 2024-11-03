@@ -2,6 +2,7 @@ import { AspectRatio, Card, Space, Tabs, Text } from "@mantine/core";
 import { format } from "date-fns";
 import Markdown from "markdown-to-jsx";
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { RatingStars } from "@/components/ui/RatingStars";
 import { useViewMode } from "@/hooks/useViewMode";
@@ -13,9 +14,10 @@ import { PlaceGallery } from "./PlaceGallery";
 
 type Props = {
   placeId?: string;
+  clickable?: boolean;
 };
 
-export const PlaceCard: React.FC<Props> = ({ placeId }) => {
+export const PlaceCard: React.FC<Props> = ({ placeId, clickable = false }) => {
   const { viewMode } = useViewMode();
   const place = useAppSelector<Place | undefined>(
     (state) => state.places[placeId ?? ""],
@@ -38,7 +40,11 @@ export const PlaceCard: React.FC<Props> = ({ placeId }) => {
       )}
       <Space h="sm" />
       <Text size="xl" fw="bold">
-        {place.name}
+        {clickable ? (
+          <Link to={`/?place1Id=${place.id}`}>{place.name}</Link>
+        ) : (
+          place.name
+        )}
       </Text>
       <Text size="sm" c="dimmed">
         {place.rating.toFixed(1)} <RatingStars rating={place.rating} /> (

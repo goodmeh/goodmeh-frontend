@@ -29,8 +29,8 @@ import { ColorSchemeControl } from "../controls/ColorSchemeControl";
 import classes from "./Layout.module.scss";
 
 const routes = [
-  { path: "/", label: "Home" },
   { path: "/discover", label: "Discover" },
+  { path: "/recommend", label: "Recommend" },
 ];
 
 const NavLink: React.FC<{
