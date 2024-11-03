@@ -47,7 +47,6 @@ const LandingPage: React.FC = () => {
       <PlacesAutocompleteField
         placeId={place1Id}
         onSelectSuggestion={(location) => setPlace1Id(location?.place_id)}
-        leftSectionPointerEvents="none"
         leftSection={isShowingLandingScreen && <IconSearch />}
         onClear={onClearPlace1}
       />
