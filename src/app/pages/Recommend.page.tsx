@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 
 import { PlaceCard } from "@/features/Place/components/PlaceCard";
-import { generateMockRecommendation } from "@/features/Recommender/api/generateRecommendations";
+import { generateRecommendation } from "@/features/Recommender/api/generateRecommendations";
 import { RecommenderTextarea } from "@/features/Recommender/components/RecommenderTextarea";
 import { PlaceActions } from "@/stores/places";
 import { useAppDispatch } from "@/stores/store";
@@ -21,7 +21,7 @@ const RecommendPage: React.FC = () => {
   const onSubmit = async (placeIds: string[]) => {
     setIsLoading(true);
     try {
-      const place = await generateMockRecommendation(placeIds);
+      const place = await generateRecommendation(placeIds);
       dispatch(PlaceActions.addPlace(place));
       setRecommendedPlaceId(place.id);
     } catch (error) {
@@ -55,7 +55,7 @@ const RecommendPage: React.FC = () => {
           <Text size="lg" fw="bold" my="md">
             We think you might enjoy...
           </Text>
-          <PlaceCard placeId={recommendedPlaceId} />
+          <PlaceCard placeId={recommendedPlaceId} clickable />
         </>
       )}
     </Container>
