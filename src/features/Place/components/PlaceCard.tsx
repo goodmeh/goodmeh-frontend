@@ -2,7 +2,7 @@ import { AspectRatio, Card, Space, Tabs, Text } from "@mantine/core";
 import { format } from "date-fns";
 import Markdown from "markdown-to-jsx";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { RatingStars } from "@/components/ui/RatingStars";
 import { useViewMode } from "@/hooks/useViewMode";
@@ -18,7 +18,6 @@ type Props = {
 };
 
 export const PlaceCard: React.FC<Props> = ({ placeId, clickable = false }) => {
-  const navigate = useNavigate();
   const { viewMode } = useViewMode();
   const place = useAppSelector<Place | undefined>(
     (state) => state.places[placeId ?? ""],
