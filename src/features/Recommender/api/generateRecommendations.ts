@@ -10,6 +10,6 @@ export const generateRecommendation = async (placeIds: string[]) => {
   placeIds.forEach((placeId, index) => {
     params.set(`place_id_${index + 1}`, placeId);
   });
-  const response = await api.get<Place[]>("/v1/recommend", { params });
+  const response = await api.get<Place[]>("/v1/recommend/", { params });
   return response.data[0];
 };
