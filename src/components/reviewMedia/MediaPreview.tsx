@@ -43,6 +43,7 @@ export const MediaPreview: React.FC<Props> = ({
     <Image
       loading="lazy"
       h={height}
+      w="auto"
       maw={width}
       src={mediaUrl}
       onClick={onClick}
