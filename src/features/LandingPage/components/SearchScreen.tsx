@@ -9,6 +9,8 @@ import { ReviewSection } from "@/features/Review/components/ReviewSection";
 import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
+import classes from "./SearchScreen.module.scss";
+
 type Props = {
   place1Id: string;
 };
@@ -50,7 +52,7 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
           <Tabs
             variant="outline"
             defaultValue="reviews"
-            bg="var(--mantine-color-dark-6)"
+            className={classes.SearchScreen__Tabs}
           >
             <Tabs.List grow>
               <Tabs.Tab value="reviews">
