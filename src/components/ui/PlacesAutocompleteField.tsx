@@ -8,11 +8,22 @@ import {
   useCombobox,
 } from "@mantine/core";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
-import React, { useEffect, useMemo } from "react";
+import { sample } from "es-toolkit";
+import React, { InputHTMLAttributes, useEffect, useMemo, useRef } from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
 import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
+
+const PLACE_SEARCH_PLACEHOLDERS = [
+  "Search any shop to see if worth going anot",
+  "Look up a business - we help you save time reading reviews",
+  "Alamak, so many reviews! Search here, we summarize for you",
+  "Search 'Hai Di Lao' or 'Maxwell Food Centre'",
+  "Want to try that new spot? Check first lah",
+  "See if this place power or not",
+  "Psst... Search a place, we tell you there steady anot",
+];
 
 type Props = {
   placeId?: string;
@@ -27,7 +38,8 @@ type Props = {
     value: google.maps.places.AutocompletePrediction | undefined,
   ) => void;
   onClear?: () => void;
-} & InputProps;
+} & InputProps &
+  InputHTMLAttributes<HTMLInputElement>;
 
 export const PlacesAutocompleteField: React.FC<Props> = ({
   placeId,
@@ -45,6 +57,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
+  const placeholder = useRef(sample(PLACE_SEARCH_PLACEHOLDERS));
 
   const {
     value,
@@ -103,7 +116,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
             <CloseButton aria-label="Clear input" onClick={onClearInput} />
           }
           rightSectionPointerEvents="auto"
-          placeholder="e.g. Haidilao Hot Pot @Northpoint City, Singapore"
+          placeholder={placeholder.current}
           onFocus={() => combobox.openDropdown()}
           onBlur={() => combobox.closeDropdown()}
           {...props}
