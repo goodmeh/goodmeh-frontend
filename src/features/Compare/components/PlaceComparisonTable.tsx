@@ -45,14 +45,14 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
     <Table.Tr key={row.property.formal}>
       <Table.Td colSpan={2}>
         <Stack align="center" p="md">
-          <Group align="center" gap="xs">
-            <Text fz="xl" fw={700}>
-              {row.property[audienceLabel]}{" "}
-            </Text>
-            <Tooltip label={row.tooltip}>
+          <Tooltip label={row.tooltip}>
+            <Group align="center" gap="xs">
+              <Text fz="xl" fw={700}>
+                {row.property[audienceLabel]}{" "}
+              </Text>
               <IconHelp size={20} />
-            </Tooltip>
-          </Group>
+            </Group>
+          </Tooltip>
           <SimpleGrid cols={2} spacing={2} w="100%" maw={700}>
             <Text c={getColour(row.is_place_1_better, 1, 7) ?? "dimmed"}>
               {row.metric_1.description[audienceLabel]}
@@ -103,7 +103,7 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
           </Table.Th>
         </Table.Tr>
       </Table.Thead>
-      <Table.Tbody ta="center" fz="lg">
+      <Table.Tbody ta="center" fz="lg" bg="var(--mantine-color-body)">
         {rows}
       </Table.Tbody>
     </Table>
