@@ -16,13 +16,12 @@ import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
 const PLACE_SEARCH_PLACEHOLDERS = [
-  "Search any shop to see if worth going anot",
-  "Look up a business - we help you save time reading reviews",
-  "Alamak, so many reviews! Search here, we summarize for you",
-  "Search 'Hai Di Lao' or 'Maxwell Food Centre'",
-  "Want to try that new spot? Check first lah",
-  "See if this place power or not",
-  "Psst... Search a place, we tell you there steady anot",
+  "Search to see if worth going anot",
+  "Come search! See if good or meh",
+  "Can try search 'Hai Di Lao'",
+  "Sure good or not? Check first lah!",
+  "Search to see if the place power or not",
+  "Search and see if steady bom pi pi~",
 ];
 
 type Props = {
