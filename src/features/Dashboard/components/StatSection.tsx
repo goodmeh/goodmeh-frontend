@@ -17,7 +17,10 @@ import {
   TimeBasedChart,
   TimeBasedChartData,
 } from "@/components/data/TimeBasedChart";
-import { getCriteria } from "@/features/Dashboard/api/getCriteria";
+import {
+  getPlaceCharacteristicCriteria,
+  getReviewCriteria,
+} from "@/features/Dashboard/api/getCriteria";
 import { getKeywordCount } from "@/features/Dashboard/api/getKeywordCount";
 import { getRatingDistribution } from "@/features/Dashboard/api/getRatingDistribution";
 import { getRatingTrend } from "@/features/Dashboard/api/getRatingTrend";
@@ -45,7 +48,11 @@ export const StatSection: React.FC<Props> = ({ place }) => {
   >([]);
   const [keywordCount, setKeywordCount] = useState<CountBasedChartData[]>([]);
   const [ratingTrend, setRatingTrend] = useState<TimeBasedChartData[]>([]);
-  const [criteria, setCriteria] = useState<CriteriaBasedChartData[]>([]);
+  const [placeCharacteristicCriteria, setPlaceCharacteristicCriteria] =
+    useState<CriteriaBasedChartData[]>([]);
+  const [reviewCriteria, setReviewCriteria] = useState<
+    CriteriaBasedChartData[]
+  >([]);
   const [reviewsWithMedia, setReviewsWithMedia] = useState<
     PercentageBasedChartData[]
   >([]);
@@ -92,14 +99,22 @@ export const StatSection: React.FC<Props> = ({ place }) => {
         },
       ]);
     });
-    getCriteria(placeId).then((data) => {
-      setCriteria(data);
+    getPlaceCharacteristicCriteria(placeId).then((data) => {
+      setPlaceCharacteristicCriteria(data);
+    });
+    getReviewCriteria(placeId).then((data) => {
+      setReviewCriteria(data);
     });
   }, [placeId]);
   return (
     <Card withBorder>
       <Stack>
-        <CriteriaBasedChart data={criteria} title="Criteria" />
+        <CriteriaBasedChart
+          data={placeCharacteristicCriteria}
+          title="Place Characteristics"
+        />
+        <Divider />
+        <CriteriaBasedChart data={reviewCriteria} title="Reviews" />
         <Divider />
         <TimeBasedChart data={ratingTrend} title="Rating Trend" />
         <Divider />
