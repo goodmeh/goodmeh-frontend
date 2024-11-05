@@ -1,4 +1,4 @@
-import { AspectRatio, Card, Space, Tabs, Text } from "@mantine/core";
+import { AspectRatio, Card, Skeleton, Space, Tabs, Text } from "@mantine/core";
 import { format } from "date-fns";
 import Markdown from "markdown-to-jsx";
 import React from "react";
@@ -18,7 +18,6 @@ type Props = {
 };
 
 export const PlaceCard: React.FC<Props> = ({ placeId, clickable = false }) => {
-  const { viewMode } = useViewMode();
   const place = useAppSelector<Place | undefined>(
     (state) => state.places[placeId ?? ""],
   );
@@ -65,13 +64,7 @@ export const PlaceCard: React.FC<Props> = ({ placeId, clickable = false }) => {
           </Tabs.List>
 
           <Tabs.Panel value="Summary" p="md">
-            <Text size="sm">
-              <Markdown>
-                {viewMode == "consumer"
-                  ? place.summary
-                  : place.business_summary || ""}
-              </Markdown>
-            </Text>
+            <PlaceSummary place={place} />
           </Tabs.Panel>
 
           <Tabs.Panel value="Gallery" p="md">
@@ -80,5 +73,25 @@ export const PlaceCard: React.FC<Props> = ({ placeId, clickable = false }) => {
         </Tabs>
       </Card.Section>
     </Card>
+  );
+};
+
+const PlaceSummary: React.FC<{ place: Place }> = ({ place }) => {
+  const { viewMode } = useViewMode();
+  const summaryToShow =
+    viewMode == "consumer" ? place.summary : place.business_summary;
+
+  return summaryToShow ? (
+    <Text size="sm">
+      <Markdown>{summaryToShow}</Markdown>
+    </Text>
+  ) : place.status ? (
+    <div>
+      <Skeleton height={16} width="100%" mb={8} />
+      <Skeleton height={16} width="90%" mb={8} />
+      <Skeleton height={16} width="95%" />
+    </div>
+  ) : (
+    <div>No summary available</div>
   );
 };

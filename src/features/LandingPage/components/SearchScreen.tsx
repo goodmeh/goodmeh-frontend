@@ -45,26 +45,29 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
             <StatDisplay placeId={place1Id} />
           </Stack>
         </SimpleGrid>
-        <Tabs variant="outline" defaultValue="reviews">
-          <Tabs.List grow>
-            <Tabs.Tab value="reviews">
-              <Text size="md" fw="bold">
-                Reviews
-              </Text>
-            </Tabs.Tab>
-            <Tabs.Tab value="dashboard">
-              <Text size="md" fw="bold">
-                Stats
-              </Text>
-            </Tabs.Tab>
-          </Tabs.List>
-          <Tabs.Panel value="reviews">
-            {place && <ReviewSection place={place} />}
-          </Tabs.Panel>
-          <Tabs.Panel value="dashboard">
-            {place && <StatSection place={place} />}
-          </Tabs.Panel>
-        </Tabs>
+
+        {place && (
+          <Tabs variant="outline" defaultValue="reviews">
+            <Tabs.List grow>
+              <Tabs.Tab value="reviews">
+                <Text size="md" fw="bold">
+                  Reviews
+                </Text>
+              </Tabs.Tab>
+              <Tabs.Tab value="dashboard">
+                <Text size="md" fw="bold">
+                  Stats
+                </Text>
+              </Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="reviews">
+              {place && <ReviewSection place={place} />}
+            </Tabs.Panel>
+            <Tabs.Panel value="dashboard">
+              {place && <StatSection place={place} />}
+            </Tabs.Panel>
+          </Tabs>
+        )}
       </Stack>
     </>
   );
