@@ -22,9 +22,16 @@ export const getMockCriteria = async (placeId: string) => {
   });
 };
 
-export const getCriteria = async (placeId: string) => {
+export const getPlaceCharacteristicCriteria = async (placeId: string) => {
   const response = await api.get<GetCriteriaResponse>(
-    `/v1/dashboard/criteria/${placeId}`,
+    `/v1/dashboard/criteria/place-characteristics/${placeId}`,
+  );
+  return response.data;
+};
+
+export const getReviewCriteria = async (placeId: string) => {
+  const response = await api.get<GetCriteriaResponse>(
+    `/v1/dashboard/criteria/reviews/${placeId}`,
   );
   return response.data;
 };
