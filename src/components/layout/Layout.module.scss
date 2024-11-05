@@ -16,3 +16,26 @@
     flex-grow: 1;
   }
 }
+
+.Layout__Main {
+  --background-height: 50px;
+  background-image: url("/src/assets/background/bg.svg"),
+    url("/src/assets/background/bg.svg"), url("/src/assets/background/bg.svg");
+  background-position:
+    bottom,
+    bottom var(--background-height) left,
+    bottom calc(var(--background-height) * 2) right;
+  background-size: auto var(--background-height);
+  background-repeat: repeat-x;
+  background-attachment: fixed;
+
+  @include mantine.dark {
+    background-image: url("/src/assets/background/bg-dark.svg"),
+      url("/src/assets/background/bg-dark.svg"),
+      url("/src/assets/background/bg-dark.svg");
+  }
+
+  @media (max-width: mantine.$mantine-breakpoint-sm) {
+    --background-height: 30px;
+  }
+}

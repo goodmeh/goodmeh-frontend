@@ -47,7 +47,11 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
         </SimpleGrid>
 
         {place && (
-          <Tabs variant="outline" defaultValue="reviews">
+          <Tabs
+            variant="outline"
+            defaultValue="reviews"
+            bg="var(--mantine-color-dark-6)"
+          >
             <Tabs.List grow>
               <Tabs.Tab value="reviews">
                 <Text size="md" fw="bold">
