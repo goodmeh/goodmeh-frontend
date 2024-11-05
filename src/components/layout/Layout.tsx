@@ -211,7 +211,7 @@ export const Layout: React.FC = () => {
         headerPortalRef={headerPortalRef}
       />
       <AppNavbar toggleMenu={toggle} />
-      <AppShell.Main>
+      <AppShell.Main className={classes.Layout__Main}>
         <Outlet />
       </AppShell.Main>
     </AppShell>

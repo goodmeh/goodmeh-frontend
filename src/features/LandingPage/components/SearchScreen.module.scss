@@ -1,0 +1,7 @@
+.SearchScreen__Tabs {
+  background-color: var(--mantine-color-dark-6);
+
+  @include mantine.light {
+    background-color: white;
+  }
+}

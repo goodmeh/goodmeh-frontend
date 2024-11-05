@@ -9,6 +9,8 @@ import { ReviewSection } from "@/features/Review/components/ReviewSection";
 import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
+import classes from "./SearchScreen.module.scss";
+
 type Props = {
   place1Id: string;
 };
@@ -47,7 +49,11 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
         </SimpleGrid>
 
         {place && (
-          <Tabs variant="outline" defaultValue="reviews">
+          <Tabs
+            variant="outline"
+            defaultValue="reviews"
+            className={classes.SearchScreen__Tabs}
+          >
             <Tabs.List grow>
               <Tabs.Tab value="reviews">
                 <Text size="md" fw="bold">
