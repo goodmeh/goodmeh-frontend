@@ -7,6 +7,7 @@ import {
   Text,
   useCombobox,
 } from "@mantine/core";
+import { useSessionStorage } from "@mantine/hooks";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { sample } from "es-toolkit";
 import React, { InputHTMLAttributes, useEffect, useMemo, useRef } from "react";
@@ -57,6 +58,12 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
   const placeholder = useRef(sample(PLACE_SEARCH_PLACEHOLDERS));
+  const [placeNames, setPlaceNames] = useSessionStorage<
+    Record<string, google.maps.places.AutocompletePrediction>
+  >({
+    key: "placeNames",
+    defaultValue: {},
+  });
 
   const {
     value,
@@ -99,10 +106,23 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
 
   useEffect(() => {
     if (!value) {
-      setValue(place?.name ?? "");
+      setValue(
+        place?.name ??
+          placeNames[placeId ?? ""]?.structured_formatting.main_text ??
+          "",
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- This effect should only run when the place changes
-  }, [place]);
+  }, [placeId, place, !!placeNames[placeId ?? ""]]);
+
+  useEffect(() => {
+    setPlaceNames((prev) => ({
+      ...prev,
+      ...Object.fromEntries(
+        data.map((suggestion) => [suggestion.place_id, suggestion]),
+      ),
+    }));
+  }, [data, setPlaceNames]);
 
   return (
     <Combobox store={combobox} onOptionSubmit={onOptionSubmit}>
