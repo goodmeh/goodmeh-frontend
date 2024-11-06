@@ -48,6 +48,8 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
           <Tooltip
             label={row.tooltip}
             events={{ hover: true, focus: false, touch: true }}
+            multiline
+            ta="center"
           >
             <Group align="center" gap="xs">
               <Text fz="xl" fw={700}>
