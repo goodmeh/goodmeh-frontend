@@ -4,23 +4,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { RatingStars } from "@/components/ui/RatingStars";
-import { useAppSelector } from "@/stores/store";
-import { Place } from "@/types/data";
+import { PlacePreviewResponse } from "@/features/Discover/api/discoverPlaces";
 
 import classes from "./PlacePreviewCard.module.scss";
-import { PlacePreviewCardSkeleton } from "./PlacePreviewCardSkeleton";
 
 type Props = {
-  placeId?: string;
+  place: PlacePreviewResponse;
 };
 
-export const PlacePreviewCard: React.FC<Props> = ({ placeId }) => {
-  const place = useAppSelector<Place | undefined>(
-    (state) => state.places[placeId ?? ""],
-  );
-
-  if (!place) return <PlacePreviewCardSkeleton />;
-
+export const PlacePreviewCard: React.FC<Props> = ({ place }) => {
   return (
     <Card
       radius="md"

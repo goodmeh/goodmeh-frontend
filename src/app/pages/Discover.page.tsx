@@ -4,15 +4,16 @@ import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 
 import { PlacesAutocompleteField } from "@/components/ui/PlacesAutocompleteField";
-import { discoverPlaces } from "@/features/Discover/api/discoverPlaces";
+import {
+  discoverPlaces,
+  PlacePreviewResponse,
+} from "@/features/Discover/api/discoverPlaces";
 import { PlacePreviewCard } from "@/features/Discover/components/PlacePreviewCard";
 import { PlacePreviewCardSkeleton } from "@/features/Discover/components/PlacePreviewCardSkeleton";
-import { PlaceActions } from "@/stores/places";
 import { useAppDispatch } from "@/stores/store";
-import { Place } from "@/types/data";
 export const DiscoverPage: React.FC = () => {
   const navigate = useNavigate();
-  const [places, setPlaces] = useState<Place[]>([]);
+  const [places, setPlaces] = useState<PlacePreviewResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
   const cols = useMatches({
@@ -34,7 +35,6 @@ export const DiscoverPage: React.FC = () => {
 
   useEffect(() => {
     discoverPlaces().then((places) => {
-      places.map((place) => dispatch(PlaceActions.addPlace(place)));
       setPlaces(places);
       setIsLoading(false);
     });
@@ -57,7 +57,7 @@ export const DiscoverPage: React.FC = () => {
               <PlacePreviewCardSkeleton key={index} />
             ))
           : places.map((place) => (
-              <PlacePreviewCard key={place.id} placeId={place.id} />
+              <PlacePreviewCard key={place.id} place={place} />
             ))}
       </SimpleGrid>
     </>
