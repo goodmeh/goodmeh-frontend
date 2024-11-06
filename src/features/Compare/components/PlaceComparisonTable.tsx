@@ -45,7 +45,10 @@ export const PlaceComparisonTable: React.FC<Props> = ({ place1, place2 }) => {
     <Table.Tr key={row.property.formal}>
       <Table.Td colSpan={2}>
         <Stack align="center" p="md">
-          <Tooltip label={row.tooltip}>
+          <Tooltip
+            label={row.tooltip}
+            events={{ hover: true, focus: false, touch: true }}
+          >
             <Group align="center" gap="xs">
               <Text fz="xl" fw={700}>
                 {row.property[audienceLabel]}{" "}
