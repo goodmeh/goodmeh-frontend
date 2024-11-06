@@ -39,8 +39,16 @@ const MediaModal = ({
       styles={{
         body: { padding: 0, height: "auto" },
       }}
+      w={400}
     >
-      <Carousel loop withIndicators px="xl" pb="xl" initialSlide={initialSlide}>
+      <Carousel
+        loop
+        withIndicators
+        px="xl"
+        pb="xl"
+        initialSlide={initialSlide}
+        withKeyboardEvents
+      >
         {imageUrls.map((imageUrl) => (
           <Carousel.Slide key={imageUrl} bg="black">
             <Center h="100%">
@@ -48,7 +56,7 @@ const MediaModal = ({
                 showVideoControls
                 mediaUrl={imageUrl}
                 height="auto"
-                width={400}
+                width="100%"
               />
             </Center>
           </Carousel.Slide>
