@@ -15,10 +15,13 @@ export const CriteriaBasedChart: React.FC<Props> = ({ data, title }) => {
     <Stack ta="center">
       <Title order={4}>{title}</Title>
       <RadarChart
-        h={400}
+        h={{
+          base: 200,
+          xs: 300,
+          sm: 400,
+        }}
         data={data}
         dataKey="criteria"
-        withPolarRadiusAxis={false}
         series={[{ name: "score", color: "yellow.4", opacity: 0.2 }]}
       />
     </Stack>

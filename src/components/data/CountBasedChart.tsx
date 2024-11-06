@@ -12,7 +12,7 @@ type Props = {
 
 export const CountBasedChart: React.FC<Props> = ({ data, title }) => {
   return (
-    <Stack align="center">
+    <Stack align="center" pb="xl">
       <Title order={4}>{title}</Title>
       <BarChart
         h={300}
@@ -20,8 +20,10 @@ export const CountBasedChart: React.FC<Props> = ({ data, title }) => {
         series={[{ name: "count", color: "indigo.6" }]}
         dataKey="keyword"
         withBarValueLabel
-        withTooltip={false}
         strokeDasharray="15 15"
+        xAxisProps={{
+          interval: 0,
+        }}
       />
     </Stack>
   );

@@ -34,6 +34,9 @@ export const TimeBasedChart: React.FC<Props> = ({ data, title }) => {
         activeDotProps={{ r: 2, strokeWidth: 2, stroke: "#fff" }}
         yAxisProps={{ domain: [1, 5] }}
         strokeDasharray="15 15"
+        xAxisProps={{
+          interval: "equidistantPreserveStart",
+        }}
       />
     </Stack>
   );
