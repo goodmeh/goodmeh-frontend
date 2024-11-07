@@ -7,7 +7,7 @@ import {
   Text,
   useCombobox,
 } from "@mantine/core";
-import { useSessionStorage } from "@mantine/hooks";
+import { useDisclosure, useSessionStorage } from "@mantine/hooks";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { sample } from "es-toolkit";
 import React, { InputHTMLAttributes, useEffect, useMemo, useRef } from "react";
@@ -56,7 +56,9 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     () => places[placeId ?? ""],
     [placeId, places],
   );
+  const [isDropdownOpen, { open, close }] = useDisclosure(false);
   const combobox = useCombobox({
+    opened: isDropdownOpen,
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
   const placeholder = useRef(sample(PLACE_SEARCH_PLACEHOLDERS));
@@ -90,7 +92,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     const suggestion = data.find((suggestion) => suggestion.place_id === value);
     onSelectSuggestion?.(suggestion);
     setValue(suggestion?.structured_formatting.main_text ?? "");
-    combobox.closeDropdown();
+    combobox.targetRef.current?.blur();
   };
 
   useEffect(() => {
@@ -138,8 +140,8 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
           }
           rightSectionPointerEvents="auto"
           placeholder={placeholder.current}
-          onFocus={() => combobox.openDropdown()}
-          onBlur={() => combobox.closeDropdown()}
+          onFocus={open}
+          onBlur={close}
           {...props}
         />
       </Combobox.Target>

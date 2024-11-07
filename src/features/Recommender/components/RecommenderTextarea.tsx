@@ -6,6 +6,7 @@ import {
   Textarea,
   useCombobox,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { IconArrowUp } from "@tabler/icons-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -23,7 +24,7 @@ export const RecommenderTextarea: React.FC<Props> = ({
 }) => {
   const [placeNames, setPlaceNames] = useState<Record<string, string>>({});
   const [selectedPlaceIds, setSelectedPlaceIds] = useState<string[]>([]);
-  const [value, setValue] = useState("");
+  const [isDropdownOpen, { open, close }] = useDisclosure();
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
@@ -53,7 +54,11 @@ export const RecommenderTextarea: React.FC<Props> = ({
   }, []);
 
   return (
-    <Combobox store={combobox} onOptionSubmit={onOptionSubmit}>
+    <Combobox
+      store={combobox}
+      onOptionSubmit={onOptionSubmit}
+      middlewares={{ flip: false }}
+    >
       <Combobox.Target>
         <div className={classes.RecommenderTextarea__Wrapper}>
           <Textarea
@@ -65,8 +70,8 @@ export const RecommenderTextarea: React.FC<Props> = ({
                 ? "Click on the button to generate recommendation!"
                 : "Tell us up to 3 places you love!"
             }
-            onFocus={() => combobox.openDropdown()}
-            onBlur={() => combobox.closeDropdown()}
+            onFocus={open}
+            onBlur={close}
             value={value}
             onChange={(event) => setValue(event.currentTarget.value)}
             rightSection={
