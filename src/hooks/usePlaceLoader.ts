@@ -25,10 +25,10 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     useState<RequestPlaceStatusResponse>();
   const refreshInterval = useRef<number>();
   const [isLoading, setIsLoading] = useState(false);
-  const [hideNotification, setHideNotification] = useState(false);
+  const hideNotification = useRef(false);
 
   const showNotification = useCallback(() => {
-    if (hideNotification || place) {
+    if (hideNotification.current || place) {
       return;
     }
     notifications.show({
@@ -38,7 +38,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
         "It might take a while for our servers to retrieve data for this place. In the meantime, you can look up other places.",
       autoClose: false,
       onClose: () => {
-        setHideNotification(true);
+        hideNotification.current = true;
       },
     });
   }, [hideNotification, place]);
@@ -96,7 +96,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
 
   useEffect(() => {
     notifications.hide("place-loader");
-    setHideNotification(false);
+    hideNotification.current = false;
     if (!placeId) {
       setRequestStatus(undefined);
       return;
