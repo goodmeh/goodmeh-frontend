@@ -114,6 +114,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
   useEffect(() => {
     return () => {
       notifications.clean();
+      clearInterval(refreshInterval.current);
     };
   }, []);
 
