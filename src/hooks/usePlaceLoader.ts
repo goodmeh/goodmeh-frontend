@@ -72,9 +72,10 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     if ("id" in response) {
       dispatch(PlaceActions.addPlace(response));
       setIsLoading(false);
+      notifications.hide("place-loader");
     } else {
       setRequestStatus(response);
-      if (response.failed && !isFirstLoad) {
+      if (response.failed) {
         showNotification();
       }
     }
@@ -94,7 +95,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
   };
 
   useEffect(() => {
-    notifications.clean();
+    notifications.hide("place-loader");
     setHideNotification(false);
     if (!placeId) {
       setRequestStatus(undefined);
@@ -113,7 +114,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
 
   useEffect(() => {
     return () => {
-      notifications.clean();
+      notifications.hide("place-loader");
       clearInterval(refreshInterval.current);
     };
   }, []);
