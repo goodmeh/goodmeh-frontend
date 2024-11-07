@@ -47,6 +47,7 @@ const LandingPage: React.FC = () => {
       <PlacesAutocompleteField
         placeId={place1Id}
         onSelectSuggestion={(location) => setPlace1Id(location?.place_id)}
+        exceptPlaceId={place2Id}
         leftSection={isShowingLandingScreen && <IconSearch />}
         onClear={onClearPlace1}
       />
@@ -55,6 +56,7 @@ const LandingPage: React.FC = () => {
         <PlacesAutocompleteField
           placeId={place2Id}
           onSelectSuggestion={(location) => setPlace2Id(location?.place_id)}
+          exceptPlaceId={place1Id}
           onClear={() => {
             setMode(Mode.Search);
             setPlace2Id(undefined);

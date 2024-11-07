@@ -38,6 +38,7 @@ type Props = {
     value: google.maps.places.AutocompletePrediction | undefined,
   ) => void;
   onClear?: () => void;
+  exceptPlaceId?: string;
 } & InputProps &
   InputHTMLAttributes<HTMLInputElement>;
 
@@ -46,6 +47,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   onChange,
   onSelectSuggestion,
   onClear,
+  exceptPlaceId,
   ...props
 }) => {
   const placesLibrary = useMapsLibrary("places");
@@ -144,7 +146,12 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
       <Combobox.Dropdown hidden={data.length === 0}>
         <Combobox.Options>
           <ScrollArea.Autosize mah={200} type="auto">
-            {data.map((suggestion) => (
+            {(exceptPlaceId
+              ? data.filter(
+                  (suggestion) => suggestion.place_id !== exceptPlaceId,
+                )
+              : data
+            ).map((suggestion) => (
               <Combobox.Option
                 key={suggestion.place_id}
                 value={suggestion.place_id}
