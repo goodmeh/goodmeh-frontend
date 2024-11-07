@@ -1,4 +1,5 @@
 import "@mantine/charts/styles.css";
+import "@mantine/notifications/styles.css";
 import "./index.scss";
 
 import { StrictMode } from "react";
