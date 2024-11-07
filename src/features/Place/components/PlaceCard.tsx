@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { RatingStars } from "@/components/ui/RatingStars";
 import { useViewMode } from "@/hooks/useViewMode";
 import { useAppSelector } from "@/stores/store";
-import { Place } from "@/types/data";
+import { Place, ScrapeStatus } from "@/types/data";
 
 import { PlaceCardSkeleton } from "./PlaceCardSkeleton";
 import { PlaceGallery } from "./PlaceGallery";
@@ -80,12 +80,15 @@ const PlaceSummary: React.FC<{ place: Place }> = ({ place }) => {
   const { viewMode } = useViewMode();
   const summaryToShow =
     viewMode == "consumer" ? place.summary : place.business_summary;
+  const isSummaryLoading =
+    place.status == ScrapeStatus.ANALYSING ||
+    place.status == ScrapeStatus.SUMMARIZING;
 
   return summaryToShow ? (
     <Text size="sm">
       <Markdown>{summaryToShow}</Markdown>
     </Text>
-  ) : place.status ? (
+  ) : isSummaryLoading ? (
     <div>
       <Skeleton height={16} width="100%" mb={8} />
       <Skeleton height={16} width="90%" mb={8} />

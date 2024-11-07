@@ -551,17 +551,17 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@mantine/carousel@^7.13.3":
+"@mantine/carousel@^7.13.4":
   version "7.13.4"
   resolved "https://registry.yarnpkg.com/@mantine/carousel/-/carousel-7.13.4.tgz#3f224b6cb9c458cd3babcab4fd2fe7fdaabcdbb0"
   integrity sha512-moSwQzzShCNJRu2rKZIjvCJ9pt6uaIdqOEakZbWBmOcFVJaztnMwypxmmUpGiaDQ/9BCvfyLsFbCKlO+r+SQdQ==
 
-"@mantine/charts@^7.13.0":
+"@mantine/charts@^7.13.4":
   version "7.13.4"
   resolved "https://registry.yarnpkg.com/@mantine/charts/-/charts-7.13.4.tgz#cc775feaf436f12ffad031bb58a8e08b7aafa1c7"
   integrity sha512-hQPqJ1wmKRbVSaoq/YDSKLP1F1YnW2DDgkMSPThFIjfiSblRGhHkwlPfPf844/jrw5px3Vor4jvTUf0bsUML9A==
 
-"@mantine/core@^7.13.3":
+"@mantine/core@^7.13.4":
   version "7.13.4"
   resolved "https://registry.yarnpkg.com/@mantine/core/-/core-7.13.4.tgz#3ee9733d132deeb8d29b12d8e852b2c4f9b4bb7d"
   integrity sha512-9I6+SqTq90pnI3WPmOQzQ1PL7IkhQg/5ft8Awhgut8tvk1VaKruDm/K5ysUG3ncHrP+QTI2UHYjNlUrux6HKlw==
@@ -573,17 +573,23 @@
     react-textarea-autosize "8.5.3"
     type-fest "^4.12.0"
 
-"@mantine/dates@^7.13.3":
-  version "7.13.4"
-  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-7.13.4.tgz#c49ce789f73364b08b3fa7348fc8062bed00576e"
-  integrity sha512-1wmFmng8QBNU3JUoxCva357CD4kX/y9wTQoxfv8giYMzC6bNY3tYWW0CYLtSr80ZroMyZOdyXCBIlYYVil8BUQ==
-  dependencies:
-    clsx "^2.1.1"
-
-"@mantine/hooks@^7.13.3":
+"@mantine/hooks@^7.13.4":
   version "7.13.4"
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.13.4.tgz#2e4a8aa910a1d9cfc8ad513b33d3a483a41c7f88"
   integrity sha512-B2QCegQyWlLdenVNaLNK8H9cTAjLW9JKJ3xWg+ShhpjZDHT2hjZz4L0Nt071Z7mPvyAaOwKGM0FyqTcTjdECfg==
+
+"@mantine/notifications@^7.13.4":
+  version "7.13.4"
+  resolved "https://registry.yarnpkg.com/@mantine/notifications/-/notifications-7.13.4.tgz#14d75aad446f431ee777fb33d471b23b61a7f16e"
+  integrity sha512-CKd3tDGDAegkJYJIMHtF0St4hBpBVAujdmtsEin7UYeVq5N0YYe7j2T1Xu7Ry6dfObkuxeig6csxiJyBrZ2bew==
+  dependencies:
+    "@mantine/store" "7.13.4"
+    react-transition-group "4.4.5"
+
+"@mantine/store@7.13.4":
+  version "7.13.4"
+  resolved "https://registry.yarnpkg.com/@mantine/store/-/store-7.13.4.tgz#d1915cc51a22cfe37104643252c0a70cfe63e847"
+  integrity sha512-DUlnXizE7aCjbVg2J3XLLKsOzt2c2qfQl2Xmx9l/BPE4FFZZKUqGDkYaTDbTAmnN3FVZ9xXycL7bAlq9udO8mA==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -3542,7 +3548,7 @@ react-textarea-autosize@8.5.3:
     use-composed-ref "^1.3.0"
     use-latest "^1.2.1"
 
-react-transition-group@^4.4.5:
+react-transition-group@4.4.5, react-transition-group@^4.4.5:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.5.tgz#e53d4e3f3344da8521489fbef8f2581d42becdd1"
   integrity sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==

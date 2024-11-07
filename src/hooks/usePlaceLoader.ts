@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { notifications } from "@mantine/notifications";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
   getPlace,
@@ -24,20 +25,38 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     useState<RequestPlaceStatusResponse>();
   const refreshInterval = useRef<number>();
   const [isLoading, setIsLoading] = useState(false);
+  const [hideNotification, setHideNotification] = useState(false);
+
+  const showNotification = useCallback(() => {
+    if (hideNotification || place) {
+      return;
+    }
+    notifications.show({
+      id: "place-loader",
+      title: "Check back again later!",
+      message:
+        "It might take a while for our servers to retrieve data for this place. In the meantime, you can look up other places.",
+      autoClose: false,
+      onClose: () => {
+        setHideNotification(true);
+      },
+    });
+  }, [hideNotification, place]);
 
   const setTimeout = (placeId: string) => {
     let refreshCountdown = 10;
-    refreshInterval.current = setInterval(() => {
+    const interval = setInterval(() => {
       if (refreshCountdown > 0) {
         refreshCountdown -= 1;
         return;
       }
-      clearInterval(refreshInterval.current);
+      clearInterval(interval);
       loadPlace(placeId);
     }, 1000);
+    refreshInterval.current = interval;
   };
 
-  const loadPlace = async (placeId: string) => {
+  const loadPlace = async (placeId: string, isFirstLoad = false) => {
     if (places[placeId]) {
       return;
     }
@@ -53,8 +72,12 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     if ("id" in response) {
       dispatch(PlaceActions.addPlace(response));
       setIsLoading(false);
+      notifications.hide("place-loader");
     } else {
       setRequestStatus(response);
+      if (response.failed) {
+        showNotification();
+      }
     }
     // If no status or the status is summarizing individual reviews
     // means the place will no longer be updated
@@ -65,10 +88,15 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     ) {
       return;
     }
+    if (!isFirstLoad) {
+      showNotification();
+    }
     setTimeout(placeId);
   };
 
   useEffect(() => {
+    notifications.hide("place-loader");
+    setHideNotification(false);
     if (!placeId) {
       setRequestStatus(undefined);
       return;
@@ -76,13 +104,20 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
     if (place && place.id === placeId) {
       return;
     }
-    loadPlace(placeId);
+    loadPlace(placeId, true);
     return () => {
       clearInterval(refreshInterval.current);
       refreshInterval.current = undefined;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- We only want to run this effect when the placeId changes
   }, [placeId]);
+
+  useEffect(() => {
+    return () => {
+      notifications.hide("place-loader");
+      clearInterval(refreshInterval.current);
+    };
+  }, []);
 
   return {
     place,
