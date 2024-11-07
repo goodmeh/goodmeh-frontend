@@ -6,8 +6,9 @@ import {
   Textarea,
   useCombobox,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { useDebouncedState, useDisclosure } from "@mantine/hooks";
 import { IconArrowUp } from "@tabler/icons-react";
+import Fuse from "fuse.js";
 import { useEffect, useMemo, useState } from "react";
 
 import { getAllPlaceNames } from "../api/getAllPlaceNames";
@@ -23,9 +24,19 @@ export const RecommenderTextarea: React.FC<Props> = ({
   onSelectionChange,
 }) => {
   const [placeNames, setPlaceNames] = useState<Record<string, string>>({});
+  const fuse = useMemo(
+    () =>
+      new Fuse(
+        Object.entries(placeNames).map(([id, name]) => ({ id, name })),
+        { keys: ["name"], minMatchCharLength: 2 },
+      ),
+    [placeNames],
+  );
   const [selectedPlaceIds, setSelectedPlaceIds] = useState<string[]>([]);
+  const [value, setValue] = useDebouncedState("", 300);
   const [isDropdownOpen, { open, close }] = useDisclosure();
   const combobox = useCombobox({
+    opened: isDropdownOpen,
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
   const onOptionSubmit = (placeId: string) => {
@@ -33,17 +44,13 @@ export const RecommenderTextarea: React.FC<Props> = ({
     setValue("");
     onSelectionChange();
   };
-  const filteredData = useMemo(
-    () =>
-      value
-        ? Object.entries(placeNames)
-            .filter(([placeId, name]) =>
-              name.toLowerCase().includes(value.toLowerCase()),
-            )
-            .map(([placeId]) => placeId)
-        : [],
-    [placeNames, value],
-  );
+  const filteredData = useMemo(() => {
+    if (!value.trim()) return [];
+    return fuse
+      .search(value)
+      .filter(({ item: { id } }) => !selectedPlaceIds.includes(id))
+      .slice(0, 5);
+  }, [value, fuse, selectedPlaceIds]);
   const onRemovePill = (placeId: string) => {
     setSelectedPlaceIds((placeIds) => placeIds.filter((p) => p !== placeId));
     onSelectionChange();
@@ -72,7 +79,7 @@ export const RecommenderTextarea: React.FC<Props> = ({
             }
             onFocus={open}
             onBlur={close}
-            value={value}
+            defaultValue={value}
             onChange={(event) => setValue(event.currentTarget.value)}
             rightSection={
               <ActionIcon
@@ -108,9 +115,9 @@ export const RecommenderTextarea: React.FC<Props> = ({
       <Combobox.Dropdown hidden={filteredData.length === 0}>
         <Combobox.Options>
           <ScrollArea.Autosize mah={200} type="auto">
-            {filteredData.map((placeId) => (
-              <Combobox.Option key={placeId} value={placeId}>
-                {placeNames[placeId]}
+            {filteredData.map(({ item: { id, name } }) => (
+              <Combobox.Option key={id} value={id}>
+                {name}
               </Combobox.Option>
             ))}
           </ScrollArea.Autosize>
