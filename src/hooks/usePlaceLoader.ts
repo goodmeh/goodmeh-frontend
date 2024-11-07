@@ -28,7 +28,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
   const [hideNotification, setHideNotification] = useState(false);
 
   const showNotification = useCallback(() => {
-    if (hideNotification) {
+    if (hideNotification || place) {
       return;
     }
     notifications.show({
@@ -41,7 +41,7 @@ export const usePlaceLoader = ({ placeId }: UsePlaceLoaderProps) => {
         setHideNotification(true);
       },
     });
-  }, [hideNotification]);
+  }, [hideNotification, place]);
 
   const setTimeout = (placeId: string) => {
     let refreshCountdown = 10;
