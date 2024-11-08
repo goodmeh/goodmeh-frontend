@@ -129,7 +129,11 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   }, [data, setPlaceNames]);
 
   return (
-    <Combobox store={combobox} onOptionSubmit={onOptionSubmit}>
+    <Combobox
+      store={combobox}
+      onOptionSubmit={onOptionSubmit}
+      middlewares={{ flip: false }}
+    >
       <Combobox.Target>
         <Input
           value={value}
