@@ -1,18 +1,27 @@
 import {
   CloseButton,
   Combobox,
+  Group,
   Input,
   InputProps,
   ScrollArea,
   Text,
   useCombobox,
 } from "@mantine/core";
-import { useSessionStorage } from "@mantine/hooks";
+import { useDisclosure, useSessionStorage } from "@mantine/hooks";
+import { IconCloudCheck, IconCloudSearch } from "@tabler/icons-react";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { sample } from "es-toolkit";
-import React, { InputHTMLAttributes, useEffect, useMemo, useRef } from "react";
+import React, {
+  InputHTMLAttributes,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
+import { getAllPlaceNames } from "@/features/Recommender/api/getAllPlaceNames";
 import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
@@ -38,6 +47,7 @@ type Props = {
     value: google.maps.places.AutocompletePrediction | undefined,
   ) => void;
   onClear?: () => void;
+  exceptPlaceId?: string;
 } & InputProps &
   InputHTMLAttributes<HTMLInputElement>;
 
@@ -46,15 +56,19 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   onChange,
   onSelectSuggestion,
   onClear,
+  exceptPlaceId,
   ...props
 }) => {
+  const [placeIds, setPlaceIds] = useState<Set<string>>(new Set());
   const placesLibrary = useMapsLibrary("places");
   const places = useAppSelector((state) => state.places);
   const place = useMemo<Place | undefined>(
     () => places[placeId ?? ""],
     [placeId, places],
   );
+  const [isDropdownOpen, { open, close }] = useDisclosure(false);
   const combobox = useCombobox({
+    opened: isDropdownOpen,
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
   const placeholder = useRef(sample(PLACE_SEARCH_PLACEHOLDERS));
@@ -64,6 +78,14 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     key: "placeNames",
     defaultValue: {},
   });
+
+  useEffect(() => {
+    getAllPlaceNames().then((placeNames) => {
+      Object.keys(placeNames).forEach((placeId) => {
+        setPlaceIds((prev) => prev.add(placeId));
+      });
+    });
+  }, []);
 
   const {
     value,
@@ -88,7 +110,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     const suggestion = data.find((suggestion) => suggestion.place_id === value);
     onSelectSuggestion?.(suggestion);
     setValue(suggestion?.structured_formatting.main_text ?? "");
-    combobox.closeDropdown();
+    combobox.targetRef.current?.blur();
   };
 
   useEffect(() => {
@@ -125,7 +147,11 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   }, [data, setPlaceNames]);
 
   return (
-    <Combobox store={combobox} onOptionSubmit={onOptionSubmit}>
+    <Combobox
+      store={combobox}
+      onOptionSubmit={onOptionSubmit}
+      middlewares={{ flip: false }}
+    >
       <Combobox.Target>
         <Input
           value={value}
@@ -136,20 +162,25 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
           }
           rightSectionPointerEvents="auto"
           placeholder={placeholder.current}
-          onFocus={() => combobox.openDropdown()}
-          onBlur={() => combobox.closeDropdown()}
+          onFocus={open}
+          onBlur={close}
           {...props}
         />
       </Combobox.Target>
       <Combobox.Dropdown hidden={data.length === 0}>
         <Combobox.Options>
           <ScrollArea.Autosize mah={200} type="auto">
-            {data.map((suggestion) => (
+            {(exceptPlaceId
+              ? data.filter(
+                  (suggestion) => suggestion.place_id !== exceptPlaceId,
+                )
+              : data
+            ).map((suggestion) => (
               <Combobox.Option
                 key={suggestion.place_id}
                 value={suggestion.place_id}
               >
-                <SuggestionOption suggestion={suggestion} />
+                <SuggestionOption suggestion={suggestion} placeIds={placeIds} />
               </Combobox.Option>
             ))}
           </ScrollArea.Autosize>
@@ -161,13 +192,25 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
 
 const SuggestionOption: React.FC<{
   suggestion?: google.maps.places.AutocompletePrediction;
-}> = ({ suggestion }) => {
+  placeIds: Set<string>;
+}> = ({ suggestion, placeIds }) => {
   return (
-    <div>
-      <Text>{suggestion?.structured_formatting.main_text}</Text>
-      <Text size="sm" c="dimmed">
-        {suggestion?.structured_formatting.secondary_text}
-      </Text>
-    </div>
+    <Group>
+      {placeIds.has(suggestion?.place_id ?? "") ? (
+        <Text c="yellow.5">
+          <IconCloudCheck />
+        </Text>
+      ) : (
+        <Text c="dimmed">
+          <IconCloudSearch />
+        </Text>
+      )}
+      <div>
+        <Text>{suggestion?.structured_formatting.main_text}</Text>
+        <Text size="sm" c="dimmed">
+          {suggestion?.structured_formatting.secondary_text}
+        </Text>
+      </div>
+    </Group>
   );
 };
