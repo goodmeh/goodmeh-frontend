@@ -1,6 +1,7 @@
 import {
   CloseButton,
   Combobox,
+  Group,
   Input,
   InputProps,
   ScrollArea,
@@ -8,11 +9,19 @@ import {
   useCombobox,
 } from "@mantine/core";
 import { useDisclosure, useSessionStorage } from "@mantine/hooks";
+import { IconCloudCheck, IconCloudSearch } from "@tabler/icons-react";
 import { useMapsLibrary } from "@vis.gl/react-google-maps";
 import { sample } from "es-toolkit";
-import React, { InputHTMLAttributes, useEffect, useMemo, useRef } from "react";
+import React, {
+  InputHTMLAttributes,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import usePlacesAutocomplete from "use-places-autocomplete";
 
+import { getAllPlaceNames } from "@/features/Recommender/api/getAllPlaceNames";
 import { useAppSelector } from "@/stores/store";
 import { Place } from "@/types/data";
 
@@ -50,6 +59,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
   exceptPlaceId,
   ...props
 }) => {
+  const [placeIds, setPlaceIds] = useState<Set<string>>(new Set());
   const placesLibrary = useMapsLibrary("places");
   const places = useAppSelector((state) => state.places);
   const place = useMemo<Place | undefined>(
@@ -68,6 +78,14 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
     key: "placeNames",
     defaultValue: {},
   });
+
+  useEffect(() => {
+    getAllPlaceNames().then((placeNames) => {
+      Object.keys(placeNames).forEach((placeId) => {
+        setPlaceIds((prev) => prev.add(placeId));
+      });
+    });
+  }, []);
 
   const {
     value,
@@ -162,7 +180,7 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
                 key={suggestion.place_id}
                 value={suggestion.place_id}
               >
-                <SuggestionOption suggestion={suggestion} />
+                <SuggestionOption suggestion={suggestion} placeIds={placeIds} />
               </Combobox.Option>
             ))}
           </ScrollArea.Autosize>
@@ -174,13 +192,25 @@ export const PlacesAutocompleteField: React.FC<Props> = ({
 
 const SuggestionOption: React.FC<{
   suggestion?: google.maps.places.AutocompletePrediction;
-}> = ({ suggestion }) => {
+  placeIds: Set<string>;
+}> = ({ suggestion, placeIds }) => {
   return (
-    <div>
-      <Text>{suggestion?.structured_formatting.main_text}</Text>
-      <Text size="sm" c="dimmed">
-        {suggestion?.structured_formatting.secondary_text}
-      </Text>
-    </div>
+    <Group>
+      {placeIds.has(suggestion?.place_id ?? "") ? (
+        <Text c="yellow.5">
+          <IconCloudCheck />
+        </Text>
+      ) : (
+        <Text c="dimmed">
+          <IconCloudSearch />
+        </Text>
+      )}
+      <div>
+        <Text>{suggestion?.structured_formatting.main_text}</Text>
+        <Text size="sm" c="dimmed">
+          {suggestion?.structured_formatting.secondary_text}
+        </Text>
+      </div>
+    </Group>
   );
 };
