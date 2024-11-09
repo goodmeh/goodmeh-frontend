@@ -195,7 +195,7 @@ const SuggestionOption: React.FC<{
   placeIds: Set<string>;
 }> = ({ suggestion, placeIds }) => {
   return (
-    <Group>
+    <Group wrap="nowrap">
       {placeIds.has(suggestion?.place_id ?? "") ? (
         <Text c="yellow.5">
           <IconCloudCheck />
