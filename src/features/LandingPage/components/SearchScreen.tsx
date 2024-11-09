@@ -44,37 +44,56 @@ export const SearchScreen: React.FC<Props> = ({ place1Id }) => {
                 flex: 1,
               }}
             />
-            <StatDisplay placeId={place1Id} />
+            {(!place || place.user_rating_count > 0) && (
+              <StatDisplay placeId={place1Id} />
+            )}
           </Stack>
         </SimpleGrid>
 
-        {place && (
-          <Tabs
-            variant="outline"
-            defaultValue="reviews"
-            className={classes.SearchScreen__Tabs}
-          >
-            <Tabs.List grow>
-              <Tabs.Tab value="reviews">
-                <Text size="md" fw="bold">
-                  Reviews
-                </Text>
-              </Tabs.Tab>
-              <Tabs.Tab value="dashboard">
-                <Text size="md" fw="bold">
-                  Stats
-                </Text>
-              </Tabs.Tab>
-            </Tabs.List>
-            <Tabs.Panel value="reviews">
-              {place && <ReviewSection place={place} />}
-            </Tabs.Panel>
-            <Tabs.Panel value="dashboard">
-              {place && <StatSection place={place} />}
-            </Tabs.Panel>
-          </Tabs>
-        )}
+        {place &&
+          (place.user_rating_count > 0 ? (
+            <TabsSection place={place} />
+          ) : (
+            <NoReviewPlaceholder />
+          ))}
       </Stack>
     </>
+  );
+};
+
+const TabsSection: React.FC<{ place?: Place }> = ({ place }) => {
+  return (
+    <Tabs
+      variant="outline"
+      defaultValue="reviews"
+      className={classes.SearchScreen__Tabs}
+    >
+      <Tabs.List grow>
+        <Tabs.Tab value="reviews">
+          <Text size="md" fw="bold">
+            Reviews
+          </Text>
+        </Tabs.Tab>
+        <Tabs.Tab value="dashboard">
+          <Text size="md" fw="bold">
+            Stats
+          </Text>
+        </Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="reviews">
+        {place && <ReviewSection place={place} />}
+      </Tabs.Panel>
+      <Tabs.Panel value="dashboard">
+        {place && <StatSection place={place} />}
+      </Tabs.Panel>
+    </Tabs>
+  );
+};
+
+const NoReviewPlaceholder: React.FC = () => {
+  return (
+    <Stack align="center" p="xl">
+      <Text size="xl">No reviews yet!</Text>
+    </Stack>
   );
 };

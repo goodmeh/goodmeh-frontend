@@ -45,10 +45,14 @@ export const PlaceCard: React.FC<Props> = ({ placeId, clickable = false }) => {
           place.name
         )}
       </Text>
-      <Text size="sm" c="dimmed">
-        {place.rating.toFixed(1)} <RatingStars rating={place.rating} /> (
-        {place.user_rating_count})
-      </Text>
+
+      {place.user_rating_count > 0 && (
+        <Text size="sm" c="dimmed">
+          {place.rating.toFixed(1)} <RatingStars rating={place.rating} /> (
+          {place.user_rating_count})
+        </Text>
+      )}
+
       <Text size="sm" c="dimmed">
         {place.primary_type}
       </Text>
@@ -56,22 +60,26 @@ export const PlaceCard: React.FC<Props> = ({ placeId, clickable = false }) => {
         Last updated: {format(place.last_scraped, "d MMM yyyy, hh:mm a")}
       </Text>
 
-      <Card.Section mt="xs">
-        <Tabs defaultValue="Summary">
-          <Tabs.List>
-            <Tabs.Tab value="Summary">Summary</Tabs.Tab>
-            <Tabs.Tab value="Gallery">Gallery</Tabs.Tab>
-          </Tabs.List>
+      {place.user_rating_count > 0 && (
+        <>
+          <Card.Section mt="xs">
+            <Tabs defaultValue="Summary">
+              <Tabs.List>
+                <Tabs.Tab value="Summary">Summary</Tabs.Tab>
+                <Tabs.Tab value="Gallery">Gallery</Tabs.Tab>
+              </Tabs.List>
 
-          <Tabs.Panel value="Summary" p="md">
-            <PlaceSummary place={place} />
-          </Tabs.Panel>
+              <Tabs.Panel value="Summary" p="md">
+                <PlaceSummary place={place} />
+              </Tabs.Panel>
 
-          <Tabs.Panel value="Gallery" p="md">
-            <PlaceGallery placeId={place.id} />
-          </Tabs.Panel>
-        </Tabs>
-      </Card.Section>
+              <Tabs.Panel value="Gallery" p="md">
+                <PlaceGallery placeId={place.id} />
+              </Tabs.Panel>
+            </Tabs>
+          </Card.Section>
+        </>
+      )}
     </Card>
   );
 };
