@@ -7,6 +7,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { sample } from "es-toolkit";
 import { useState } from "react";
 
 import { PlaceCard } from "@/features/Place/components/PlaceCard";
@@ -14,6 +15,20 @@ import { generateRecommendations } from "@/features/Recommender/api/generateReco
 import { RecommenderTextarea } from "@/features/Recommender/components/RecommenderTextarea";
 import { PlaceActions } from "@/stores/places";
 import { useAppDispatch } from "@/stores/store";
+
+const RECOMMEND_SEARCH_TEXT = [
+  "Not sure what to eat? Let us help!",
+  "Dunno where to go? We got you!",
+  "Can't make up your mind? We can help!",
+  "Anything... Whatever... Let's decide together!",
+];
+
+const LOADING_TEXT = [
+  "We've got just the place for you...",
+  "Something tells me you'll enjoy...",
+  "Thinking of places you'll love...",
+  "Cooking up something good...",
+];
 
 const RecommendPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,13 +53,13 @@ const RecommendPage: React.FC = () => {
         loaderProps={{
           children: (
             <Group>
-              <Loader /> Finding a new place just for you...
+              <Loader /> {sample(LOADING_TEXT)}
             </Group>
           ),
         }}
       />
       <Title size="h2" mb="md">
-        What are your favourite places?
+        {sample(RECOMMEND_SEARCH_TEXT)}
       </Title>
       <RecommenderTextarea
         onSubmit={onSubmit}
