@@ -4,6 +4,7 @@ import {
   Loader,
   LoadingOverlay,
   SimpleGrid,
+  Space,
   Text,
   Title,
 } from "@mantine/core";
@@ -16,11 +17,11 @@ import { RecommenderTextarea } from "@/features/Recommender/components/Recommend
 import { PlaceActions } from "@/stores/places";
 import { useAppDispatch } from "@/stores/store";
 
-const RECOMMEND_SEARCH_TEXT = [
-  "Not sure what to eat? Let us help!",
-  "Dunno where to go? We got you!",
-  "Can't make up your mind? We can help!",
-  "Anything... Whatever... Let's decide together!",
+const RECOMMEND_CAPTION_TEXT = [
+  "Not sure what to do? We settle for you!",
+  "Dunno where to go? Don't worry we know!",
+  "Can't make up your mind? We help you find!",
+  "Anything... Whatever... Brainstorming... Together!",
 ];
 
 const LOADING_TEXT = [
@@ -48,6 +49,11 @@ const RecommendPage: React.FC = () => {
   };
   return (
     <Container>
+      <Title size="h1" ta="center" mt="sm">
+        DoWhat?
+      </Title>
+      <Space h="sm" />
+
       <LoadingOverlay
         visible={isLoading}
         loaderProps={{
@@ -58,8 +64,8 @@ const RecommendPage: React.FC = () => {
           ),
         }}
       />
-      <Title size="h2" mb="md">
-        {sample(RECOMMEND_SEARCH_TEXT)}
+      <Title size="h2" mb="md" ta="center">
+        {sample(RECOMMEND_CAPTION_TEXT)}
       </Title>
       <RecommenderTextarea
         onSubmit={onSubmit}
