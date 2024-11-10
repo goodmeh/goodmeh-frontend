@@ -32,7 +32,7 @@ const RecommendPage: React.FC = () => {
     }
   };
   return (
-    <Container>
+    <Container p={0}>
       <LoadingOverlay
         visible={isLoading}
         loaderProps={{

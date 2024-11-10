@@ -8,7 +8,12 @@ export const WelcomeTitle: React.FC = () => {
   return (
     <>
       <Group align="center" justify="center">
-        <Image src={GoodmehLogo} height={160} w="auto" my="md" />
+        <Image
+          src={GoodmehLogo}
+          h={{ base: 100, xs: 130, sm: 160 }}
+          w="auto"
+          my="md"
+        />
       </Group>
       <Text
         className={classes.Welcome__Subtitle}

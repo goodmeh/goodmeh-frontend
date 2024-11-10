@@ -1,6 +1,5 @@
 import { Container, Space } from "@mantine/core";
 
-import { FeaturesSection } from "@/features/LandingPage/components/FeaturesSection";
 import { WelcomeTitle } from "@/features/LandingPage/components/WelcomeTitle";
 
 type Props = {
@@ -9,12 +8,10 @@ type Props = {
 
 export const LandingScreen: React.FC<Props> = ({ placesAutocompleteField }) => {
   return (
-    <Container p={0}>
+    <Container p={0} mt="10dvh">
       <WelcomeTitle />
       <Space h="xl" />
       {placesAutocompleteField}
-      <Space h="xl" />
-      <FeaturesSection />
     </Container>
   );
 };
