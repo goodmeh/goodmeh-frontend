@@ -18,7 +18,18 @@
 }
 
 .Layout__Main {
+  display: flex;
+  flex-direction: column;
+
+  > :global(.mantine-Container-root) {
+    width: 100%;
+  }
+}
+
+.Layout__Watermark {
   --background-height: 50px;
+  pointer-events: none;
+  z-index: -1;
   background-image: url("/src/assets/background/bg.svg"),
     url("/src/assets/background/bg.svg"), url("/src/assets/background/bg.svg");
   background-position:
@@ -27,7 +38,12 @@
     bottom calc(var(--background-height) * 2) right;
   background-size: auto var(--background-height);
   background-repeat: repeat-x;
-  background-attachment: fixed;
+
+  height: calc(var(--background-height) * 3);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   @include mantine.dark {
     background-image: url("/src/assets/background/bg-dark.svg"),
@@ -37,5 +53,20 @@
 
   @media (max-width: mantine.$mantine-breakpoint-sm) {
     --background-height: 30px;
+  }
+}
+
+.Layout__Footer {
+  border-top: 1px solid var(--app-shell-border-color);
+  padding: var(--mantine-spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--mantine-color-body);
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    line-height: 1;
   }
 }

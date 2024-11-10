@@ -1,7 +1,7 @@
 import { Container, Space } from "@mantine/core";
 
-import { FeaturesSection } from "@/features/LandingPage/components/FeaturesSection";
-import { WelcomeTitle } from "@/features/LandingPage/components/WelcomeTitle";
+import GoodmehLogo from "@/assets/logo/GoodmehLogo.svg";
+import { HeroSection } from "@/components/ui/HeroSection";
 
 type Props = {
   placesAutocompleteField: React.ReactNode;
@@ -9,12 +9,13 @@ type Props = {
 
 export const LandingScreen: React.FC<Props> = ({ placesAutocompleteField }) => {
   return (
-    <Container p={0}>
-      <WelcomeTitle />
+    <Container p={0} mt="10dvh">
+      <HeroSection
+        imageUrl={GoodmehLogo}
+        title="good or meh? you decide lor."
+      />
       <Space h="xl" />
       {placesAutocompleteField}
-      <Space h="xl" />
-      <FeaturesSection />
     </Container>
   );
 };

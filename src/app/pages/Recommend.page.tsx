@@ -4,11 +4,13 @@ import {
   Loader,
   LoadingOverlay,
   SimpleGrid,
+  Space,
   Text,
-  Title,
 } from "@mantine/core";
 import { useState } from "react";
 
+import IdeaLeh from "@/assets/logo/IdeaLeh.svg";
+import { HeroSection } from "@/components/ui/HeroSection";
 import { PlaceCard } from "@/features/Place/components/PlaceCard";
 import { generateRecommendations } from "@/features/Recommender/api/generateRecommendations";
 import { RecommenderTextarea } from "@/features/Recommender/components/RecommenderTextarea";
@@ -32,7 +34,7 @@ const RecommendPage: React.FC = () => {
     }
   };
   return (
-    <Container>
+    <Container p={0} mt={!recommendedPlaceIds ? "10dvh" : 0}>
       <LoadingOverlay
         visible={isLoading}
         loaderProps={{
@@ -43,12 +45,17 @@ const RecommendPage: React.FC = () => {
           ),
         }}
       />
-      <Title size="h2" mb="md">
-        What are your favourite places?
-      </Title>
+
+      <HeroSection
+        imageUrl={IdeaLeh}
+        title="Anything... Whatever... Let's decide together!"
+      />
+
+      <Space h="xl" />
+
       <RecommenderTextarea
         onSubmit={onSubmit}
-        onSelectionChange={() => setRecommendedPlaceIds([])}
+        onSelectionChange={() => setRecommendedPlaceIds(undefined)}
       />
 
       {recommendedPlaceIds && recommendedPlaceIds.length > 0 && (

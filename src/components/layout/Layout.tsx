@@ -14,6 +14,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure, useMutationObserver } from "@mantine/hooks";
 import {
+  IconBrandGithub,
   IconDeviceDesktop,
   IconMoon,
   IconSettings,
@@ -213,7 +214,23 @@ export const Layout: React.FC = () => {
       <AppNavbar toggleMenu={toggle} />
       <AppShell.Main className={classes.Layout__Main}>
         <Outlet />
+        <div className={classes.Layout__Watermark} />
       </AppShell.Main>
+      <AppFooter />
     </AppShell>
+  );
+};
+
+const AppFooter: React.FC = () => {
+  return (
+    <footer className={classes.Layout__Footer}>
+      <Link to="/about">
+        <b>About us</b>
+      </Link>
+
+      <Link to="https://github.com/goodmeh" target="_blank">
+        <IconBrandGithub />
+      </Link>
+    </footer>
   );
 };
