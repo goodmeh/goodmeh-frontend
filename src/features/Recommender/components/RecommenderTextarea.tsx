@@ -8,11 +8,19 @@ import {
 } from "@mantine/core";
 import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
 import { IconArrowUp } from "@tabler/icons-react";
+import { sample } from "es-toolkit";
 import Fuse from "fuse.js";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { getAllPlaceNames } from "../api/getAllPlaceNames";
 import classes from "./RecommenderTextarea.module.scss";
+
+const RECOMMEND_SEARCH_TEXT = [
+  "Not sure what to do? We settle for you!",
+  "Dunno where to go? Don't worry we know!",
+  "Can't make up your mind? We help you find!",
+  "Anything... Whatever... Brainstorming... Together!",
+];
 
 type Props = {
   onSubmit: (placeIds: string[]) => void;
@@ -56,6 +64,7 @@ export const RecommenderTextarea: React.FC<Props> = ({
     setSelectedPlaceIds((placeIds) => placeIds.filter((p) => p !== placeId));
     onSelectionChange();
   };
+  const placeholder = useRef(sample(RECOMMEND_SEARCH_TEXT));
 
   useEffect(() => {
     getAllPlaceNames().then(setPlaceNames);
@@ -76,7 +85,7 @@ export const RecommenderTextarea: React.FC<Props> = ({
             placeholder={
               selectedPlaceIds.length === 3
                 ? "Click on the button to generate recommendation!"
-                : "Not sure what to do? We settle for you!"
+                : placeholder.current
             }
             onFocus={open}
             onBlur={close}
