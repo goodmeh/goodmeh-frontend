@@ -55,7 +55,7 @@ const RecommendPage: React.FC = () => {
 
       <RecommenderTextarea
         onSubmit={onSubmit}
-        onSelectionChange={() => setRecommendedPlaceIds([])}
+        onSelectionChange={() => setRecommendedPlaceIds(undefined)}
       />
 
       {recommendedPlaceIds && recommendedPlaceIds.length > 0 && (
