@@ -6,7 +6,7 @@ import {
   Textarea,
   useCombobox,
 } from "@mantine/core";
-import { useDebouncedState, useDisclosure } from "@mantine/hooks";
+import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
 import { IconArrowUp } from "@tabler/icons-react";
 import Fuse from "fuse.js";
 import { useEffect, useMemo, useState } from "react";
@@ -33,7 +33,8 @@ export const RecommenderTextarea: React.FC<Props> = ({
     [placeNames],
   );
   const [selectedPlaceIds, setSelectedPlaceIds] = useState<string[]>([]);
-  const [value, setValue] = useDebouncedState("", 300);
+  const [value, setValue] = useState("");
+  const [debouncedValue] = useDebouncedValue(value, 300);
   const [isDropdownOpen, { open, close }] = useDisclosure();
   const combobox = useCombobox({
     opened: isDropdownOpen,
@@ -45,12 +46,12 @@ export const RecommenderTextarea: React.FC<Props> = ({
     onSelectionChange();
   };
   const filteredData = useMemo(() => {
-    if (!value.trim()) return [];
+    if (!debouncedValue.trim()) return [];
     return fuse
-      .search(value)
+      .search(debouncedValue)
       .filter(({ item: { id } }) => !selectedPlaceIds.includes(id))
       .slice(0, 5);
-  }, [value, fuse, selectedPlaceIds]);
+  }, [debouncedValue, fuse, selectedPlaceIds]);
   const onRemovePill = (placeId: string) => {
     setSelectedPlaceIds((placeIds) => placeIds.filter((p) => p !== placeId));
     onSelectionChange();
@@ -79,7 +80,7 @@ export const RecommenderTextarea: React.FC<Props> = ({
             }
             onFocus={open}
             onBlur={close}
-            defaultValue={value}
+            value={value}
             onChange={(event) => setValue(event.currentTarget.value)}
             rightSection={
               <ActionIcon
