@@ -114,7 +114,7 @@ export const StatSection: React.FC<Props> = ({ place }) => {
           title="Place Characteristics"
         />
         <Divider />
-        <CriteriaBasedChart data={reviewCriteria} title="Reviews" />
+        <CriteriaBasedChart data={reviewCriteria} title="Review Data" />
         <Divider />
         <TimeBasedChart data={ratingTrend} title="Rating Trend" />
         <Divider />
