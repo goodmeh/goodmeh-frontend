@@ -1,0 +1,10 @@
+.HeroSection__Title {
+  font-size: var(--mantine-h1-font-size);
+
+  @media (max-width: mantine.$mantine-breakpoint-sm) {
+    font-size: var(--mantine-h2-font-size);
+  }
+  @media (max-width: mantine.$mantine-breakpoint-xs) {
+    font-size: var(--mantine-h3-font-size);
+  }
+}
