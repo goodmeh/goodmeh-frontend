@@ -85,7 +85,7 @@ export const RecommenderTextarea: React.FC<Props> = ({
             placeholder={
               selectedPlaceIds.length === 3
                 ? "Click on the button to generate recommendation!"
-                : placeholder.current
+                : "Tell us up to 3 places you love!"
             }
             onFocus={open}
             onBlur={close}
