@@ -21,7 +21,13 @@ import {
   IconSun,
 } from "@tabler/icons-react";
 import { useState } from "react";
-import { Link, matchPath, Outlet, useLocation } from "react-router-dom";
+import {
+  Link,
+  matchPath,
+  Outlet,
+  ScrollRestoration,
+  useLocation,
+} from "react-router-dom";
 
 import GoodmehLogoInline from "@/assets/logo/GoodmehLogoInline.svg";
 import { ViewModeControl } from "@/components/controls/ViewModeControl";
@@ -213,6 +219,7 @@ export const Layout: React.FC = () => {
       />
       <AppNavbar toggleMenu={toggle} />
       <AppShell.Main className={classes.Layout__Main}>
+        <ScrollRestoration />
         <Outlet />
         <div className={classes.Layout__Watermark} />
       </AppShell.Main>
