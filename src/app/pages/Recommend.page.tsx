@@ -8,6 +8,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 import IdeaLeh from "@/assets/logo/IdeaLeh.svg";
 import { HeroSection } from "@/components/ui/HeroSection";
@@ -60,6 +61,9 @@ const RecommendPage: React.FC = () => {
 
       {recommendedPlaceIds && recommendedPlaceIds.length > 0 && (
         <>
+          <Helmet>
+            <title>GoodMeh? - Recommend</title>
+          </Helmet>
           <Text size="lg" fw="bold" my="md">
             We think you might enjoy...
           </Text>
