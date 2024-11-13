@@ -7,9 +7,10 @@ export const AboutPage: React.FC = () => {
       <Helmet>
         <title>GoodMeh? - About Us</title>
       </Helmet>
-      <Container p={0} my="auto">
+
+      <Container p={0} my="auto" size="sm">
         <Card withBorder>
-          <Title>The Same Old Story...</Title>
+          <Title>Does this sound familiar..?</Title>
           <Space h="xl" />
 
           <Title order={2}>&quot;Anything also okay&quot;</Title>
@@ -42,9 +43,11 @@ export const AboutPage: React.FC = () => {
           <Space h="lg" />
 
           <Text>So were we. But no longer now that we have...</Text>
+        </Card>
 
-          <Space h="lg" />
+        <Space h="lg" />
 
+        <Card withBorder>
           <Title>What is GoodMeh?</Title>
           <Text>
             Using some serious tech magic (read: advanced AI and machine
@@ -61,8 +64,11 @@ export const AboutPage: React.FC = () => {
             Instead, we dive deep into what people actually say about their
             experiences.
           </Text>
-          <Space h="lg" />
+        </Card>
 
+        <Space h="lg" />
+
+        <Card withBorder>
           <Title order={1}>What Makes Us Different?</Title>
           <Text>
             Our mission is simple: help you find your next favorite spot without
@@ -75,32 +81,12 @@ export const AboutPage: React.FC = () => {
             that might not have the fanciest Instagram feed but will make your
             taste buds super happy. Tell us a few places you already love, and
             we&apos;ll help you discover similar spots that match your taste.
-            <br />
-            <br />
-            No paid promotions
-            <br />
-            <br />
-            No sponsored content
-            <br />
-            <br />
-            No influencer bias
-            <br />
-            <br />
-            Just real recommendations based on real experiences
-          </Text>
-          <Space h="lg" />
-
-          <Title order={1}>&quot;Y&apos;all sure anot?&quot;</Title>
-          <Text>
-            Of course lah! We&apos;re a bunch of computer science buddies who
-            got tired of asking our friends &quot;eh, where should we go
-            ah?&quot; With backgrounds in mathematics, AI, and user experience
-            design, we&apos;ve built GoodMeh to be harder, better, faster,
-            stronger than your average recommendation engine. Whether
-            you&apos;re hunting for that perfect char kway teow in a hidden
-            hawker centre or a cozy cafe for your next date, we&apos;ve got your
-            back. Ready to find something good? Try GoodMeh lah - confirm plus
-            chop you&apos;ll discover something nice!
+            <ul>
+              <li>No paid promotions</li>
+              <li>No sponsored content</li>
+              <li>No influencer bias</li>
+              <li>Just real recommendations based on real experiences</li>
+            </ul>
           </Text>
         </Card>
       </Container>

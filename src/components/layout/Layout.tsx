@@ -15,6 +15,7 @@ import {
 import { useDisclosure, useMutationObserver } from "@mantine/hooks";
 import {
   IconBrandGithub,
+  IconBrandTelegram,
   IconDeviceDesktop,
   IconMoon,
   IconSettings,
@@ -235,9 +236,14 @@ const AppFooter: React.FC = () => {
         <b>About us</b>
       </Link>
 
-      <Link to="https://github.com/goodmeh" target="_blank">
-        <IconBrandGithub />
-      </Link>
+      <Group>
+        <Link to="https://t.me/+ifCg_jSxotNlZTk1" target="_blank">
+          <IconBrandTelegram />
+        </Link>
+        <Link to="https://github.com/goodmeh" target="_blank">
+          <IconBrandGithub />
+        </Link>
+      </Group>
     </footer>
   );
 };
