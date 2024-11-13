@@ -39,12 +39,12 @@ export const StatDisplay: React.FC<Props> = ({ placeId }) => {
     },
     {
       title: "How much?",
-      caption: place.price_range.formal,
+      caption: place.price_range.casual,
       render: () => "💸",
     },
     {
       title: "How long?",
-      caption: place.earliest_review_date.formal,
+      caption: place.earliest_review_date.casual,
       render: () => "🗓️",
     },
   ];

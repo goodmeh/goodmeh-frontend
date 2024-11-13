@@ -103,6 +103,10 @@ const PlaceSummary: React.FC<{ place: Place }> = ({ place }) => {
       <Skeleton height={16} width="95%" />
     </div>
   ) : (
-    <div>No summary available</div>
+    <div>
+      {viewMode == "consumer"
+        ? "Not enough reviews to summarize leh"
+        : "Not enough reviews to generate summary"}
+    </div>
   );
 };
